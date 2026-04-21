@@ -3,26 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maraton Maturalny — Czasy angielskie</title>
+<title>Maraton Maturalny — Ćwiczenia</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f5f0e8;
-    --surface: #fffdf7;
-    --surface2: #eee8d8;
-    --border: #d6cdb8;
-    --border2: #c4b99f;
-    --text: #1a2744;
-    --text2: #4a5a7a;
-    --text3: #8a96b0;
-    --accent: #1a2744;
-    --accent2: #243560;
-    --green: #2d7a4f;
-    --green-bg: #e8f5ee;
-    --red: #b84040;
-    --red-bg: #faeaea;
-    --purple: #4a3fa0;
-    --purple-bg: #eeecf8;
+    --bg: #f5f0e8; --surface: #fffdf7; --surface2: #eee8d8;
+    --border: #d6cdb8; --border2: #c4b99f;
+    --text: #1a2744; --text2: #4a5a7a; --text3: #8a96b0;
+    --accent: #1a2744; --blue: #3a5cbf;
+    --green: #2d7a4f; --green-bg: #e8f5ee;
+    --red: #b84040; --red-bg: #faeaea;
+    --purple: #4a3fa0; --purple-bg: #eeecf8;
     --radius: 10px;
     --mono: 'DM Mono', monospace;
     --serif: 'DM Serif Display', serif;
@@ -30,56 +21,74 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; line-height: 1.6; }
-  .header { border-bottom: 1px solid var(--border); padding: 28px 32px 24px; display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
-  .header-left { flex: 1; min-width: 200px; }
-  .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #3a5cbf; margin-bottom: 6px; }
-  h1 { font-family: var(--serif); font-size: clamp(22px, 4vw, 34px); font-weight: 400; color: var(--text); line-height: 1.1; }
-  h1 em { font-style: italic; color: #3a5cbf; }
-  .subtitle { font-size: 13px; color: var(--text2); margin-top: 6px; }
-  .level-toggle { display: flex; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 4px; gap: 4px; }
-  .level-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 18px; border: none; border-radius: 7px; cursor: pointer; background: transparent; color: var(--text2); transition: all 0.2s; }
+
+  /* TOP BAR */
+  .topbar { border-bottom: 1px solid var(--border); padding: 20px 32px 0; display: flex; align-items: flex-end; gap: 0; flex-wrap: wrap; background: var(--surface); }
+  .topbar-left { flex: 1; min-width: 200px; padding-bottom: 16px; }
+  .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 5px; }
+  h1 { font-family: var(--serif); font-size: clamp(20px, 3.5vw, 30px); font-weight: 400; color: var(--text); line-height: 1.1; }
+  h1 em { font-style: italic; color: var(--blue); }
+  .subtitle { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+  /* DAY TABS */
+  .day-tabs { display: flex; gap: 4px; align-items: flex-end; padding-bottom: 0; }
+  .day-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 20px; border: 1px solid transparent; border-bottom: none; border-radius: 8px 8px 0 0; cursor: pointer; background: var(--surface2); color: var(--text3); transition: all 0.15s; margin-bottom: -1px; }
+  .day-tab:hover { background: var(--surface); color: var(--text2); }
+  .day-tab.active { background: var(--bg); color: var(--text); border-color: var(--border); font-weight: 600; border-bottom-color: var(--bg); }
+
+  /* LEVEL TOGGLE */
+  .controls-bar { padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .level-toggle { display: flex; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 3px; gap: 3px; }
+  .level-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; padding: 7px 16px; border: none; border-radius: 7px; cursor: pointer; background: transparent; color: var(--text2); transition: all 0.2s; }
   .level-btn.active { background: var(--accent); color: #f5f0e8; font-weight: 600; }
-  .main { display: grid; grid-template-columns: 230px 1fr; min-height: calc(100vh - 100px); }
-  .sidebar { border-right: 1px solid var(--border); padding: 24px 0; position: sticky; top: 0; height: calc(100vh - 100px); overflow-y: auto; display: flex; flex-direction: column; }
-  .sidebar-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); padding: 0 20px; margin-bottom: 12px; }
-  .tense-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; cursor: pointer; transition: background 0.15s; border-left: 2px solid transparent; font-size: 13px; color: var(--text2); }
+  .day-label { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* MAIN */
+  .main { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 130px); }
+  .sidebar { border-right: 1px solid var(--border); padding: 20px 0; position: sticky; top: 0; height: calc(100vh - 130px); overflow-y: auto; display: flex; flex-direction: column; }
+  .sidebar-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); padding: 0 18px; margin-bottom: 10px; }
+  .tense-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; cursor: pointer; transition: background 0.15s; border-left: 2px solid transparent; font-size: 13px; color: var(--text2); }
   .tense-item:hover { background: var(--surface2); color: var(--text); }
-  .tense-item.active { background: var(--surface2); color: var(--text); border-left-color: #3a5cbf; }
+  .tense-item.active { background: var(--surface2); color: var(--text); border-left-color: var(--blue); }
   .tense-item.done { color: var(--green); }
   .tense-item.done .tense-check { opacity: 1; }
   .tense-check { font-size: 11px; opacity: 0; color: var(--green); }
-  .progress-bar-wrap { padding: 20px; margin-top: auto; }
+  .progress-bar-wrap { padding: 18px; margin-top: auto; }
   .progress-label { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-bottom: 6px; display: flex; justify-content: space-between; }
   .progress-track { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
-  .progress-fill { height: 100%; background: #3a5cbf; border-radius: 2px; transition: width 0.4s ease; }
-  .content { padding: 32px; max-width: 740px; }
-  .tense-header { margin-bottom: 28px; }
+  .progress-fill { height: 100%; background: var(--blue); border-radius: 2px; transition: width 0.4s ease; }
+
+  /* CONTENT */
+  .content { padding: 28px 32px; max-width: 720px; }
+  .tense-header { margin-bottom: 24px; }
   .tense-tag { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: rgba(26,39,68,0.08); border: 1px solid rgba(26,39,68,0.2); border-radius: 4px; padding: 3px 8px; margin-bottom: 10px; }
-  .tense-title { font-family: var(--serif); font-size: 26px; font-weight: 400; margin-bottom: 8px; }
+  .tense-title { font-family: var(--serif); font-size: 24px; font-weight: 400; margin-bottom: 8px; }
   .tense-rule { font-size: 13px; color: var(--text2); line-height: 1.8; }
   .tense-rule strong { color: var(--text); font-weight: 500; }
-  .tense-rule em { color: #3a5cbf; font-style: normal; }
+  .tense-rule em { color: var(--blue); font-style: normal; }
   .signal-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
   .pill { font-family: var(--mono); font-size: 11px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 20px; padding: 3px 10px; color: var(--text2); }
   .pill-label { font-size: 10px; color: var(--text3); margin-top: 8px; margin-bottom: 4px; font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase; width: 100%; }
-  .questions { display: flex; flex-direction: column; gap: 16px; }
-  .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; transition: border-color 0.2s; }
+
+  /* QUESTIONS */
+  .questions { display: flex; flex-direction: column; gap: 14px; }
+  .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; transition: border-color 0.2s; }
   .q-card.correct { border-color: var(--green); background: var(--green-bg); }
   .q-card.wrong { border-color: var(--red); background: var(--red-bg); }
   .q-num { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-bottom: 8px; letter-spacing: 0.08em; display: flex; gap: 8px; align-items: center; }
   .q-type-badge { font-size: 9px; padding: 1px 6px; border-radius: 3px; background: var(--surface2); border: 1px solid var(--border2); color: var(--text3); }
-  .q-text { font-size: 15px; color: var(--text); margin-bottom: 14px; line-height: 1.7; }
-  .q-text .blank { display: inline-block; border-bottom: 2px solid #3a5cbf; min-width: 80px; color: #3a5cbf; font-family: var(--mono); font-size: 14px; text-align: center; padding: 0 4px; }
+  .q-text { font-size: 15px; color: var(--text); margin-bottom: 12px; line-height: 1.7; }
+  .q-text .blank { display: inline-block; border-bottom: 2px solid var(--blue); min-width: 80px; color: var(--blue); font-family: var(--mono); font-size: 14px; text-align: center; padding: 0 4px; }
   .options { display: flex; flex-direction: column; gap: 7px; }
-  .option-btn { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--border2); border-radius: 8px; background: transparent; color: var(--text2); font-family: var(--sans); font-size: 13px; cursor: pointer; text-align: left; transition: all 0.15s; width: 100%; }
-  .option-btn:hover:not(:disabled) { border-color: #3a5cbf; color: var(--text); }
-  .option-btn.selected-correct { border-color: var(--green); background: rgba(90,158,111,0.12); color: var(--green); }
-  .option-btn.selected-wrong { border-color: var(--red); background: rgba(201,95,95,0.12); color: var(--red); }
-  .option-btn.reveal-correct { border-color: var(--green); color: var(--green); background: rgba(90,158,111,0.07); }
+  .option-btn { display: flex; align-items: center; gap: 10px; padding: 9px 13px; border: 1px solid var(--border2); border-radius: 8px; background: transparent; color: var(--text2); font-family: var(--sans); font-size: 13px; cursor: pointer; text-align: left; transition: all 0.15s; width: 100%; }
+  .option-btn:hover:not(:disabled) { border-color: var(--blue); color: var(--text); }
+  .option-btn.selected-correct { border-color: var(--green); background: rgba(45,122,79,0.1); color: var(--green); }
+  .option-btn.selected-wrong { border-color: var(--red); background: rgba(184,64,64,0.1); color: var(--red); }
+  .option-btn.reveal-correct { border-color: var(--green); color: var(--green); background: rgba(45,122,79,0.06); }
   .opt-letter { font-family: var(--mono); font-size: 10px; min-width: 18px; height: 18px; border: 1px solid currentColor; border-radius: 3px; display: flex; align-items: center; justify-content: center; opacity: 0.7; flex-shrink: 0; }
   .fill-wrap { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
   .fill-input { font-family: var(--mono); font-size: 14px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 7px; color: var(--text); padding: 8px 14px; outline: none; transition: border-color 0.15s; min-width: 180px; }
-  .fill-input:focus { border-color: #3a5cbf; }
+  .fill-input:focus { border-color: var(--blue); }
   .fill-input.correct-input { border-color: var(--green); color: var(--green); }
   .fill-input.wrong-input { border-color: var(--red); color: var(--red); }
   .check-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; background: var(--accent); color: #f5f0e8; border: none; border-radius: 7px; cursor: pointer; font-weight: 600; transition: opacity 0.15s; white-space: nowrap; }
@@ -89,23 +98,23 @@
   .feedback.show { display: block; }
   .feedback.ok { color: var(--green); }
   .feedback.bad { color: var(--red); }
-  .feedback .correct-ans { font-family: var(--mono); font-size: 12px; color: #3a5cbf; }
+  .feedback .correct-ans { font-family: var(--mono); font-size: 12px; color: var(--blue); }
   .parity-tag { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; margin-left: 8px; vertical-align: middle; }
-  .tag-p { background: rgba(90,158,111,0.15); color: var(--green); }
-  .tag-r { background: rgba(139,126,200,0.15); color: var(--purple); }
-  .section-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
-  .nav-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 20px; border: 1px solid var(--border2); background: transparent; color: var(--text2); border-radius: 7px; cursor: pointer; transition: all 0.15s; }
-  .nav-btn:hover:not(:disabled) { border-color: #3a5cbf; color: var(--text); }
+  .tag-p { background: rgba(45,122,79,0.12); color: var(--green); }
+  .tag-r { background: rgba(74,63,160,0.12); color: var(--purple); }
+  .section-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border); }
+  .nav-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 18px; border: 1px solid var(--border2); background: transparent; color: var(--text2); border-radius: 7px; cursor: pointer; transition: all 0.15s; }
+  .nav-btn:hover:not(:disabled) { border-color: var(--blue); color: var(--text); }
   .nav-btn:disabled { opacity: 0.3; cursor: default; }
-  .nav-btn.primary { background: var(--accent); color: #0f0f0d; border-color: var(--accent); font-weight: 600; }
+  .nav-btn.primary { background: var(--accent); color: #f5f0e8; border-color: var(--accent); font-weight: 600; }
   .score-badge { font-family: var(--mono); font-size: 13px; color: var(--text2); }
   .results-screen { display: none; text-align: center; padding: 60px 32px; }
   .results-screen.show { display: block; }
-  .results-icon { font-size: 52px; margin-bottom: 20px; }
-  .results-title { font-family: var(--serif); font-size: 30px; margin-bottom: 8px; }
-  .results-score { font-family: var(--mono); font-size: 52px; color: #3a5cbf; margin: 20px 0; }
-  .results-msg { font-size: 14px; color: var(--text2); max-width: 420px; margin: 0 auto 32px; line-height: 1.7; }
-  .restart-btn { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 28px; background: var(--accent); color: #f5f0e8; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+  .results-icon { font-size: 48px; margin-bottom: 16px; }
+  .results-title { font-family: var(--serif); font-size: 28px; margin-bottom: 8px; }
+  .results-score { font-family: var(--mono); font-size: 48px; color: var(--blue); margin: 16px 0; }
+  .results-msg { font-size: 14px; color: var(--text2); max-width: 400px; margin: 0 auto 28px; line-height: 1.7; }
+  .restart-btn { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 26px; background: var(--accent); color: #f5f0e8; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
@@ -113,18 +122,27 @@
     .main { grid-template-columns: 1fr; }
     .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
     .content { padding: 20px; }
-    .header { padding: 20px; }
+    .topbar { padding: 16px 20px 0; }
+    .controls-bar { padding: 12px 20px; }
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-left">
-    <div class="eyebrow">Maraton Maturalny · Dzień 1</div>
-    <h1>Czasy angielskie — <em>ćwiczenia</em></h1>
-    <p class="subtitle">20 ćwiczeń na każdy czas. Wybierz poziom i zacznij.</p>
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="eyebrow">Maraton Maturalny</div>
+    <h1>Ćwiczenia — <em>interaktywne</em></h1>
+    <p class="subtitle">20 pytań na sekcję. Wybierz dzień i poziom.</p>
   </div>
+  <div class="day-tabs">
+    <div class="day-tab active" id="tab-d1" onclick="switchDay(1)">Dzień 1 — Czasy</div>
+    <div class="day-tab" id="tab-d2" onclick="switchDay(2)">Dzień 2 — Conditionals</div>
+  </div>
+</div>
+
+<div class="controls-bar">
+  <span class="day-label" id="day-label">Dzień 1 — Czasy angielskie</span>
   <div class="level-toggle">
     <button class="level-btn active" onclick="setLevel('p')">Podstawowy</button>
     <button class="level-btn" onclick="setLevel('r')">Rozszerzony</button>
@@ -133,7 +151,7 @@
 
 <div class="main">
   <div class="sidebar">
-    <div class="sidebar-label">Czasy</div>
+    <div class="sidebar-label" id="sidebar-label">Czasy</div>
     <div id="tense-list"></div>
     <div class="progress-bar-wrap">
       <div class="progress-label">
@@ -158,365 +176,471 @@
 </div>
 
 <script>
-const DATA = {
-  tenses: [
+// ─── DAY 1 DATA ────────────────────────────────────────────────────────────
+const DAY1 = { label: 'Dzień 1 — Czasy angielskie', sidebarLabel: 'Czasy', tenses: [
+  { id:'ps_pc', name:'Present Simple / Continuous', tag:'Teraźniejszość',
+    rule:'<strong>Present Simple:</strong> fakty, nawyki, prawdy ogólne, rozkłady jazdy.<br><strong>Present Continuous:</strong> czynność teraz lub tymczasowo, plany, irytujące nawyki (always).<br><strong>Uwaga:</strong> czasowniki statyczne nie mają formy Continuous — <em>know, believe, want, need, love, hate, understand, seem, prefer, belong.</em>',
+    signals:{'PS — sygnały':['always','usually','often','never','every day','sometimes','on Mondays'],'PC — sygnały':['now','at the moment','currently','today','this week','Look!','Listen!','right now','these days']},
+    questions:{ p:[
+      {type:'mcq',text:'She _____ to school every day by bus.',options:['is going','goes','go','has gone'],correct:1,explain:'Nawyk = Present Simple. She goes.'},
+      {type:'mcq',text:'Listen! The baby _____ again.',options:['cries','is crying','cry','has cried'],correct:1,explain:'Sygnał "Listen!" → czynność teraz = Present Continuous.'},
+      {type:'fill',text:'Water _____ (boil) at 100 degrees Celsius.',correct:['boils'],explain:'Fakt naukowy = Present Simple. Water boils.'},
+      {type:'mcq',text:'I _____ what you mean. It\'s perfectly clear.',options:['am understanding','understand','understood','am understand'],correct:1,explain:'Understand = czasownik statyczny. I understand.'},
+      {type:'fill',text:'They _____ (work) on a new project this month.',correct:['are working'],explain:'Tymczasowa czynność = Present Continuous. Are working.'},
+      {type:'mcq',text:'He always _____ his coffee without sugar.',options:['is drinking','drink','drinks','has drunk'],correct:2,explain:'Nawyk = Present Simple. He drinks.'},
+      {type:'fill',text:'Look! The cat _____ (sit) on my laptop again.',correct:['is sitting'],explain:'Czynność teraz (Look!) = Present Continuous. Is sitting.'},
+      {type:'mcq',text:'The train to Warsaw _____ at 8:15 every morning.',options:['is leaving','leave','leaves','has left'],correct:2,explain:'Rozkład jazdy = Present Simple. Leaves.'},
+      {type:'fill',text:'She _____ (not / like) horror films at all.',correct:["doesn't like","does not like"],explain:'Statyczny, nawyk = Present Simple. Doesn\'t like.'},
+      {type:'mcq',text:'Why _____ you _____ so quietly? I can barely hear you.',options:['are / speaking','do / speak','does / speak','have / spoken'],correct:0,explain:'Czynność w tej chwili = Present Continuous. Are you speaking.'},
+      {type:'fill',text:'My parents _____ (visit) us this weekend.',correct:['are visiting'],explain:'Ustalony plan = Present Continuous. Are visiting.'},
+      {type:'mcq',text:'I _____ she\'ll agree — she\'s very reasonable.',options:['am thinking','thinks','think','am think'],correct:2,explain:'Think (opinia) = statyczny = Present Simple. I think.'},
+      {type:'fill',text:'The museum _____ (open) at 9 and _____ (close) at 6.',correct:['opens','closes'],explain:'Stały fakt = Present Simple. Opens and closes.'},
+      {type:'mcq',text:'He\'s so annoying! He _____ always _____ my things.',options:['is / borrowing','does / borrow','has / borrowed','will / borrow'],correct:0,explain:'Irytujący nawyk z "always" = Present Continuous.'},
+      {type:'fill',text:'I can\'t come now — I _____ (have) dinner.',correct:['am having'],explain:'Have (jeść) = dynamiczny = Present Continuous. Am having.'},
+      {type:'mcq',text:'English _____ a lot of vocabulary from French.',options:['is borrowing','borrowed','borrows','has been borrowing'],correct:2,explain:'Stały fakt językowy = Present Simple. Borrows.'},
+      {type:'fill',text:'The children _____ (get) louder and louder these days.',correct:['are getting'],explain:'Zmieniająca się sytuacja = Present Continuous. Are getting.'},
+      {type:'mcq',text:'She _____ this coat. It\'s hers, not yours.',options:['is owning','owns','own','is own'],correct:1,explain:'Own = statyczny = Present Simple. She owns.'},
+      {type:'fill',text:'He _____ (think) about changing his job. He seems unsure.',correct:['is thinking'],explain:'Think (rozważać) = dynamiczny = Present Continuous. Is thinking.'},
+      {type:'mcq',text:'Scientists _____ that the climate is changing rapidly.',options:['are believing','believed','believe','are believe'],correct:2,explain:'Believe = statyczny = Present Simple. Believe.'},
+    ], r:[
+      {type:'mcq',text:'She _____ what you mean, even if she _____ nothing.',options:['understands / says','is understanding / says','understands / is saying','is understanding / is saying'],correct:2,explain:'Understand = statyczny (PS). Say = trwające teraz (PC). Understands / is saying.'},
+      {type:'fill',text:'The data _____ (suggest) that temperatures _____ (rise) year on year.',correct:['suggest','are rising'],explain:'Suggest = statyczny (PS). Rise = trwający trend (PC).'},
+      {type:'mcq',text:'I _____ he\'ll agree — he _____ the proposal carefully right now.',options:['think / is considering','am thinking / considers','think / considers','am thinking / is considering'],correct:0,explain:'Think (opinia) = PS. Consider (aktywny teraz) = PC. Think / is considering.'},
+      {type:'fill',text:'This fabric _____ (feel) incredibly soft. I _____ (consider) buying it.',correct:['feels','am considering'],explain:'Feel (zmysłowy) = PS. Consider (aktywny) = PC. Feels / am considering.'},
+      {type:'mcq',text:'The committee _____ that the policy needs revision. They _____ it at this very meeting.',options:['agrees / are discussing','agree / are discussing','agree / discuss','are agreeing / are discussing'],correct:1,explain:'Agree = statyczny PS. Discuss = aktywny, trwający = PC.'},
+      {type:'fill',text:'She _____ (have) a meeting at 3, but she _____ (have) doubts about the plan.',correct:['is having','has'],explain:'Have (spotkanie) = dynamiczny PC. Have (wątpliwości) = statyczny PS.'},
+      {type:'mcq',text:'The new regulations _____ into effect next Monday and they _____ the whole industry.',options:['come / will affect','are coming / affect','come / affect','are coming / will affect'],correct:0,explain:'Harmonogram (PS) + przyszły efekt (will). Come / will affect.'},
+      {type:'fill',text:'Why _____ you _____ (smell) that perfume? It _____ (smell) like roses.',correct:['are','smelling','smells'],explain:'Smell (wąchać aktywnie) = PC. Smell (zapach) = PS. Are smelling / smells.'},
+      {type:'mcq',text:'He consistently _____ deadlines, which _____ his manager increasingly.',options:['is missing / is frustrating','misses / is frustrating','is missing / frustrates','misses / frustrates'],correct:1,explain:'Nawyk = PS. Irytujący trwający efekt = PC. Misses / is frustrating.'},
+      {type:'fill',text:'I _____ (see) your point, but I _____ (see) him tomorrow.',correct:['see','am seeing'],explain:'See (rozumieć) = PS. See (spotykać, plan) = PC. See / am seeing.'},
+      {type:'mcq',text:'The economy _____ well this quarter, though inflation still _____ a concern.',options:['performs / poses','is performing / poses','is performing / is posing','performs / is posing'],correct:1,explain:'Tymczasowy trend = PC. Stały fakt = PS. Is performing / poses.'},
+      {type:'fill',text:'She _____ (appear) calm, but I _____ (appear) in court tomorrow.',correct:['appears','am appearing'],explain:'Appear (wyglądać) = PS. Appear (pojawiać się, plan) = PC.'},
+      {type:'mcq',text:'The author _____ a new novel and she _____ it will be her best yet.',options:['writes / thinks','is writing / thinks','writes / is thinking','is writing / is thinking'],correct:1,explain:'Aktywny proces teraz = PC. Opinia = statyczny PS. Is writing / thinks.'},
+      {type:'fill',text:'These days more people _____ (work) remotely, which _____ (mean) commutes are less common.',correct:['are working','means'],explain:'Zmieniający się trend = PC. Stały wynikający fakt = PS.'},
+      {type:'mcq',text:'I _____ to tell you this, but your answer _____ wrong.',options:['am hating / is','hate / is','hate / are','am hating / are'],correct:1,explain:'Hate = statyczny PS. Is (fakt) = PS. Hate / is.'},
+      {type:'fill',text:'The situation _____ (look) better than it _____ (sound).',correct:['looks','sounds'],explain:'Look + sound = statyczne = PS. Looks / sounds.'},
+      {type:'mcq',text:'He _____ to music on his way to work and today he _____ his new favourite album.',options:['listens / is listening','is listening / listens','listens / listens','is listening / is listening'],correct:0,explain:'Nawyk = PS. Konkretna czynność teraz = PC. Listens / is listening.'},
+      {type:'fill',text:'I _____ (not / belong) to any political party. I _____ (prefer) to stay neutral.',correct:["don't belong","do not belong","prefer"],explain:'Belong + prefer = statyczne = PS.'},
+      {type:'mcq',text:'She _____ more and more confident. Her teachers _____ it too.',options:['becomes / are noticing','is becoming / notice','is becoming / are noticing','becomes / notice'],correct:2,explain:'Zmieniająca się sytuacja = PC. Notice (aktywnie trwający) = PC. Is becoming / are noticing.'},
+      {type:'fill',text:'The patient _____ (feel) better today, but the doctor _____ (feel) he needs more rest.',correct:['is feeling','feels'],explain:'Feel (stan fizyczny, zmienny) = PC. Feel (uważać) = PS. Is feeling / feels.'},
+    ]}
+  },
+  { id:'past_ps_pc', name:'Past Simple / Continuous', tag:'Przeszłość',
+    rule:'<strong>Past Simple:</strong> czynność zakończona w konkretnym momencie.<br><strong>Past Continuous:</strong> czynność trwała w tle, przerywana przez PS.<br>Klasyczna konstrukcja: <em>While I was cooking, the phone rang.</em>',
+    signals:{'PS — sygnały':['yesterday','last year','ago','in 2010','when','then'],'PC — sygnały':['while','when (przerwanie)','at 5 o\'clock yesterday','all evening','as']},
+    questions:{ p:[
+      {type:'mcq',text:'She _____ TV when her phone rang.',options:['watched','was watching','has watched','watches'],correct:1,explain:'Czynność w tle (PC) przerwana przez PS. Was watching.'},
+      {type:'fill',text:'I _____ (see) him yesterday at the station.',correct:['saw'],explain:'Konkretny moment = Past Simple. Saw.'},
+      {type:'mcq',text:'While they _____, the lights _____ out.',options:['were eating / went','ate / were going','were eating / were going','ate / went'],correct:0,explain:'Tło = PC (were eating), zdarzenie = PS (went). While they were eating, the lights went out.'},
+      {type:'fill',text:'She _____ (study) all evening but _____ (not / finish) in time.',correct:['was studying',"didn't finish","did not finish"],explain:'Trwający proces = PC. Wynik = PS. Was studying / didn\'t finish.'},
+      {type:'mcq',text:'I _____ my keys when I _____ for the bus.',options:['dropped / was waiting','was dropping / waited','dropped / waited','was dropping / was waiting'],correct:0,explain:'Zdarzenie = PS (dropped). Tło = PC (was waiting).'},
+      {type:'fill',text:'What _____ you _____ (do) at 8 o\'clock last night?',correct:['were','doing'],explain:'Konkretny moment + czynność trwająca = PC. Were you doing.'},
+      {type:'mcq',text:'He _____ his ankle while he _____ basketball.',options:['twisted / was playing','was twisting / played','twisted / played','was twisting / was playing'],correct:0,explain:'Zdarzenie = PS (twisted). Tło = PC (was playing).'},
+      {type:'fill',text:'The sun _____ (shine) and birds _____ (sing) when we _____ (leave).',correct:['was shining','were singing','left'],explain:'Sceneria = PC x2. Zdarzenie = PS. Was shining / were singing / left.'},
+      {type:'mcq',text:'She _____ the bus because she _____ late.',options:['missed / was running','was missing / ran','missed / ran','was missing / was running'],correct:0,explain:'Wynik = PS. Przyczyna (trwający stan) = PC. Missed / was running.'},
+      {type:'fill',text:'We _____ (just / sit) down to eat when the doorbell _____ (ring).',correct:['were just sitting','just were sitting','rang'],explain:'Czynność w toku = PC. Przerwanie = PS. Were just sitting / rang.'},
+      {type:'mcq',text:'_____ you _____ when I called? You didn\'t pick up.',options:['Did / sleep','Were / sleeping','Have / slept','Did / sleeping'],correct:1,explain:'Czynność trwająca w chwili przerwania = PC. Were you sleeping.'},
+      {type:'fill',text:'He _____ (not / listen) to the teacher; he _____ (draw) pictures instead.',correct:["wasn't listening","was not listening","was drawing"],explain:'Trwające czynności = PC x2. Wasn\'t listening / was drawing.'},
+      {type:'mcq',text:'As she _____ to work, she _____ an old friend.',options:['walked / was meeting','was walking / met','walked / met','was walking / was meeting'],correct:1,explain:'Tło = PC (was walking). Zdarzenie = PS (met).'},
+      {type:'fill',text:'The children _____ (play) in the garden when it _____ (start) to rain.',correct:['were playing','started'],explain:'Tło = PC. Zdarzenie = PS. Were playing / started.'},
+      {type:'mcq',text:'I _____ him for the first time in 2018. We _____ both _____ for the same company.',options:['met / were / working','was meeting / worked','met / worked','was meeting / were / working'],correct:0,explain:'Zdarzenie = PS (met). Tło = PC (were working).'},
+      {type:'fill',text:'She _____ (read) a book, _____ (drink) tea, and _____ (listen) to music when I arrived.',correct:['was reading','was drinking','was listening'],explain:'Trzy czynności w tle = PC x3.'},
+      {type:'mcq',text:'The fire _____ while everyone _____.',options:['started / was sleeping','was starting / slept','started / slept','was starting / was sleeping'],correct:0,explain:'Zdarzenie = PS (started). Tło = PC (was sleeping).'},
+      {type:'fill',text:'I _____ (try) to call you all morning but you _____ (not / answer).',correct:['was trying',"didn't answer","was not answering","wasn't answering"],explain:'Trwający wysiłek = PC. Fakt = PS.'},
+      {type:'mcq',text:'When the police arrived, the burglar _____ through the window.',options:['climbed','was climbing','has climbed','had climbed'],correct:1,explain:'Czynność w toku w momencie przybycia = PC. Was climbing.'},
+      {type:'fill',text:'She _____ (wear) her favourite dress and _____ (look) wonderful at the party.',correct:['was wearing','looked'],explain:'Opis wyglądu (tło) = PC. Ogólna ocena = PS. Was wearing / looked.'},
+    ], r:[
+      {type:'mcq',text:'He _____ the report when he _____ an error he _____ earlier.',options:['was reviewing / noticed / had overlooked','reviewed / was noticing / overlooked','was reviewing / was noticing / had overlooked','reviewed / noticed / had overlooked'],correct:0,explain:'Tło = PC, zdarzenie = PS, wcześniejsza czynność = PP.'},
+      {type:'fill',text:'By the time the police _____ (arrive), the thieves _____ (escape).',correct:['arrived','had escaped'],explain:'Wcześniejsza czynność = Past Perfect. Arrived / had escaped.'},
+      {type:'mcq',text:'She _____ the presentation confidently, though she _____ the material only briefly beforehand.',options:['was delivering / studied','delivered / had studied','was delivering / had studied','delivered / studied'],correct:1,explain:'Ukończone zdarzenie = PS. Wcześniejsze przygotowanie = PP.'},
+      {type:'fill',text:'While the scientists _____ (analyse) the samples, they _____ (discover) something they _____ (not / expect).',correct:['were analysing','discovered',"hadn't expected","had not expected"],explain:'Tło = PC. Zdarzenie = PS. Wcześniejsze oczekiwanie = PP negatywne.'},
+      {type:'mcq',text:'The witness claimed she _____ in the park when the incident _____.',options:['walked / was occurring','was walking / occurred','walked / occurred','was walking / was occurring'],correct:1,explain:'Tło (alibi) = PC. Zdarzenie = PS. Was walking / occurred.'},
+      {type:'fill',text:'As the CEO _____ (speak), it _____ (become) clear that the company _____ (lose) millions.',correct:['was speaking','became','had lost'],explain:'Tło = PC. Odkrycie = PS. Wcześniejsza strata = PP.'},
+      {type:'mcq',text:'I _____ the contract when I _____ that I _____ the wrong document.',options:['was signing / realised / had been given','signed / was realising / was given','was signing / realised / was given','signed / realised / had been given'],correct:0,explain:'Tło = PC. Odkrycie = PS. Wcześniejsze wręczenie (PP strona bierna) = had been given.'},
+      {type:'fill',text:'The storm _____ (rage) all night, but by morning it _____ (pass) and the sun _____ (shine).',correct:['was raging','had passed','was shining'],explain:'Tło nocne = PC. Ukończone przed ranem = PP. Tło ranne = PC.'},
+      {type:'mcq',text:'Detectives _____ the area when a local resident _____ them a crucial tip.',options:['were searching / gave','searched / was giving','searched / gave','were searching / was giving'],correct:0,explain:'Tło = PC (were searching). Zdarzenie = PS (gave).'},
+      {type:'fill',text:'She _____ (not / realise) how serious the situation _____ (be) until it _____ (be) too late.',correct:["didn't realise","did not realise","was","was"],explain:'PS negatywne + PS (stan) + PS (moment).'},
+      {type:'mcq',text:'The students _____ quietly when the headteacher unexpectedly _____ into the room.',options:['studied / was walking','were studying / walked','studied / walked','were studying / was walking'],correct:1,explain:'Tło = PC. Zdarzenie = PS. Were studying / walked.'},
+      {type:'fill',text:'He _____ (just / fall) asleep when his alarm _____ (go) off.',correct:['was just falling','had just fallen','went'],explain:'Czynność w toku = PC lub PP. PS dla alarmu.'},
+      {type:'mcq',text:'The journalist _____ an exposé that _____ months of undercover work.',options:['was publishing / involved','published / was involving','published / involved','was publishing / was involving'],correct:2,explain:'Ukończone zdarzenie = PS x2. Published / involved.'},
+      {type:'fill',text:'While she _____ (recover) in hospital, her colleagues _____ (cover) for her and _____ (do) an excellent job.',correct:['was recovering','were covering','did'],explain:'Tło = PC x2. Ocena końcowa = PS.'},
+      {type:'mcq',text:'He _____ faster and faster and before long he _____ the world record.',options:['ran / broke','was running / broke','ran / was breaking','was running / was breaking'],correct:1,explain:'Trwający postęp = PC. Moment osiągnięcia = PS. Was running / broke.'},
+      {type:'fill',text:'The negotiations _____ (drag) on for weeks until both sides finally _____ (reach) an agreement.',correct:['were dragging','reached'],explain:'Trwający proces = PC. Ostateczne zdarzenie = PS.'},
+      {type:'mcq',text:'As she _____ up the stairs, she _____ something and _____ her ankle.',options:['was running / tripped / twisted','ran / was tripping / twisted','was running / tripped / was twisting','ran / tripped / twisted'],correct:0,explain:'Tło = PC. Dwa zdarzenia = PS x2.'},
+      {type:'fill',text:'Nobody _____ (notice) that the painting _____ (hang) upside down for three days.',correct:['noticed','had been hanging'],explain:'Odkrycie = PS. Wcześniejszy stan trwający = PPC.'},
+      {type:'mcq',text:'When we _____ up, our parents _____ for us with dinner on the table.',options:['turned / waited','were turning / were waiting','turned / were waiting','were turning / waited'],correct:2,explain:'Zdarzenie = PS (turned up). Stan oczekiwania = PC (were waiting).'},
+      {type:'fill',text:'I _____ (walk) past the café when I _____ (smell) fresh coffee and _____ (decide) to go in.',correct:['was walking','smelled','decided'],explain:'Tło = PC. Dwa zdarzenia = PS x2.'},
+    ]}
+  },
+  { id:'pp_ps', name:'Present Perfect / Past Simple', tag:'Kluczowy kontrast',
+    rule:'<strong>Present Perfect:</strong> łączność z teraźniejszością, nieokreślony czas, doświadczenia.<br><strong>Past Simple:</strong> zamknięta przeszłość, wiem dokładnie kiedy.<br>To najczęstszy błąd na maturze.',
+    signals:{'PP — sygnały':['already','yet','just','ever','never','since','for','recently','lately','so far'],'PS — sygnały':['yesterday','last week','ago','in 2010','when I was...','in January','at 5pm']},
+    questions:{ p:[
+      {type:'mcq',text:'I _____ my keys. I can\'t find them anywhere.',options:['lost','have lost','was losing','had lost'],correct:1,explain:'Nie wiem kiedy, ważne że teraz ich brak = Present Perfect. Have lost.'},
+      {type:'fill',text:'She _____ (never / be) to Japan. She\'d love to go.',correct:['has never been'],explain:'Never + brak czasu = PP. Has never been.'},
+      {type:'mcq',text:'I _____ him yesterday at the café on Main Street.',options:['have seen','see','saw','was seeing'],correct:2,explain:'Yesterday = konkretny moment = Past Simple. Saw.'},
+      {type:'fill',text:'They _____ (just / finish) the exam. They look so relieved!',correct:['have just finished'],explain:'Just = Present Perfect. Have just finished.'},
+      {type:'mcq',text:'_____ you ever _____ sushi before?',options:['Did / eat','Have / eaten','Do / eat','Were / eating'],correct:1,explain:'Ever + doświadczenie = PP. Have you ever eaten.'},
+      {type:'fill',text:'I _____ (live) here since 2018 and I love it.',correct:['have lived',"'ve lived"],explain:'Since + trwający stan = PP. Have lived.'},
+      {type:'mcq',text:'She _____ three cups of coffee this morning. It\'s only 9am!',options:['drank','was drinking','has drunk','drinks'],correct:2,explain:'This morning (niezakończony) + liczba = PP. Has drunk.'},
+      {type:'fill',text:'When _____ you _____ (meet) your best friend for the first time?',correct:['did','meet'],explain:'Konkretny moment (when + first time) = PS. When did you meet.'},
+      {type:'mcq',text:'Oh no! I _____ to bring my umbrella!',options:['forgot','have forgotten','was forgetting','forget'],correct:1,explain:'Skutek widoczny teraz = PP. Have forgotten.'},
+      {type:'fill',text:'The team _____ (not / win) a single match so far this season.',correct:["haven't won","have not won"],explain:'So far = PP. Haven\'t won.'},
+      {type:'mcq',text:'I _____ this film twice already. Let\'s watch something else.',options:['saw','was seeing','see','have seen'],correct:3,explain:'Already + liczba razy = PP. Have seen.'},
+      {type:'fill',text:'She _____ (leave) school at 16 and _____ (start) working immediately.',correct:['left','started'],explain:'Zamknięta sekwencja = PS x2. Left / started.'},
+      {type:'mcq',text:'I\'m exhausted! I _____ in the garden all afternoon.',options:['worked','was working','have been working','work'],correct:2,explain:'Rezultat widoczny teraz = PPC. Have been working.'},
+      {type:'fill',text:'He _____ (not / eat) anything since breakfast. He must be starving.',correct:["hasn't eaten","has not eaten"],explain:'Since + skutek teraz = PP. Hasn\'t eaten.'},
+      {type:'mcq',text:'The company _____ in 1892 and _____ since then.',options:['was founded / has thrived','founded / thrived','has been founded / has thrived','was founded / thrived'],correct:0,explain:'Konkretna data = PS (was founded). Trwający stan = PP (has thrived).'},
+      {type:'fill',text:'I _____ (already / send) the email — you should have it by now.',correct:['have already sent',"'ve already sent"],explain:'Already + skutek teraz = PP. Have already sent.'},
+      {type:'mcq',text:'_____ she call you yesterday evening?',options:['Has','Did','Was','Have'],correct:1,explain:'Yesterday = PS. Did she call.'},
+      {type:'fill',text:'We _____ (not / see) each other for ages! You look great.',correct:["haven't seen","have not seen"],explain:'For + skutek teraz = PP. Haven\'t seen.'},
+      {type:'mcq',text:'I _____ a lot about this issue. My conclusion is that we need to act now.',options:['thought','was thinking','have thought','think'],correct:2,explain:'Przemyślenie wpływające na teraźniejszość = PP. Have thought.'},
+      {type:'fill',text:'The last time I _____ (see) him, he _____ (work) in Warsaw.',correct:['saw','was working'],explain:'Last time = PS. Stan w tamtym czasie = PC. Saw / was working.'},
+    ], r:[
+      {type:'fill',text:'He started working here in 2015. He _____ (work) here _____ 2015.',correct:['has worked','since'],explain:'Transformacja: started in 2015 → has worked since 2015.'},
+      {type:'mcq',text:'The crime rate _____ dramatically since the new policy _____ introduced.',options:['fell / was','has fallen / was','fell / has been','has fallen / has been'],correct:1,explain:'Trwający efekt = PP. Jednorazowy fakt = PS. Has fallen / was.'},
+      {type:'fill',text:'It\'s the best film I _____ (ever / see).',correct:['have ever seen',"'ve ever seen"],explain:'Superlative + ever = PP. Have ever seen.'},
+      {type:'mcq',text:'This is only the second time she _____ a formal presentation.',options:['gave','has given','was giving','gives'],correct:1,explain:'This is the + ordinal + time = PP. Has given.'},
+      {type:'fill',text:'Researchers _____ (identify) a new species that _____ (live) in the Amazon for millions of years.',correct:['have identified','has lived',"'s lived"],explain:'Niedawne odkrycie = PP. Trwający fakt od dawna = PP.'},
+      {type:'mcq',text:'She _____ three novels by the time she was thirty and _____ four more since then.',options:['wrote / published','wrote / has published','has written / published','has written / has published'],correct:1,explain:'By the time (zamknięte) = PS. Since then (do teraz) = PP. Wrote / has published.'},
+      {type:'fill',text:'I _____ (wait) for over an hour! Why _____ you _____ (not / call)?',correct:['have been waiting',"haven't","have not","called"],explain:'Trwające oczekiwanie = PPC. Brak telefonu = PP. Have been waiting / haven\'t called.'},
+      {type:'mcq',text:'The population _____ by 20% in the last decade, mainly because many people _____ here from rural areas.',options:['grew / moved','has grown / have moved','grew / have moved','has grown / moved'],correct:1,explain:'Ostatnia dekada (niezakończona) = PP x2. Has grown / have moved.'},
+      {type:'fill',text:'It\'s the first time I _____ (ever / eat) oysters. They\'re surprisingly good!',correct:['have ever eaten',"'ve ever eaten"],explain:'First time + ever = PP. Have ever eaten.'},
+      {type:'mcq',text:'He _____ the book three times and each time he _____ something new.',options:['has read / discovered','read / discovered','has read / has discovered','read / has discovered'],correct:1,explain:'Zamknięta seria bez związku z teraźniejszością = PS x2. Read / discovered.'},
+      {type:'fill',text:'Sales _____ (increase) steadily since we _____ (launch) the new campaign last spring.',correct:['have increased',"'ve increased",'launched'],explain:'Trwający efekt = PP. Konkretny moment = PS. Have increased / launched.'},
+      {type:'mcq',text:'I _____ her once at a conference in 2019, and I _____ her since.',options:['met / haven\'t seen','have met / didn\'t see','met / didn\'t see','have met / haven\'t seen'],correct:0,explain:'Konkretny rok = PS. Od tamtej pory = PP. Met / haven\'t seen.'},
+      {type:'fill',text:'By the time the investigation _____ (conclude), police _____ (interview) over two hundred witnesses.',correct:['concluded','had interviewed'],explain:'Zamknięta sekwencja. Ukończone przed = PP. Concluded / had interviewed.'},
+      {type:'mcq',text:'The government _____ several measures, but critics argue that these _____ insufficient.',options:['took / proved','has taken / have proved','took / have proved','has taken / proved'],correct:1,explain:'Działania do teraz = PP. Ocena trwająca = PP. Has taken / have proved.'},
+      {type:'fill',text:'I _____ (recently / start) learning Portuguese. I _____ (always / want) to visit Lisbon.',correct:['have recently started','have always wanted',"'ve recently started","'ve always wanted"],explain:'Recently + always = PP x2.'},
+      {type:'mcq',text:'The last time scientists _____ such data was in 1987, and conditions _____ significantly since then.',options:['recorded / changed','have recorded / have changed','recorded / have changed','have recorded / changed'],correct:2,explain:'Last time + konkretny rok = PS. Since then = PP. Recorded / have changed.'},
+      {type:'fill',text:'How many times _____ you _____ (visit) the doctor this year?',correct:['have','visited'],explain:'This year (niezakończony) + how many times = PP. Have you visited.'},
+      {type:'mcq',text:'She _____ the role of manager for six months when the company suddenly _____ her.',options:['held / promoted','has held / promoted','had held / promoted','was holding / was promoting'],correct:2,explain:'Wcześniejszy stan przed zdarzeniem = Past Perfect. Had held / promoted.'},
+      {type:'fill',text:'The situation _____ (change) dramatically since last year\'s report _____ (come) out.',correct:['has changed',"'s changed",'came'],explain:'Trwająca zmiana = PP. Konkretny moment = PS. Has changed / came.'},
+      {type:'mcq',text:'This _____ the third time this week that he _____ late to a meeting.',options:['is / was','is / has been','has been / was','has been / has been'],correct:1,explain:'This is the third time = PS (teraź.) + PP (seryjny fakt). Is / has been.'},
+    ]}
+  },
+  { id:'pp_ppc', name:'Present Perfect / PP Continuous', tag:'Efekt vs proces',
+    rule:'<strong>Present Perfect:</strong> wynik, efekt — CO zostało zrobione.<br><strong>Present Perfect Continuous:</strong> trwający proces — JAK DŁUGO.<br><em>I\'ve written three emails</em> (wynik) vs <em>I\'ve been writing emails all morning</em> (proces).',
+    signals:{'PP — sygnały':['three times','five emails','already','just','never','completely'],'PPC — sygnały':['all day','all morning','for hours','lately','recently','how long']},
+    questions:{ p:[
+      {type:'mcq',text:'She\'s exhausted. She _____ all day.',options:['worked','has worked','has been working','is working'],correct:2,explain:'Skupienie na procesie, czasie trwania = PPC. Has been working.'},
+      {type:'fill',text:'He _____ (read) for two hours and _____ (finish) three chapters.',correct:['has been reading','has finished'],explain:'Czas trwania = PPC. Policzalny wynik = PP.'},
+      {type:'mcq',text:'How long _____ you _____ English?',options:['did / study','have / studied','have / been studying','are / studying'],correct:2,explain:'How long + trwający proces = PPC. Have you been studying.'},
+      {type:'fill',text:'I _____ (paint) the kitchen — look at the mess!',correct:['have been painting',"'ve been painting"],explain:'Trwający proces z widocznym skutkiem = PPC. Have been painting.'},
+      {type:'mcq',text:'He _____ four books this year — quite impressive.',options:['has been writing','wrote','has written','is writing'],correct:2,explain:'Policzalny wynik w niezakończonym czasie = PP. Has written.'},
+      {type:'fill',text:'My eyes are red because I _____ (cry).',correct:['have been crying',"'ve been crying"],explain:'Widoczny fizyczny skutek = PPC. Have been crying.'},
+      {type:'mcq',text:'She _____ that book for months! When will she finally finish it?',options:['read','has read','has been reading','reads'],correct:2,explain:'Trwający, niezakończony proces = PPC. Has been reading.'},
+      {type:'fill',text:'We _____ (wait) here for over an hour. This is ridiculous.',correct:['have been waiting',"'ve been waiting"],explain:'Trwające oczekiwanie z frustracją = PPC. Have been waiting.'},
+      {type:'mcq',text:'He looks tanned — he _____ on holiday.',options:['has been','was','has been being','went'],correct:0,explain:'Stan = statyczny = PP (nie PPC). He has been on holiday.'},
+      {type:'fill',text:'I _____ (try) to call you all morning. Why aren\'t you answering?',correct:['have been trying',"'ve been trying"],explain:'Powtarzające się próby = PPC. Have been trying.'},
+      {type:'mcq',text:'She _____ three cups of tea so far today.',options:['has been drinking','has drunk','drank','is drinking'],correct:1,explain:'Policzalna liczba = PP. Has drunk.'},
+      {type:'fill',text:'Your hands are dirty! What _____ you _____ (do)?',correct:['have','been doing'],explain:'Widoczny skutek procesu = PPC. What have you been doing?'},
+      {type:'mcq',text:'I _____ this problem for hours and I still can\'t solve it.',options:['have thought about','thought about','have been thinking about','think about'],correct:2,explain:'Trwający nieukończony wysiłek = PPC. Have been thinking about.'},
+      {type:'fill',text:'She _____ (work) here since 2020 and _____ (complete) over fifty projects.',correct:['has been working','has completed'],explain:'Trwający staż = PPC. Policzalne wyniki = PP.'},
+      {type:'mcq',text:'The children look happy — they _____ in the pool.',options:['swam','have swum','have been swimming','are swimming'],correct:2,explain:'Wnioskowanie z wyglądu = PPC. Have been swimming.'},
+      {type:'fill',text:'He _____ (not / sleep) well lately. He seems very tired.',correct:["hasn't been sleeping","has not been sleeping"],explain:'Trwający negatywny wzorzec = PPC. Hasn\'t been sleeping.'},
+      {type:'mcq',text:'They _____ this bridge for three years already. When will they finish?',options:['built','have built','have been building','build'],correct:2,explain:'Trwający, niezakończony projekt = PPC. Have been building.'},
+      {type:'fill',text:'I _____ (read) that report — I finished it an hour ago.',correct:['have read',"'ve read"],explain:'Ukończone, wynik gotowy = PP. Have read.'},
+      {type:'mcq',text:'Why is the floor wet? Has someone _____ the plants?',options:['been watering','watered','been water','water'],correct:1,explain:'Ukończona czynność z konkretnym skutkiem = PP. Has someone watered.'},
+      {type:'fill',text:'She looks nervous. I think she _____ (prepare) for her presentation.',correct:['has been preparing',"'s been preparing"],explain:'Trwające przygotowania (wnioskowanie) = PPC. Has been preparing.'},
+    ], r:[
+      {type:'mcq',text:'The river is polluted. Factories _____ waste into it for decades.',options:['dumped','have dumped','have been dumping','are dumping'],correct:2,explain:'Trwający szkodliwy proces = PPC. Have been dumping.'},
+      {type:'fill',text:'I _____ (know) her for years. We _____ (work) together since 2019.',correct:['have known','have been working',"'ve known","'ve been working"],explain:'Know = statyczny = PP. Work = aktywny = PPC.'},
+      {type:'mcq',text:'Scientists _____ the effects for a decade, but _____ no definitive conclusions yet.',options:['have studied / reached','have been studying / have reached','have been studying / haven\'t reached','have studied / haven\'t reached'],correct:2,explain:'Trwające badania = PPC. Brak wyniku = PP negatywne.'},
+      {type:'fill',text:'The leak _____ (drip) for so long that the ceiling _____ (collapse) partially.',correct:['has been dripping','has collapsed',"'s been dripping","'s collapsed"],explain:'Trwający proces = PPC. Skutek = PP.'},
+      {type:'mcq',text:'She _____ to master the piano since childhood and _____ several prestigious competitions.',options:['has been trying / has won','tried / won','has tried / has been winning','has been trying / has been winning'],correct:0,explain:'Trwający wysiłek = PPC. Policzalne osiągnięcia = PP.'},
+      {type:'fill',text:'How many chapters _____ you _____ (write)? How long _____ you _____ (work) on the thesis?',correct:['have','written','have','been working'],explain:'Policzalny wynik = PP. Czas trwania = PPC.'},
+      {type:'mcq',text:'The patient _____ remarkably well since surgery, and the recovery _____ all expectations.',options:['has been recovering / has exceeded','recovered / exceeded','has recovered / has been exceeding','has been recovering / has been exceeding'],correct:0,explain:'Trwający postęp = PPC. Wynik osiągnięty = PP.'},
+      {type:'fill',text:'I _____ (not / see) results yet, even though I _____ (follow) the diet for six weeks.',correct:["haven't seen","have not seen","have been following","'ve been following"],explain:'Brak wyniku = PP. Trwający wysiłek = PPC.'},
+      {type:'mcq',text:'The government _____ to address the housing crisis for years and _____ virtually nothing.',options:['has been promising / has achieved','promised / has been achieving','has promised / achieved','has been promising / has been achieving'],correct:0,explain:'Trwające obietnice = PPC. Brak osiągnięcia = PP.'},
+      {type:'fill',text:'They _____ (live) in this flat for three years but _____ (only / decide) to renovate it now.',correct:['have been living','have only decided',"'ve been living","'ve only decided"],explain:'Trwający stan = PPC. Decyzja = PP.'},
+      {type:'mcq',text:'I _____ this argument before and I _____ my mind.',options:['have heard / haven\'t changed','have been hearing / am not changing','heard / haven\'t changed','have heard / haven\'t been changing'],correct:0,explain:'PP (doświadczenie). PP negatywne (stan). Have heard / haven\'t changed.'},
+      {type:'fill',text:'Sales _____ (rise) steadily. The team _____ (work) incredibly hard.',correct:['have been rising','have been working',"'ve been rising","'ve been working"],explain:'Trwające trendy = PPC x2.'},
+      {type:'mcq',text:'She _____ to find a solution but hasn\'t _____ yet.',options:['has been trying / managed','tried / been managing','has tried / managed','is trying / managed'],correct:0,explain:'Trwające próby = PPC. Brak wyniku = PP.'},
+      {type:'fill',text:'The negotiators _____ (talk) for twelve hours and _____ (not / reach) any agreement.',correct:['have been talking','have not reached',"haven't reached"],explain:'Czas trwania = PPC. Brak wyniku = PP.'},
+      {type:'mcq',text:'He _____ chess since he was six and _____ over 300 games professionally.',options:['has played / has won','has been playing / has won','has played / has been winning','played / won'],correct:1,explain:'Trwające hobby = PPC. Policzalne wyniki = PP.'},
+      {type:'fill',text:'The athlete _____ (train) twice a day and _____ (break) her personal record three times.',correct:['has been training','has broken',"'s been training","'s broken"],explain:'Trwający reżim = PPC. Policzalne osiągnięcia = PP.'},
+      {type:'mcq',text:'I _____ this song for hours and I still can\'t get it right.',options:['have practised','have been practising','practised','am practising'],correct:1,explain:'Trwający, niezakończony wysiłek = PPC. Have been practising.'},
+      {type:'fill',text:'Why _____ your face so red? _____ you _____ (run)?',correct:["is","Have","been running"],explain:'Wnioskowanie z wyglądu = PPC. Have you been running?'},
+      {type:'mcq',text:'The author _____ to find a publisher for years. She _____ her manuscript to over fifty agents.',options:['has been trying / has sent','tried / sent','has tried / has been sending','has been trying / has been sending'],correct:0,explain:'Trwające starania = PPC. Policzalne wysyłki = PP.'},
+      {type:'fill',text:'The company _____ (lose) money every quarter. Directors _____ (meet) all week to find a solution.',correct:['has been losing','have been meeting',"'s been losing","'ve been meeting"],explain:'Trwające negatywne trendy = PPC x2.'},
+    ]}
+  },
+  { id:'future', name:'Future: will / going to / PC', tag:'Przyszłość',
+    rule:'<strong>will:</strong> spontaniczna decyzja, przewidywanie bez dowodów, obietnice.<br><strong>going to:</strong> plan z wyprzedzeniem, przewidywanie z widocznym dowodem.<br><strong>Present Continuous:</strong> ustalony plan z konkretnym czasem.<br><strong>Future Perfect / Continuous:</strong> rozszerzona.',
+    signals:{'will':['I think','probably','I\'m sure','spontaneous','I promise'],'going to':['Look!','I\'ve decided','I\'ve already booked','visible evidence'],'PC future':['tonight','at 6 pm','this Saturday','I\'ve arranged']},
+    questions:{ p:[
+      {type:'mcq',text:'"The phone is ringing." "I _____ get it!"',options:["'m going to get","'ll get",'get',"'m getting"],correct:1,explain:'Spontaniczna decyzja = will. I\'ll get it.'},
+      {type:'fill',text:'Look at those clouds — it _____ (rain).',correct:['is going to rain',"'s going to rain"],explain:'Widoczny dowód (chmury) = going to. It\'s going to rain.'},
+      {type:'mcq',text:'I _____ meet Sarah at 7. I booked the restaurant last week.',options:["'ll meet","'m going to meet","'m meeting",'meet'],correct:2,explain:'Ustalony plan z godziną = Present Continuous. I\'m meeting.'},
+      {type:'fill',text:'I think it _____ (be) a great concert tonight.',correct:['will be',"'ll be"],explain:'Przewidywanie bez dowodów (I think) = will. Will be.'},
+      {type:'mcq',text:'I\'ve decided — I _____ study medicine at university.',options:["'ll study",'study',"'m going to study","'m studying"],correct:2,explain:'Podjęta wcześniej decyzja = going to. I\'m going to study.'},
+      {type:'fill',text:'"I\'ve run out of milk." "Don\'t worry, I _____ (get) some on my way home."',correct:['will get',"'ll get"],explain:'Spontaniczna oferta = will. I\'ll get some.'},
+      {type:'mcq',text:'We _____ have dinner with the Smiths this Friday. We arranged it ages ago.',options:["'re going to","'ll","'re having",'have'],correct:2,explain:'Ustalona umowa = Present Continuous. We\'re having dinner.'},
+      {type:'fill',text:'Be careful! You _____ (spill) that coffee — it\'s right at the edge!',correct:['are going to spill',"'re going to spill"],explain:'Widoczne zagrożenie = going to. You\'re going to spill.'},
+      {type:'mcq',text:'I promise I _____ tell anyone your secret.',options:["'m not going to","don't","won't","'m not"],correct:2,explain:'Obietnica = will (negatywne). Won\'t tell.'},
+      {type:'fill',text:'I think technology _____ (change) our lives even more in the next decade.',correct:['will change',"'ll change"],explain:'Przewidywanie bez planu = will. Will change.'},
+      {type:'mcq',text:'She _____ take a gap year before university. She\'s been planning it for months.',options:["'ll","'s going to","'s taking",'takes'],correct:1,explain:'Zaplanowane wcześniej = going to. She\'s going to take.'},
+      {type:'fill',text:'"This bag is really heavy!" "Give it to me — I _____ (carry) it for you."',correct:['will carry',"'ll carry"],explain:'Spontaniczna oferta = will. I\'ll carry it.'},
+      {type:'mcq',text:'There\'s no way he _____ pass the exam — he hasn\'t studied at all.',options:["'s going to","'s passing","'ll pass",'passes'],correct:0,explain:'Przewidywanie z widocznym faktem (brak nauki) = going to. He\'s not going to pass.'},
+      {type:'fill',text:'She _____ (fly) to London tomorrow morning. Her flight\'s at 6am.',correct:['is flying',"'s flying"],explain:'Ustalony plan (bilet) = Present Continuous. She\'s flying.'},
+      {type:'mcq',text:'I _____ probably stay at home this weekend. I need to rest.',options:["'m going to","'m staying","'ll",'go to'],correct:2,explain:'Luźne przewidywanie z "probably" = will. I\'ll probably stay.'},
+      {type:'fill',text:'"Someone needs to present the report." "Fine, I _____ (do) it."',correct:['will do',"'ll do"],explain:'Spontaniczna decyzja = will. I\'ll do it.'},
+      {type:'mcq',text:'Watch out! That vase _____ fall!',options:['will','is going to','is','goes to'],correct:1,explain:'Natychmiastowe niebezpieczeństwo = going to. It\'s going to fall!'},
+      {type:'fill',text:'By the time you arrive, I _____ (finish) cooking. Dinner will be ready.',correct:['will have finished',"'ll have finished"],explain:'Ukończone PRZED przyszłym momentem = Future Perfect. Will have finished.'},
+      {type:'mcq',text:'Don\'t call me at 3pm — I _____ a meeting.',options:["'ll have","'m going to have","'ll be having",'have'],correct:2,explain:'Czynność trwająca w konkretnym momencie = Future Continuous. I\'ll be having.'},
+      {type:'fill',text:'This time next week, we _____ (lie) on a beach in Zanzibar. I can\'t wait!',correct:['will be lying',"'ll be lying"],explain:'Trwająca czynność w przyszłym momencie = Future Continuous. Will be lying.'},
+    ], r:[
+      {type:'mcq',text:'By the time she retires, she _____ in this company for 30 years.',options:['will work','is going to work','will have worked','will be working'],correct:2,explain:'By the time + przyszły moment → Future Perfect. Will have worked.'},
+      {type:'fill',text:'This time tomorrow I _____ (sit) my final exam.',correct:['will be sitting',"'ll be sitting"],explain:'Konkretny moment + trwająca czynność = Future Continuous. Will be sitting.'},
+      {type:'mcq',text:'I can\'t meet at 5 — I _____ with clients at that time.',options:["'ll meet","'m going to meet","'ll be meeting","'m meeting"],correct:2,explain:'Planowa czynność trwająca w momencie = Future Continuous. I\'ll be meeting.'},
+      {type:'fill',text:'By next year, scientists _____ (develop) a vaccine, they hope.',correct:['will have developed',"'ll have developed"],explain:'Ukończone przed przyszłym momentem = Future Perfect. Will have developed.'},
+      {type:'mcq',text:'The construction _____ by December, and by then they _____ 500 new homes.',options:['will finish / will build','will have finished / will have built','is finishing / are building','finishes / build'],correct:1,explain:'Oba ukończone przed grudniem = Future Perfect x2.'},
+      {type:'fill',text:'Don\'t worry — by the time the guests arrive, I _____ (clean) the whole house.',correct:['will have cleaned',"'ll have cleaned"],explain:'Ukończone przed przyjazdem = Future Perfect. Will have cleaned.'},
+      {type:'mcq',text:'I expect the negotiations _____ easier as both sides _____ pressure to reach a deal.',options:['will get / will feel','are going to get / feel','will get / are going to feel','are getting / will feel'],correct:0,explain:'Przewidywanie bez dowodów = will x2. Will get / will feel.'},
+      {type:'fill',text:'She _____ (present) the findings at the conference. She _____ (speak) for approximately forty minutes.',correct:['is presenting','will be speaking',"'s presenting","'ll be speaking"],explain:'Ustalony plan = PC. Czas trwania = Future Continuous.'},
+      {type:'mcq',text:'By the end of the decade, renewable energy _____ fossil fuels as the primary energy source.',options:['will replace','is going to replace','will have replaced','will be replacing'],correct:2,explain:'Ukończona zmiana przed końcem dekady = Future Perfect.'},
+      {type:'fill',text:'I _____ (probably / not / be) available tonight — I _____ (help) my sister move.',correct:["probably won't be","will probably not be","'m helping","am helping"],explain:'Przewidywanie = will. Ustalony plan = PC.'},
+      {type:'mcq',text:'The surgery _____ approximately four hours, during which the patient _____ under general anaesthetic.',options:['will take / will be','will take / will be being','will be taking / will be','takes / is'],correct:0,explain:'Przewidywany fakt = will. Stan = will + be (statyczny).'},
+      {type:'fill',text:'By the time you read this letter, I _____ (already / leave) the country.',correct:['will have already left',"'ll have already left"],explain:'Ukończone przed przyszłym momentem = Future Perfect.'},
+      {type:'mcq',text:'Experts predict that sea levels _____ by up to a metre by 2100, which _____ millions of people.',options:['will rise / will affect','are rising / affects','are going to rise / will affect','will rise / is going to affect'],correct:0,explain:'Przewidywanie ekspertów = will x2.'},
+      {type:'fill',text:'I _____ (not / retire) until I _____ (save) enough to travel the world comfortably.',correct:["won't retire","will not retire","have saved"],explain:'Plan = will. After time clause = Present Simple (nie Future). Won\'t retire / have saved.'},
+      {type:'mcq',text:'This time next month, we _____ final exams and hopefully we _____ them all.',options:['will sit / will pass','will be sitting / will have passed','sit / pass','are sitting / have passed'],correct:1,explain:'Trwająca czynność za miesiąc = FC. Ukończone wcześniej = FP.'},
+      {type:'fill',text:'The project _____ (complete) by March, and we _____ (deliver) it to the client at that point.',correct:['will have been completed','will deliver',"'ll have been completed","'ll deliver"],explain:'Strona bierna Future Perfect. Przyszły wynik = will.'},
+      {type:'mcq',text:'"Someone has to inform the board." "Leave it to me — I _____ call them first thing tomorrow."',options:["'m going to","'m","'ll",'go to'],correct:2,explain:'Spontaniczna decyzja = will. I\'ll call.'},
+      {type:'fill',text:'Do you think she _____ (accept) the job offer? I _____ (be) very surprised if she doesn\'t.',correct:['will accept',"'ll accept","'ll be","will be"],explain:'Przewidywanie = will x2.'},
+      {type:'mcq',text:'The new law _____ into effect in January, so companies _____ to comply by then.',options:['comes / need','is coming / will need','comes / will need','will come / are going to need'],correct:2,explain:'Harmonogram (PS) + przyszły obowiązek (will). Comes / will need.'},
+      {type:'fill',text:'By the time I finish this degree, I _____ (study) for seven years in total.',correct:['will have been studying',"'ll have been studying"],explain:'Ukończony czas trwania przed przyszłym momentem = Future Perfect Continuous.'},
+    ]}
+  },
+  { id:'past_perfect', name:'Past Perfect / Past Perfect Continuous', tag:'Przeszłość złożona',
+    rule:'<strong>Past Perfect:</strong> czynność przed inną czynnością w przeszłości — "przeszłość przeszłości".<br><strong>Past Perfect Continuous:</strong> proces trwający przed momentem w przeszłości.<br>Kluczowe w: mowie zależnej, conditional type 3, narracji.',
+    signals:{'PP — sygnały':['by the time','after','before','when (sekwencja)','already','never before','as soon as'],'PPC — sygnały':['for hours (before)','all day (before)','because (przyczyna)']},
+    questions:{ p:[
+      {type:'mcq',text:'When I arrived, she _____ already _____.',options:['has / left','had / left','was / leaving','did / leave'],correct:1,explain:'Czynność przed przyjazdem = Past Perfect. Had already left.'},
+      {type:'fill',text:'He was tired because he _____ (work) all night.',correct:['had been working'],explain:'Trwający proces przed chwilą = PPC. Had been working.'},
+      {type:'mcq',text:'She told me she _____ the email before the meeting.',options:['sent','has sent','had sent','was sending'],correct:2,explain:'Mowa zależna: sent → had sent. She told me she had sent.'},
+      {type:'fill',text:'By the time the film started, we _____ (already / find) our seats.',correct:['had already found'],explain:'Ukończone przed filmem = PP. Had already found.'},
+      {type:'mcq',text:'She _____ her homework before her parents got home.',options:['finished','has finished','had finished','was finishing'],correct:2,explain:'Ukończone przed powrotem rodziców = PP. Had finished.'},
+      {type:'fill',text:'I recognised her immediately because we _____ (meet) at a conference the year before.',correct:['had met'],explain:'Wcześniejsze spotkanie = PP. Had met.'},
+      {type:'mcq',text:'His eyes were red. He _____ clearly.',options:['was crying','cried','had been crying','has been crying'],correct:2,explain:'Widoczny skutek wcześniejszego procesu = PPC. Had been crying.'},
+      {type:'fill',text:'They _____ (wait) for two hours by the time the doctor finally arrived.',correct:['had been waiting'],explain:'Trwający proces przed momentem = PPC. Had been waiting.'},
+      {type:'mcq',text:'After she _____ the novel, she started writing a sequel.',options:['finished','has finished','had finished','was finishing'],correct:2,explain:'After + czynność przed = PP. After she had finished.'},
+      {type:'fill',text:'He said he _____ (never / travel) abroad before this trip.',correct:['had never travelled','had never traveled'],explain:'Mowa zależna + never before = PP. Had never travelled.'},
+      {type:'mcq',text:'I felt sick because I _____ too much at the party.',options:['ate','was eating','have eaten','had eaten'],correct:3,explain:'Przyczyna przed skutkiem = PP. Had eaten too much.'},
+      {type:'fill',text:'She _____ (not / sleep) properly for weeks before the exam.',correct:["hadn't slept","had not slept"],explain:'Trwający brak snu = PPC lub PP. Hadn\'t slept.'},
+      {type:'mcq',text:'By the time the ambulance arrived, the patient _____ consciousness.',options:['lost','had lost','was losing','has lost'],correct:1,explain:'Ukończone przed przybyciem karetki = PP. Had lost.'},
+      {type:'fill',text:'He _____ (practise) for months before his first concert and it showed.',correct:['had been practising'],explain:'Trwający wysiłek przed wydarzeniem = PPC. Had been practising.'},
+      {type:'mcq',text:'I _____ that restaurant before, so I knew exactly what to order.',options:['visited','was visiting','had visited','have visited'],correct:2,explain:'Wcześniejsze doświadczenie = PP. Had visited.'},
+      {type:'fill',text:'She looked confused — clearly nobody _____ (explain) the rules to her.',correct:["had explained","hadn't explained","had not explained"],explain:'Brak wcześniejszego wyjaśnienia = PP. Nobody had explained.'},
+      {type:'mcq',text:'The house looked abandoned. Nobody _____ there for years.',options:['lived','had lived','has lived','was living'],correct:1,explain:'Stan trwający wcześniej = PP. Nobody had lived.'},
+      {type:'fill',text:'By the time I got to the station, the train _____ (already / leave).',correct:['had already left'],explain:'Pociąg odjechał przed przybyciem = PP. Had already left.'},
+      {type:'mcq',text:'She _____ for the job for months when she finally got an interview.',options:['applied','had applied','has applied','had been applying'],correct:3,explain:'Trwający proces przed zdarzeniem = PPC. Had been applying.'},
+      {type:'fill',text:'He realised he _____ (leave) his wallet at home when he tried to pay.',correct:['had left'],explain:'Wcześniejsze zdarzenie odkryte później = PP. Had left.'},
+    ], r:[
+      {type:'mcq',text:'If only I _____ more carefully — I _____ the mistake.',options:['read / would catch','had read / would have caught','have read / would catch','read / would have caught'],correct:1,explain:'If only + PP = żal. Wynik = would have + PP3. Had read / would have caught.'},
+      {type:'fill',text:'By the time the results _____ (announce), the students _____ (wait) for three hours.',correct:['were announced','had been waiting'],explain:'Strona bierna PS. Trwający proces przed = PPC.'},
+      {type:'mcq',text:'She _____ the presentation confidently, though she _____ the material only briefly beforehand.',options:['was delivering / studied','delivered / had studied','was delivering / had studied','delivered / studied'],correct:1,explain:'Ukończone zdarzenie = PS. Wcześniejsze przygotowanie = PP.'},
+      {type:'fill',text:'The report revealed that the company _____ (falsify) data for years and _____ (mislead) investors.',correct:['had been falsifying','had misled',"had been misleading"],explain:'Trwające fałszowanie = PPC. Jednorazowe działanie = PP.'},
+      {type:'mcq',text:'Had they _____ more carefully, they _____ the error in time.',options:['checked / would have caught','been checking / caught','check / would catch','checked / caught'],correct:0,explain:'Inverted conditional type 3: Had + PP3 → would have + PP3.'},
+      {type:'fill',text:'She told investigators she _____ (not / realise) the documents _____ (be) forged.',correct:["hadn't realised","had not realised","had been"],explain:'Mowa zależna: hadn\'t realised (backshift). Wcześniejszy stan = PP.'},
+      {type:'mcq',text:'The critics praised the film, which _____ two years to make and _____ three different directors.',options:['took / involved','had taken / had involved','was taking / involved','took / had involved'],correct:1,explain:'Oba ukończone przed oceną = PP x2. Had taken / had involved.'},
+      {type:'fill',text:'By the time the rescue team _____ (reach) them, the survivors _____ (shelter) in a cave for three days.',correct:['reached','had been sheltering'],explain:'PS dla zdarzenia. PPC dla trwającego procesu wcześniejszego.'},
+      {type:'mcq',text:'It was obvious she _____ for the role — every detail of her performance _____ meticulous preparation.',options:['prepared / reflected','had been preparing / reflected','had prepared / was reflecting','had been preparing / was reflecting'],correct:1,explain:'Trwające przygotowania = PPC. Wynik widoczny w przeszłości = PS.'},
+      {type:'fill',text:'He admitted he _____ (never / give) a speech before and _____ (barely / sleep) the night before.',correct:['had never given','had barely slept',"'d never given","'d barely slept"],explain:'Mowa zależna + never before = PP x2.'},
+      {type:'mcq',text:'The novel explored themes the author _____ about for years but _____ articulate until now.',options:['thought / couldn\'t','had been thinking / hadn\'t been able to','thought / hadn\'t been able to','had thought / couldn\'t'],correct:1,explain:'Trwające myślenie = PPC. Trwała niemożność = PP.'},
+      {type:'fill',text:'The village _____ (flood) before the dyke _____ (repair), causing immense damage.',correct:['had flooded','was repaired'],explain:'Zalanie przed naprawą = PP. Naprawa = PS strona bierna.'},
+      {type:'mcq',text:'No sooner _____ she _____ the door than she _____ someone was watching her.',options:['had / opened / sensed','did / open / had sensed','has / opened / sensed','had / open / sensed'],correct:0,explain:'No sooner + PP → PS. Had she opened / sensed.'},
+      {type:'fill',text:'He was deeply anxious — he _____ (speak) publicly before and _____ (not / prepare) adequately.',correct:['had never spoken',"hadn't prepared","had not prepared"],explain:'Never before = PP. Brak przygotowania = PP.'},
+      {type:'mcq',text:'Scientists discovered that the ecosystem _____ significantly before conservation efforts _____ in the 1990s.',options:['degraded / began','had degraded / began','degraded / had begun','was degrading / began'],correct:1,explain:'Degradacja przed działaniami = PP. Konkretna data = PS.'},
+      {type:'fill',text:'She confessed she _____ (lie) and _____ (hide) the truth for months before coming forward.',correct:['had been lying','had been hiding',"'d been lying","'d been hiding"],explain:'Trwające kłamstwa i ukrywanie = PPC x2.'},
+      {type:'mcq',text:'It was the most challenging project he _____ — it _____ everything he had.',options:['undertook / demanded','had ever undertaken / demanded','undertook / had demanded','had undertaken / had demanded'],correct:1,explain:'Superlative + ever = PP. Wymaganie (fakt) = PS.'},
+      {type:'fill',text:'The infrastructure _____ (deteriorate) for decades before the government _____ (finally / allocate) funds.',correct:['had been deteriorating','finally allocated'],explain:'Trwające pogarszanie się = PPC. Jednorazowe zdarzenie = PS.'},
+      {type:'mcq',text:'Witnesses reported that the suspect _____ the area for several days before the incident _____.',options:['watched / happened','had been watching / happened','watched / had happened','had watched / happened'],correct:1,explain:'Trwająca obserwacja = PPC. Zdarzenie = PS.'},
+      {type:'fill',text:'By the time she _____ (realise) what _____ (happen), it _____ (be) too late.',correct:['realised','had happened','was'],explain:'Odkrycie = PS. Wcześniejsze zdarzenie = PP. Stan = PS.'},
+    ]}
+  },
+]};
 
-    // ─── 1. PRESENT SIMPLE / CONTINUOUS ───────────────────────────────────
-    {
-      id: 'ps_pc',
-      name: 'Present Simple / Continuous',
-      tag: 'Teraźniejszość',
-      rule: '<strong>Present Simple:</strong> fakty, nawyki, prawdy ogólne, rozkłady jazdy.<br><strong>Present Continuous:</strong> czynność teraz lub tymczasowo, plany na przyszłość, irytujące nawyki (always).<br><strong>Uwaga:</strong> czasowniki statyczne nie mają formy Continuous — <em>know, believe, want, need, love, hate, understand, remember, seem, prefer, belong, consist.</em>',
-      signals: {
-        'PS — sygnały': ['always','usually','often','never','every day','sometimes','rarely','on Mondays','in general'],
-        'PC — sygnały': ['now','at the moment','currently','today','this week','Look!','Listen!','right now','these days']
-      },
-      questions: {
-        p: [
-          { type:'mcq', text:'She _____ to school every day by bus.', options:['is going','goes','go','has gone'], correct:1, explain:'Nawyk = Present Simple. She goes.' },
-          { type:'mcq', text:'Listen! The baby _____ again.', options:['cries','is crying','cry','has cried'], correct:1, explain:'Sygnał "Listen!" → czynność teraz = Present Continuous.' },
-          { type:'fill', text:'Water _____ (boil) at 100 degrees Celsius.', correct:['boils'], explain:'Fakt naukowy = Present Simple. Water boils.' },
-          { type:'mcq', text:'I _____ what you mean. It\'s perfectly clear.', options:['am understanding','understand','understood','am understand'], correct:1, explain:'Understand = czasownik statyczny — nie ma formy Continuous. I understand.' },
-          { type:'fill', text:'They _____ (work) on a new project this month.', correct:['are working'], explain:'Tymczasowa czynność = Present Continuous. They are working.' },
-          { type:'mcq', text:'He always _____ his coffee without sugar.', options:['is drinking','drink','drinks','has drunk'], correct:2, explain:'Nawyk = Present Simple. He drinks.' },
-          { type:'fill', text:'Look! The cat _____ (sit) on my laptop again.', correct:['is sitting'], explain:'Czynność teraz (Look!) = Present Continuous. The cat is sitting.' },
-          { type:'mcq', text:'The train to Warsaw _____ at 8:15 every morning.', options:['is leaving','leave','leaves','has left'], correct:2, explain:'Rozkład jazdy = Present Simple. The train leaves.' },
-          { type:'fill', text:'She _____ (not / like) horror films at all.', correct:["doesn't like","does not like"], explain:'Czasownik statyczny "like", nawyk = Present Simple. She doesn\'t like.' },
-          { type:'mcq', text:'Why _____ you _____ so quietly? I can barely hear you.', options:['are / speaking','do / speak','does / speak','have / spoken'], correct:0, explain:'Czynność w tej chwili = Present Continuous. Why are you speaking.' },
-          { type:'fill', text:'My parents _____ (visit) us this weekend. I\'m excited.', correct:['are visiting'], explain:'Ustalony plan na przyszłość = Present Continuous. Are visiting.' },
-          { type:'mcq', text:'I _____ she\'ll agree — she\'s very reasonable.', options:['am thinking','thinks','think','am think'], correct:2, explain:'Think w znaczeniu "uważać/sądzić" = czasownik statyczny = Present Simple. I think.' },
-          { type:'fill', text:'The museum _____ (open) at 9 and _____ (close) at 6.', correct:['opens','closes'], explain:'Stały fakt/rozkład = Present Simple. Opens and closes.' },
-          { type:'mcq', text:'He\'s so annoying! He _____ always _____ my things without asking.', options:['is / borrowing','does / borrow','has / borrowed','will / borrow'], correct:0, explain:'Irytujący nawyk z "always" = Present Continuous. He is always borrowing.' },
-          { type:'fill', text:'I can\'t come now — I _____ (have) dinner.', correct:['am having'], explain:'Czynność teraz, "have" w znaczeniu "jeść" = dynamiczny = Present Continuous. Am having.' },
-          { type:'mcq', text:'English _____ a lot of vocabulary from French.', options:['is borrowing','borrowed','borrows','has been borrowing'], correct:2, explain:'Stały fakt językowy = Present Simple. Borrows.' },
-          { type:'fill', text:'The children _____ (get) louder and louder these days.', correct:['are getting'], explain:'Zmieniająca się sytuacja = Present Continuous. Are getting.' },
-          { type:'mcq', text:'She _____ this coat. It\'s hers, not yours.', options:['is owning','owns','own','is own'], correct:1, explain:'Own = czasownik statyczny = Present Simple. She owns.' },
-          { type:'fill', text:'He _____ (think) about changing his job. He seems unsure.', correct:['is thinking'], explain:'Think w znaczeniu "rozważać" = dynamiczny = Present Continuous. Is thinking.' },
-          { type:'mcq', text:'Scientists _____ that the climate is changing rapidly.', options:['are believing','believed','believe','are believe'], correct:2, explain:'Believe = czasownik statyczny = Present Simple. Believe.' },
-        ],
-        r: [
-          { type:'mcq', text:'She _____ what you mean, even if she _____ nothing.', options:['understands / says','is understanding / says','understands / is saying','is understanding / is saying'], correct:2, explain:'Understand = statyczny (PS). Say = konkretna czynność trwająca teraz (PC). Understands / is saying.' },
-          { type:'fill', text:'The data _____ (suggest) that temperatures _____ (rise) year on year.', correct:['suggest','are rising'], explain:'Suggest = statyczny (PS). Rise = trwający trend (PC). Suggest / are rising.' },
-          { type:'mcq', text:'I _____ he\'ll agree — he _____ the proposal carefully right now.', options:['think / is considering','am thinking / considers','think / considers','am thinking / is considering'], correct:0, explain:'Think (opinia) = statyczny PS. Consider (aktywny proces teraz) = PC. Think / is considering.' },
-          { type:'fill', text:'This fabric _____ (feel) incredibly soft. I _____ (consider) buying it.', correct:['feels','am considering'], explain:'Feel (zmysłowy) = statyczny PS. Consider (aktywny) = PC. Feels / am considering.' },
-          { type:'mcq', text:'The committee _____ that the policy needs revision. They _____ it at this very meeting.', options:['agrees / are discussing','agree / are discussing','agree / discuss','are agreeing / are discussing'], correct:1, explain:'Agree = statyczny PS. Discuss = aktywny, trwający teraz = PC. Agree / are discussing.' },
-          { type:'fill', text:'She _____ (have) a meeting at 3, but she _____ (have) doubts about the plan.', correct:['is having','has'], explain:'Have (spotkanie) = dynamiczny, zaplanowany = PC. Have (wątpliwości) = statyczny = PS. Is having / has.' },
-          { type:'mcq', text:'The new regulations _____ into effect next Monday and they _____ the whole industry.', options:['come / will affect','are coming / affect','come / affect','are coming / will affect'], correct:0, explain:'Harmonogram (PS) + przyszły efekt (will). Come / will affect.' },
-          { type:'fill', text:'Why _____ you _____ (smell) that perfume? It _____ (smell) like roses.', correct:['are','smelling','smells'], explain:'Smell (wąchać aktywnie) = dynamiczny PC. Smell (zapach) = statyczny PS. Are smelling / smells.' },
-          { type:'mcq', text:'He consistently _____ deadlines, which _____ his manager increasingly.', options:['is missing / is frustrating','misses / is frustrating','is missing / frustrates','misses / frustrates'], correct:1, explain:'Nawyk (PS). Irytujący trwający efekt = PC. Misses / is frustrating.' },
-          { type:'fill', text:'I _____ (see) your point, but I _____ (see) him tomorrow to discuss it further.', correct:['see','am seeing'], explain:'See (rozumieć) = statyczny PS. See (spotykać) = dynamiczny, plan = PC. See / am seeing.' },
-          { type:'mcq', text:'The economy _____ well this quarter, though inflation still _____ a concern.', options:['performs / poses','is performing / poses','is performing / is posing','performs / is posing'], correct:1, explain:'Tymczasowy trend = PC. Stały fakt = PS. Is performing / poses.' },
-          { type:'fill', text:'She _____ (appear) calm, but I _____ (appear) in court tomorrow.', correct:['appears','am appearing'], explain:'Appear (wyglądać) = statyczny PS. Appear (pojawiać się) = dynamiczny, plan = PC. Appears / am appearing.' },
-          { type:'mcq', text:'The author _____ a new novel and she _____ it will be her best yet.', options:['writes / thinks','is writing / thinks','writes / is thinking','is writing / is thinking'], correct:1, explain:'Aktywny proces teraz = PC. Opinia = statyczny PS. Is writing / thinks.' },
-          { type:'fill', text:'These days more people _____ (work) remotely, which _____ (mean) commutes are less common.', correct:['are working','means'], explain:'Zmieniający się trend = PC. Stały wynikający fakt = PS. Are working / means.' },
-          { type:'mcq', text:'I _____ to tell you this, but your answer _____ wrong.', options:['am hating / is','hate / is','hate / are','am hating / are'], correct:1, explain:'Hate = statyczny PS. Is (fakt) = PS. Hate / is.' },
-          { type:'fill', text:'The situation _____ (look) better than it _____ (sound).', correct:['looks','sounds'], explain:'Oba to czasowniki statyczne (wygląd/brzmienie) = PS. Looks / sounds.' },
-          { type:'mcq', text:'He _____ to music on his way to work every day and today he _____ his new favourite album.', options:['listens / is listening','is listening / listens','listens / listens','is listening / is listening'], correct:0, explain:'Nawyk = PS. Konkretna czynność teraz = PC. Listens / is listening.' },
-          { type:'fill', text:'I _____ (not / belong) to any political party. I _____ (prefer) to stay neutral.', correct:["don't belong","do not belong","prefer"], explain:'Belong + prefer = statyczne = PS. Don\'t belong / prefer.' },
-          { type:'mcq', text:'She _____ more and more confident in her English. Her teachers _____ it too.', options:['becomes / are noticing','is becoming / notice','is becoming / are noticing','becomes / notice'], correct:2, explain:'Zmieniająca się sytuacja = PC. Notice (dostrzegać aktywnie, trwający) = PC. Is becoming / are noticing.' },
-          { type:'fill', text:'The patient _____ (feel) better today, but the doctor _____ (feel) he needs more rest.', correct:['is feeling','feels'], explain:'Feel (stan fizyczny, zmienny) = PC. Feel (uważać) = statyczny PS. Is feeling / feels.' },
-        ]
-      }
-    },
+// ─── DAY 2 DATA ────────────────────────────────────────────────────────────
+const DAY2 = { label: 'Dzień 2 — Conditionals, Modals, Konstrukcje', sidebarLabel: 'Tematy', tenses: [
+  { id:'cond_0_1_2', name:'Conditionals type 0, 1, 2, 3', tag:'Conditionals',
+    rule:'<strong>Type 0:</strong> If + PS → PS (fakty ogólne).<br><strong>Type 1:</strong> If + PS → will + inf. (realna możliwość). Uwaga: po <em>if</em> nigdy will.<br><strong>Type 2:</strong> If + PS → would + inf. (nierealna teraźniejszość). Po if zawsze <em>were</em>.<br><strong>Type 3 (rozszerzona):</strong> If + Past Perfect → would have + PP3. Żal za przeszłością. Inversion: Had I known...',
+    signals:{'Type 0 — fakty':['always','every time','generally'],'Type 1 — realna':['probably','I think','there\'s a chance'],'Type 2 — nierealna':['were','would','hypothetical','If I were you']},
+    questions:{ p:[
+      {type:'mcq',text:'If you _____ water to 100°C, it _____.',options:['heat / boils','heated / would boil','heat / will boil','will heat / boils'],correct:0,explain:'Prawo naukowe (type 0) = PS + PS. Heat / boils.'},
+      {type:'fill',text:'If she _____ (study) hard, she _____ (pass) the exam.',correct:['studies','will pass'],explain:'Realna możliwość (type 1) = PS + will. Studies / will pass.'},
+      {type:'mcq',text:'If I _____ you, I _____ apply for that job.',options:['am / will','were / would','was / would','am / would'],correct:1,explain:'Nierealna (type 2) — zawsze were po if. If I were you, I would apply.'},
+      {type:'fill',text:'If it _____ (rain), we _____ (not / go) to the beach.',correct:['rains',"won't go","will not go"],explain:'Realna (type 1). If it rains, we won\'t go.'},
+      {type:'mcq',text:'If she _____ more money, she _____ travel the world.',options:['has / will','had / would','has / would','had / will'],correct:1,explain:'Nierealna teraźniejszość (type 2) = PS + would. Had / would.'},
+      {type:'fill',text:'If you _____ (press) this button, the alarm _____ (go) off.',correct:['press','goes'],explain:'Fakt ogólny (type 0) = PS + PS. Press / goes.'},
+      {type:'mcq',text:'I _____ help you if I _____ more time.',options:['will / have','would / had','will / had','would / have'],correct:1,explain:'Nierealna (type 2) — brak czasu to nierealna sytuacja. Would / had.'},
+      {type:'fill',text:'If the weather _____ (be) good tomorrow, we _____ (have) a picnic.',correct:['is','will have'],explain:'Realna możliwość (type 1). Is / will have.'},
+      {type:'mcq',text:'What _____ you do if you _____ a million pounds?',options:['will / win','would / won','will / won','would / win'],correct:1,explain:'Hipotetyczna sytuacja (type 2). Would / won.'},
+      {type:'fill',text:'If plants _____ (not / get) sunlight, they _____ (die).',correct:["don't get","do not get","die"],explain:'Ogólna prawda (type 0) = PS + PS. Don\'t get / die.'},
+      {type:'mcq',text:'She _____ be upset if you _____ to call her.',options:['will / forgot','would / forgot','will / forget','would / forget'],correct:2,explain:'Realna możliwość (type 1). Will be upset / forget.'},
+      {type:'fill',text:'If I _____ (be) taller, I _____ (play) basketball professionally.',correct:['were','would play'],explain:'Nierealna (type 2) — zawsze were po if. Were / would play.'},
+      {type:'mcq',text:'If you _____ the instructions, everything _____ fine.',options:['follow / will be','followed / would be','follow / would be','followed / will be'],correct:0,explain:'Realna (type 1) — instrukcja. Follow / will be.'},
+      {type:'fill',text:'What _____ happen if everyone _____ (stop) using social media?',correct:['would','stopped'],explain:'Hipotetyczna sytuacja (type 2). Would / stopped.'},
+      {type:'mcq',text:'If metals _____, they _____ electricity.',options:['conduct / do carry','conduct / carry','conducted / would carry','will conduct / carry'],correct:1,explain:'Fakt naukowy (type 0). Conduct / carry.'},
+      {type:'fill',text:'If she _____ (not / hurry), she _____ (miss) the bus.',correct:["doesn't hurry","does not hurry","will miss"],explain:'Realna możliwość (type 1). Doesn\'t hurry / will miss.'},
+      {type:'mcq',text:'Would you take the job if they _____ you more?',options:['pay','will pay','paid','had paid'],correct:2,explain:'Hipotetyczna oferta (type 2). If they paid you more.'},
+      {type:'fill',text:'If I _____ (win) the lottery, I _____ (quit) my job immediately.',correct:['won','would quit'],explain:'Nierealna (type 2). Won / would quit.'},
+      {type:'mcq',text:'If you _____ at the screen all day, your eyes _____ tired.',options:['stare / get','stared / would get','stare / will get','stare / gets'],correct:0,explain:'Type 0 (ogólna prawda) lub type 1. Stare / get (type 0) też poprawne.'},
+      {type:'fill',text:'She _____ (not / mind) helping if you _____ (ask) her politely.',correct:["wouldn't mind","would not mind","asked"],explain:'Nierealna (type 2). Wouldn\'t mind / asked.'},
+    ], r:[
+      {type:'mcq',text:'If the data _____ more carefully, the error _____ earlier.',options:['had been analysed / would have been detected','was analysed / would detect','had been analysed / would detect','were analysed / would have been detected'],correct:0,explain:'Type 3 — nierealna przeszłość. Had been analysed / would have been detected (strona bierna).'},
+      {type:'fill',text:'Had I _____ (know) about the meeting, I _____ (attend) without fail.',correct:['known','would have attended'],explain:'Inverted conditional type 3: Had + PP3 → would have + PP3. Known / would have attended.'},
+      {type:'mcq',text:'If she _____ the scholarship, she _____ at Oxford now.',options:['had won / would study','won / would study','had won / would be studying','wins / will study'],correct:2,explain:'Mixed conditional: type 3 + type 2. Had won (przeszłość) → would be studying (teraźniejszość).'},
+      {type:'fill',text:'_____ you need any assistance, please do not hesitate to contact us.',correct:['Should'],explain:'Formal inversion: Should you need = If you should need.'},
+      {type:'mcq',text:'If the experiment _____ repeated under controlled conditions, different results _____ obtained.',options:['were / might be','was / might have been','had been / would be','were / would have been'],correct:0,explain:'Hipotetyczny warunek (type 2). Were / might be.'},
+      {type:'fill',text:'If only I _____ (think) before speaking — I _____ (not / offend) her like that.',correct:['had thought',"wouldn't have offended","would not have offended"],explain:'If only + PP = żal za przeszłością. Had thought / wouldn\'t have offended.'},
+      {type:'mcq',text:'Unless the funding _____, the project _____ to a halt.',options:['is secured / will come','were secured / would come','had been secured / would come','is secured / would come'],correct:0,explain:'Unless = if not. Realna (type 1). Is secured / will come.'},
+      {type:'fill',text:'_____ she _____ (be) here, she would know exactly what to do.',correct:['Were','were'],explain:'Inverted type 2: Were she here = If she were here.'},
+      {type:'mcq',text:'Provided that all parties _____ to the terms, the deal _____ by Friday.',options:['agree / will be signed','agreed / would be signed','agree / would be signed','had agreed / will be signed'],correct:0,explain:'Provided that = if. Realna (type 1). Agree / will be signed.'},
+      {type:'fill',text:'If the company _____ (not / cut) costs, it _____ (go) bankrupt by now.',correct:["hadn't cut","had not cut","would have gone"],explain:'Type 3 — nierealna przeszłość. Hadn\'t cut / would have gone.'},
+      {type:'mcq',text:'If he _____ the contract more carefully, he _____ the hidden clause.',options:['read / would notice','had read / would have noticed','reads / notices','read / noticed'],correct:1,explain:'Nierealna przeszłość (type 3). Had read / would have noticed.'},
+      {type:'fill',text:'I _____ (be) more confident today if I _____ (practise) more as a child.',correct:['would be','had practised'],explain:'Mixed conditional: type 3 + type 2. Would be (teraz) / had practised (przeszłość).'},
+      {type:'mcq',text:'_____ the government _____ earlier, the crisis could have been avoided.',options:['Had / intervened','If / had intervened','Should / intervene','Were / to intervene'],correct:0,explain:'Inverted type 3: Had + PP3. Had the government intervened.'},
+      {type:'fill',text:'Supposing you _____ (be) offered the job, _____ you _____ (take) it?',correct:['were','would','take'],explain:'Supposing = if. Type 2. Were / would you take.'},
+      {type:'mcq',text:'If he _____ so arrogant, he _____ more friends.',options:['isn\'t / will have','weren\'t / would have','hadn\'t been / would have','wasn\'t / will have'],correct:1,explain:'Nierealna teraźniejszość (type 2). Weren\'t / would have.'},
+      {type:'fill',text:'Even if she _____ (try) harder, she _____ (not / pass) — the task was impossible.',correct:['had tried',"wouldn't have passed","would not have passed"],explain:'Even if + type 3. Had tried / wouldn\'t have passed.'},
+      {type:'mcq',text:'If it _____ for your help, I _____ the deadline.',options:['weren\'t / would miss','hadn\'t been / would have missed','wasn\'t / would miss','isn\'t / will miss'],correct:1,explain:'If it hadn\'t been for = type 3. Had\'t been / would have missed.'},
+      {type:'fill',text:'Should the system _____ (fail), a backup _____ (activate) automatically.',correct:['fail','will activate'],explain:'Should + inf. = formal type 1. Fail / will activate.'},
+      {type:'mcq',text:'If she _____ about the risks, she _____ a different decision.',options:['knew / made','had known / would have made','knows / will make','knew / would make'],correct:1,explain:'Nierealna przeszłość (type 3). Had known / would have made.'},
+      {type:'fill',text:'_____ I _____ (know) then what I know now, everything _____ (be) different.',correct:['Had','known','would have been'],explain:'Inverted type 3: Had I known + would have been. Had known / would have been.'},
+      {type:"mcq",text:"If she _____ the warning signs, she _____ the problem before it escalated.",options:["noticed / would have prevented","had noticed / would have prevented","noticed / would prevent","had noticed / would prevent"],correct:1,explain:"Nierealna przeszlosc (type 3): If + PP would have + PP3. Had noticed / would have prevented."},
+      {type:"fill",text:"If I _____ (know) how difficult it would be, I _____ (never / start).",correct:["had known","would never have started","would not have started"],explain:"Type 3: If + PP would have + PP3. Had known / would never have started."},
+      {type:"mcq",text:"She _____ the job if she _____ been better prepared for the interview.",options:["would get / had","would have got / had","would have got / would have","would get / would have"],correct:1,explain:"Type 3: would have got / had been better prepared."},
+      {type:"fill",text:"If the weather _____ (be) better, we _____ (go) to the beach instead of staying indoors.",correct:["had been","would have gone"],explain:"Type 3: If + PP would have + PP3. Had been / would have gone."},
+      {type:"mcq",text:"_____ I known about the meeting, I would have attended without fail.",options:["If","Had","Should","Were"],correct:1,explain:"Inversion type 3: Had I known = If I had known. Had."},
+      {type:"fill",text:"The accident _____ (not / happen) if the driver _____ (pay) more attention.",correct:["would not have happened","had paid"],explain:"Type 3: would not have happened / had paid."},
+      {type:"mcq",text:"If the company _____ more in training, it _____ the high staff turnover.",options:["had invested / would have avoided","invested / would avoid","had invested / would avoid","invested / would have avoided"],correct:0,explain:"Type 3: If + PP would have + PP3. Had invested / would have avoided."},
+      {type:"fill",text:"She _____ (might / become) a professional athlete if she _____ (not / injure) her knee.",correct:["might have become","had not injured"],explain:"Type 3 z might: might have become / had not injured."},
+      {type:"mcq",text:"What _____ you have done if you _____ in my situation?",options:["would / were","would / had been","will / were","would / was"],correct:1,explain:"Type 3: What would you have done / if you had been. Had been."},
+      {type:"fill",text:"If only they _____ (listen) to the experts, the crisis _____ (be) entirely avoidable.",correct:["had listened","would have been","could have been"],explain:"If only + PP = zal. Had listened / would have been."},
+    ]}
+  },
+  { id:'wish_modal', name:'Wish / If only / Modal verbs', tag:'Modals + Wish',
+    rule:'<strong>Wish + PS:</strong> żal za teraźniejszością. <strong>Wish + PP:</strong> żal za przeszłością. <strong>Wish + would:</strong> irytacja.<br><strong>Must:</strong> obowiązek/dedukcja. <strong>Should:</strong> rada. <strong>Might/may:</strong> możliwość. <strong>Can\'t have / must have:</strong> dedukcja w przeszłości.',
+    signals:{'Wish/If only':['I wish','If only','I regret','I\'m unhappy that'],'Modals past':['must have','can\'t have','should have','might have','could have']},
+    questions:{ p:[
+      {type:'mcq',text:'I wish I _____ taller. It\'s so frustrating.',options:['am','were','was','have been'],correct:1,explain:'Wish + PS = żal za teraźniejszością. Zawsze were po wish. I wish I were.'},
+      {type:'fill',text:'If only I _____ (study) harder last year — I would have passed.',correct:['had studied'],explain:'If only + PP = żal za przeszłością. Had studied.'},
+      {type:'mcq',text:'You look pale. You _____ see a doctor.',options:['must','should','can\'t','might not'],correct:1,explain:'Rada = should. You should see a doctor.'},
+      {type:'fill',text:'She _____ (must / leave) already — her coat is gone.',correct:['must have left'],explain:'Pewna dedukcja w przeszłości = must have + PP3. Must have left.'},
+      {type:'mcq',text:'I wish you _____ make so much noise! I\'m trying to work.',options:['don\'t','wouldn\'t','won\'t','didn\'t'],correct:1,explain:'Wish + would = irytacja, prośba o zmianę. Wouldn\'t.'},
+      {type:'fill',text:'He _____ (can\'t / say) that — he wasn\'t even there!',correct:["can't have said"],explain:'Pewne zaprzeczenie w przeszłości = can\'t have + PP3. Can\'t have said.'},
+      {type:'mcq',text:'You _____ have told me earlier! I could have helped.',options:['must','should','can\'t','would'],correct:1,explain:'Wyrzut za przeszłością = should have + PP3. Should have told.'},
+      {type:'fill',text:'I wish I _____ (know) the answer. I feel so lost.',correct:['knew'],explain:'Wish + PS = żal za teraźniejszością. I wish I knew.'},
+      {type:'mcq',text:'She _____ be in a meeting now — she left half an hour ago.',options:['might','must','should','can\'t'],correct:1,explain:'Pewna dedukcja o teraźniejszości = must. She must be in a meeting.'},
+      {type:'fill',text:'If only he _____ (not / say) those words — it ruined everything.',correct:["hadn't said","had not said"],explain:'If only + PP negatywne = żal za przeszłością. Hadn\'t said.'},
+      {type:'mcq',text:'You _____ park here — it\'s a no-parking zone.',options:['mustn\'t','don\'t have to','shouldn\'t have','mightn\'t'],correct:0,explain:'Zakaz = mustn\'t. You mustn\'t park here.'},
+      {type:'fill',text:'She _____ (might / forget) — you should send her a reminder.',correct:['might have forgotten'],explain:'Możliwość w przeszłości = might have + PP3. Might have forgotten.'},
+      {type:'mcq',text:'You _____ wear a tie — it\'s a casual event.',options:['mustn\'t','don\'t have to','shouldn\'t','can\'t'],correct:1,explain:'Brak obowiązku = don\'t have to (nie zakaz!). You don\'t have to wear a tie.'},
+      {type:'fill',text:'I wish she _____ (stop) interrupting me. It\'s so rude.',correct:['would stop'],explain:'Wish + would = irytacja/prośba o zmianę. Would stop.'},
+      {type:'mcq',text:'He looks exhausted. He _____ been working all night.',options:['should have','must have','can\'t have','might not have'],correct:1,explain:'Pewna dedukcja z widocznego dowodu = must have. Must have been working.'},
+      {type:'fill',text:'If only I _____ (be) more careful — I wouldn\'t have made that mistake.',correct:['had been'],explain:'If only + PP = żal za przeszłością. Had been.'},
+      {type:'mcq',text:'I _____ go to the party tonight — I haven\'t decided yet.',options:['must','should','might','have to'],correct:2,explain:'Niepewność = might. I might go.'},
+      {type:'fill',text:'You _____ (should / call) before coming over. It\'s basic courtesy.',correct:['should have called'],explain:'Wyrzut za przeszłością = should have + PP3. Should have called.'},
+      {type:'mcq',text:'She _____ have stolen it — she\'s completely honest.',options:['must','should','can\'t','might'],correct:2,explain:'Pewne zaprzeczenie = can\'t have. She can\'t have stolen it.'},
+      {type:'fill',text:'I wish I _____ (go) to that concert last year. By all accounts it was incredible.',correct:['had gone'],explain:'Wish + PP = żal za przeszłością. I wish I had gone.'},
+    ], r:[
+      {type:'mcq',text:'The report _____ have been submitted by now — the deadline was yesterday.',options:['should','must','can\'t','might'],correct:0,explain:'Wyrzut/oczekiwanie = should have. Should have been submitted.'},
+      {type:'fill',text:'I wish the government _____ (take) this issue more seriously. It\'s getting worse.',correct:['would take'],explain:'Wish + would = frustracja z brakiem zmiany. Would take.'},
+      {type:'mcq',text:'She _____ have been informed — it was clearly stated in the briefing document.',options:['might','should','can\'t','must'],correct:3,explain:'Pewna dedukcja z dostępnych dowodów = must have. Must have been informed.'},
+      {type:'fill',text:'If only the decision _____ (make) sooner — we _____ (avoid) all this chaos.',correct:['had been made',"could have avoided","would have avoided"],explain:'Strona bierna PP (if only) + could/would have. Had been made / could have avoided.'},
+      {type:'mcq',text:'He _____ have known about the risks — they were clearly documented.',options:['can\'t','must','should','might not'],correct:1,explain:'Oczywista dedukcja z dokumentów = must have. Must have known.'},
+      {type:'fill',text:'I wish I _____ (be able to) attend every session — some were truly fascinating.',correct:['had been able to'],explain:'Wish + could/be able to w przeszłości = PP. Had been able to attend.'},
+      {type:'mcq',text:'The results _____ have been altered — the methodology was sound throughout.',options:['shouldn\'t','can\'t','mustn\'t','wouldn\'t'],correct:1,explain:'Pewne zaprzeczenie w przeszłości = can\'t have. Can\'t have been altered.'},
+      {type:'fill',text:'You _____ (should / be) more diplomatic — the way you phrased it was unnecessarily harsh.',correct:['should have been'],explain:'Wyrzut = should have been. Should have been more diplomatic.'},
+      {type:'mcq',text:'If only the witnesses _____ more, the case _____ to court.',options:['cooperated / would go','had cooperated / would have gone','cooperated / would have gone','had cooperated / would go'],correct:1,explain:'If only + PP = żal. Wynik = would have. Had cooperated / would have gone.'},
+      {type:'fill',text:'She _____ (must / work) incredibly hard — she graduated top of her class.',correct:['must have worked'],explain:'Pewna dedukcja z rezultatu = must have + PP3. Must have worked.'},
+      {type:'mcq',text:'I wish the media _____ sensationalise every story — it distorts public perception.',options:['didn\'t','wouldn\'t','hadn\'t','won\'t'],correct:1,explain:'Wish + would = frustracja z trwającym nawyki. Wouldn\'t sensationalise.'},
+      {type:'fill',text:'The equipment _____ (can\'t / malfunction) — it was serviced just last week.',correct:["can't have malfunctioned"],explain:'Pewne zaprzeczenie = can\'t have + PP3. Can\'t have malfunctioned.'},
+      {type:'mcq',text:'She _____ have anticipated this reaction — it was entirely predictable.',options:['might','must','should','can\'t'],correct:2,explain:'Wyrzut za brakiem przewidywania = should have. Should have anticipated.'},
+      {type:'fill',text:'If only the treaty _____ (sign) earlier — the conflict _____ (prevent).',correct:['had been signed',"could have been prevented","would have been prevented"],explain:'If only + strona bierna PP. Had been signed / could have been prevented.'},
+      {type:'mcq',text:'The suspect _____ have been at the scene — there\'s clear CCTV footage.',options:['can\'t','should','must','might not'],correct:2,explain:'Niepodważalny dowód = must have. Must have been at the scene.'},
+      {type:'fill',text:'I wish the committee _____ (reconsider) their position — there\'s still time.',correct:['would reconsider'],explain:'Wish + would = nadzieja na zmianę. Would reconsider.'},
+      {type:'mcq',text:'He _____ have spent all his savings — he was always extremely cautious with money.',options:['must','should','can\'t','might'],correct:2,explain:'Sprzeczność z charakterem = can\'t have. Can\'t have spent.'},
+      {type:'fill',text:'You _____ (might / overlook) this initially, but in retrospect it\'s quite significant.',correct:['might have overlooked'],explain:'Możliwość w przeszłości = might have + PP3. Might have overlooked.'},
+      {type:'mcq',text:'If only I _____ in her shoes for a day — I\'d understand her perspective so much better.',options:['walk','walked','had walked','were walking'],correct:3,explain:'Hipotetyczna teraźniejszość po if only = PS. Were walking / walked też poprawne, ale were walking podkreśla trwanie.'},
+      {type:'fill',text:'The discovery _____ (must / shake) the scientific community — it contradicts decades of research.',correct:['must have shaken'],explain:'Pewna dedukcja z konsekwencji = must have + PP3. Must have shaken.'},
+    ]}
+  },
+  { id:'key_constructions', name:'Going to / Would like / Be able to / Used to', tag:'Konstrukcje',
+    rule:'<strong>going to:</strong> plan lub przewidywanie z dowodem.<br><strong>would like to:</strong> grzeczna chęć — zawsze + infinitive (nie gerund).<br><strong>be able to:</strong> umiejętność we wszystkich czasach (zastępuje can).<br><strong>used to:</strong> przeszły nawyk (już nie). <strong>be used to + -ing:</strong> być przyzwyczajonym. <strong>get used to + -ing:</strong> przyzwyczajać się.',
+    signals:{'going to':['plan ahead','visible evidence','already decided','Look!'],'would like':['polite request','wish','I\'d like to'],'be able to':['future ability','after modal','all tenses'],'used to':['past habit','no longer','anymore','used to vs be used to']},
+    questions:{ p:[
+      {type:'mcq',text:'I\'ve already packed my bags. I _____ leave tomorrow morning.',options:['will','am going to','would','might'],correct:1,explain:'Wcześniej podjęty plan = going to. I\'m going to leave.'},
+      {type:'fill',text:'I _____ (would like / order) the pasta, please.',correct:["'d like to order","would like to order"],explain:'Grzeczna prośba w restauracji = would like to + infinitive. Would like to order.'},
+      {type:'mcq',text:'She _____ to drive soon — she starts lessons next week.',options:['can','will be able','is able','could'],correct:1,explain:'Przyszła umiejętność = will be able to. She will be able to drive.'},
+      {type:'fill',text:'He _____ (used to / walk) to school, but now he takes the bus.',correct:['used to walk'],explain:'Przeszły nawyk, już nie = used to. Used to walk.'},
+      {type:'mcq',text:'Look at those dark clouds — it _____ rain.',options:['will','is going to','would','might'],correct:1,explain:'Widoczny dowód = going to. It\'s going to rain.'},
+      {type:'fill',text:'I _____ (be used to / work) long hours — I\'ve done it for years.',correct:["'m used to working","am used to working"],explain:'Być przyzwyczajonym = be used to + -ing. I\'m used to working.'},
+      {type:'mcq',text:'_____ you _____ help me with this? I\'m struggling.',options:['Would / like to','Would / like','Will / like to','Would / liking'],correct:0,explain:'Grzeczna prośba = Would you like to. Would you like to help.'},
+      {type:'fill',text:'After years of training, she _____ (be able to / lift) twice her body weight.',correct:['was able to lift'],explain:'Konkretne osiągnięcie w przeszłości = was able to (nie could). Was able to lift.'},
+      {type:'mcq',text:'She _____ smoke, but she quit five years ago.',options:['is used to','used to','was able to','would like to'],correct:1,explain:'Przeszły nawyk (już nie) = used to. She used to smoke.'},
+      {type:'fill',text:'I _____ (would like / learn) Spanish one day. It sounds beautiful.',correct:["'d like to learn","would like to learn"],explain:'Pragnienie = would like to + infinitive. Would like to learn.'},
+      {type:'mcq',text:'Don\'t worry — by next month you _____ do this in your sleep.',options:['can','will be able to','are able to','could'],correct:1,explain:'Przyszła umiejętność = will be able to. You will be able to do this.'},
+      {type:'fill',text:'It took a while, but she _____ (get used to / drive) on the left.',correct:['got used to driving'],explain:'Przyzwyczajenie (proces) = got used to + -ing. Got used to driving.'},
+      {type:'mcq',text:'I _____ play the piano as a child, but I\'ve completely forgotten how.',options:['used to','was used to','got used to','would like to'],correct:0,explain:'Przeszła umiejętność/nawyk (już nie) = used to. I used to play.'},
+      {type:'fill',text:'He _____ (be going to / propose) last night, but he lost his nerve.',correct:['was going to propose'],explain:'Plan który nie doszedł do skutku = was going to. Was going to propose.'},
+      {type:'mcq',text:'I _____ early mornings — I work from home, so I can set my own schedule.',options:['used to','am used to','get used to','would like'],correct:1,explain:'Obecne przyzwyczajenie = am used to + -ing. I\'m used to (working) early mornings.'},
+      {type:'fill',text:'Would you _____ (like / join) us for dinner on Friday?',correct:['like to join'],explain:'Would you like to + infinitive. Like to join.'},
+      {type:'mcq',text:'I _____ finish the report by 5pm — I\'ve already started.',options:['am going to','would like to','used to','am used to'],correct:0,explain:'Plan z decyzją = going to. I\'m going to finish.'},
+      {type:'fill',text:'After the operation, he _____ (not / be able to / walk) for months.',correct:["wasn't able to walk","was not able to walk","couldn't walk"],explain:'Brak umiejętności w przeszłości = wasn\'t able to / couldn\'t. Wasn\'t able to walk.'},
+      {type:'mcq',text:'She\'s _____ working under pressure — she\'s been doing it her whole career.',options:['used to','get used to','going to','would like to'],correct:0,explain:'Obecne przyzwyczajenie = used to (być przyzwyczajoną). She\'s used to working.'},
+      {type:'fill',text:'I _____ (would love to / travel) more, but I never seem to have the time.',correct:["'d love to travel","would love to travel"],explain:'Would love to = silniejsza wersja would like to. Would love to travel.'},
+    ], r:[
+      {type:'mcq',text:'Having studied abroad, she _____ adapt to different cultural contexts with ease.',options:['is used to','was able to','used to','would like to'],correct:1,explain:'Konkretna umiejętność zdobyta przez doświadczenie = was able to. Was able to adapt.'},
+      {type:'fill',text:'By this time next year, I _____ (be able to / speak) fluent Mandarin — I\'ve been taking intensive classes.',correct:['will be able to speak'],explain:'Przyszła umiejętność = will be able to. Will be able to speak.'},
+      {type:'mcq',text:'I _____ working in a traditional office, but remote work has completely changed my habits.',options:['was used to','used to','am used to','got used to'],correct:0,explain:'Przeszłe przyzwyczajenie (teraz inne) = was used to + -ing. I was used to working.'},
+      {type:'fill',text:'The CEO _____ (would like / address) shareholders\' concerns at the next board meeting.',correct:['would like to address'],explain:'Formalne pragnienie = would like to + infinitive. Would like to address.'},
+      {type:'mcq',text:'She _____ have a remarkable memory as a child — she could recite entire poems effortlessly.',options:['used to','was used to','was able to','would like to'],correct:0,explain:'Przeszłe zdolności/nawyki = used to. She used to have.'},
+      {type:'fill',text:'After months of intensive training, the team _____ (finally / be able to / compete) at the highest level.',correct:['was finally able to compete','were finally able to compete'],explain:'Konkretne osiągnięcie po wysiłku = was able to. Was finally able to compete.'},
+      {type:'mcq',text:'The company _____ operate with a much smaller workforce — automation has transformed their processes.',options:['is used to','is able to','used to','would like to'],correct:2,explain:'Przeszłe warunki (teraz inne) = used to. The company used to operate.'},
+      {type:'fill',text:'I _____ (would rather / work) independently, but I appreciate the collaborative aspect of this role.',correct:["'d rather work","would rather work"],explain:'Would rather + infinitive = preferować. Would rather work.'},
+      {type:'mcq',text:'Having lived in Tokyo for a decade, she _____ the city\'s complex transport system.',options:['used to navigating','is used to navigating','got used to navigate','was able to navigate'],correct:1,explain:'Obecne przyzwyczajenie po długim czasie = is used to + -ing. Is used to navigating.'},
+      {type:'fill',text:'Within six months of joining, new recruits _____ (be able to / handle) most situations independently.',correct:['should be able to handle','will be able to handle'],explain:'Przyszła umiejętność po procesie = will/should be able to. Will/should be able to handle.'},
+      {type:'mcq',text:'The industry _____ rely on fossil fuels, but the shift towards renewables is accelerating.',options:['is used to','was able to','used to','would like to'],correct:2,explain:'Przeszłe uzależnienie (zmiana nastąpiła) = used to. Used to rely.'},
+      {type:'fill',text:'I _____ (not / be used to / receive) such direct feedback, but I\'ve come to value it enormously.',correct:["wasn't used to receiving","am not used to receiving"],explain:'Przeszłe lub obecne przyzwyczajenie (negatywne) = wasn\'t/am not used to + -ing.'},
+      {type:'mcq',text:'The diplomat _____ negotiate under pressure — it\'s a core part of the role.',options:['is used to','used to','was going to','would like to'],correct:0,explain:'Obecne przyzwyczajenie zawodowe = is used to + -ing. Is used to negotiating.'},
+      {type:'fill',text:'She _____ (would like / see) greater transparency in the decision-making process.',correct:['would like to see'],explain:'Formalne pragnienie = would like to. Would like to see.'},
+      {type:'mcq',text:'It took several months, but the team eventually _____ to the new management style.',options:['used to','got used','was able','would like'],correct:1,explain:'Proces przyzwyczajenia = got used to. Got used to (the new style).'},
+      {type:'fill',text:'By the time the merger is complete, both companies _____ (be able to / pool) their resources effectively.',correct:['will be able to pool'],explain:'Przyszła umiejętność = will be able to. Will be able to pool.'},
+      {type:'mcq',text:'He _____ be quite introverted, but years of public speaking have transformed him.',options:['is used to','used to','was able to','would like to'],correct:1,explain:'Przeszła cecha charakteru (teraz inna) = used to. He used to be.'},
+      {type:'fill',text:'I _____ (get used to / work) with such ambiguous briefs — it\'s quite the adjustment.',correct:["'m getting used to working","am getting used to working"],explain:'Trwający proces przyzwyczajenia = getting used to + -ing.'},
+      {type:'mcq',text:'After the restructuring, staff _____ the new reporting structure within a few weeks.',options:['used to','were able to adjust to','got used to adjust to','would like to adjust to'],correct:1,explain:'Konkretne osiągnięcie = were able to. Were able to adjust to.'},
+      {type:'fill',text:'The organisation _____ (would welcome / receive) any feedback from stakeholders at this critical stage.',correct:["would welcome receiving","would like to receive"],explain:'Formalne pragnienie = would welcome/like to. Would welcome receiving.'},
+    ]}
+  },
+]};
 
-    // ─── 2. PAST SIMPLE / CONTINUOUS ──────────────────────────────────────
-    {
-      id: 'past_ps_pc',
-      name: 'Past Simple / Continuous',
-      tag: 'Przeszłość',
-      rule: '<strong>Past Simple:</strong> czynność zakończona w konkretnym momencie.<br><strong>Past Continuous:</strong> czynność trwała w tle, przerywana przez PS.<br>Klasyczna konstrukcja: <em>While I was cooking, the phone rang.</em><br>PC służy też do opisu scenerii w narracji.',
-      signals: {
-        'PS — sygnały': ['yesterday','last year','ago','in 2010','when','then','at that moment'],
-        'PC — sygnały': ['while','when (przerwanie)','at 5 o\'clock yesterday','all evening','as','at that time']
-      },
-      questions: {
-        p: [
-          { type:'mcq', text:'She _____ TV when her phone rang.', options:['watched','was watching','has watched','watches'], correct:1, explain:'Czynność w tle (PC) przerwana przez PS. She was watching TV when her phone rang.' },
-          { type:'fill', text:'I _____ (see) him yesterday at the station.', correct:['saw'], explain:'Konkretny moment w przeszłości = Past Simple. I saw him.' },
-          { type:'mcq', text:'While they _____, the lights _____ out.', options:['were eating / went','ate / were going','were eating / were going','ate / went'], correct:0, explain:'Tło = PC (were eating), zdarzenie = PS (went out). While they were eating, the lights went out.' },
-          { type:'fill', text:'She _____ (study) all evening but _____ (not / finish) in time.', correct:['was studying',"didn't finish","did not finish"], explain:'Trwający proces = PC. Wynik/fakt = PS. Was studying / didn\'t finish.' },
-          { type:'mcq', text:'I _____ my keys when I _____ for the bus.', options:['dropped / was waiting','was dropping / waited','dropped / waited','was dropping / was waiting'], correct:0, explain:'Zdarzenie = PS (dropped). Tło = PC (was waiting). I dropped my keys while I was waiting.' },
-          { type:'fill', text:'What _____ you _____ (do) at 8 o\'clock last night?', correct:['were','doing'], explain:'Konkretny moment w przeszłości + czynność trwająca = PC. Were you doing.' },
-          { type:'mcq', text:'He _____ his ankle while he _____ basketball.', options:['twisted / was playing','was twisting / played','twisted / played','was twisting / was playing'], correct:0, explain:'Zdarzenie = PS (twisted). Tło = PC (was playing). He twisted his ankle while he was playing.' },
-          { type:'fill', text:'The sun _____ (shine) and birds _____ (sing) when we _____ (leave) the house.', correct:['was shining','were singing','left'], explain:'Sceneria = PC (x2). Zdarzenie = PS. Was shining / were singing / left.' },
-          { type:'mcq', text:'She _____ the bus because she _____ late.', options:['missed / was running','was missing / ran','missed / ran','was missing / was running'], correct:0, explain:'Wynik = PS. Przyczyna (trwający stan) = PC. Missed / was running.' },
-          { type:'fill', text:'We _____ (just / sit) down to eat when the doorbell _____ (ring).', correct:['were just sitting','just were sitting','rang'], explain:'Czynność w toku = PC. Przerwanie = PS. Were just sitting / rang.' },
-          { type:'mcq', text:'_____ you _____ when I called? You didn\'t pick up.', options:['Did / sleep','Were / sleeping','Have / slept','Did / sleeping'], correct:1, explain:'Czynność trwająca w chwili przerwania = PC. Were you sleeping.' },
-          { type:'fill', text:'He _____ (not / listen) to the teacher; he _____ (draw) pictures instead.', correct:["wasn't listening","was not listening","was drawing"], explain:'Trwające czynności w przeszłości = PC x2. Wasn\'t listening / was drawing.' },
-          { type:'mcq', text:'As she _____ to work, she _____ an old friend.', options:['walked / was meeting','was walking / met','walked / met','was walking / was meeting'], correct:1, explain:'Tło = PC (was walking). Zdarzenie = PS (met). As she was walking, she met.' },
-          { type:'fill', text:'The children _____ (play) in the garden when it _____ (start) to rain.', correct:['were playing','started'], explain:'Tło = PC. Zdarzenie = PS. Were playing / started.' },
-          { type:'mcq', text:'I _____ him for the first time in 2018. We _____ both _____ for the same company.', options:['met / were / working','was meeting / worked','met / worked','was meeting / were / working'], correct:0, explain:'Konkretne zdarzenie = PS (met). Tło = PC (were both working). Met / were working.' },
-          { type:'fill', text:'She _____ (read) a book, _____ (drink) tea, and _____ (listen) to music when I arrived.', correct:['was reading','was drinking','was listening'], explain:'Trzy czynności jednocześnie w tle = PC x3. Was reading / was drinking / was listening.' },
-          { type:'mcq', text:'The fire _____ while everyone _____.', options:['started / was sleeping','was starting / slept','started / slept','was starting / was sleeping'], correct:0, explain:'Zdarzenie = PS (started). Tło = PC (was sleeping). The fire started while everyone was sleeping.' },
-          { type:'fill', text:'I _____ (try) to call you all morning but you _____ (not / answer).', correct:['was trying',"didn't answer","was not answering","wasn't answering"], explain:'Trwający wysiłek = PC. Fakt = PS lub PC negatywne.' },
-          { type:'mcq', text:'When the police arrived, the burglar _____ through the window.', options:['climbed','was climbing','has climbed','had climbed'], correct:1, explain:'Czynność w toku w momencie przybycia = PC. Was climbing.' },
-          { type:'fill', text:'She _____ (wear) her favourite dress and _____ (look) wonderful at the party.', correct:['was wearing','looked'], explain:'Opis wyglądu (tło) = PC. Ogólna ocena (fakt) = PS. Was wearing / looked.' },
-        ],
-        r: [
-          { type:'mcq', text:'He _____ the report when he _____ an error he _____ earlier.', options:['was reviewing / noticed / had overlooked','reviewed / was noticing / overlooked','was reviewing / was noticing / had overlooked','reviewed / noticed / had overlooked'], correct:0, explain:'Tło = PC, zdarzenie = PS, wcześniejsza czynność = Past Perfect. Was reviewing / noticed / had overlooked.' },
-          { type:'fill', text:'By the time the police _____ (arrive), the thieves _____ (escape).', correct:['arrived','had escaped'], explain:'Wcześniejsza czynność (ukończona przed) = Past Perfect. Arrived / had escaped.' },
-          { type:'mcq', text:'She _____ the presentation confidently, though she _____ the material only briefly beforehand.', options:['was delivering / studied','delivered / had studied','was delivering / had studied','delivered / studied'], correct:1, explain:'Ukończone zdarzenie = PS. Wcześniejsze przygotowanie = PP. Delivered / had studied.' },
-          { type:'fill', text:'While the scientists _____ (analyse) the samples, they _____ (discover) something they _____ (not / expect).', correct:['were analysing','discovered',"hadn't expected","had not expected"], explain:'Tło = PC. Zdarzenie = PS. Wcześniejsze oczekiwanie = PP negatywne.' },
-          { type:'mcq', text:'The witness claimed she _____ in the park when the incident _____.', options:['walked / was occurring','was walking / occurred','walked / occurred','was walking / was occurring'], correct:1, explain:'Tło (alibi) = PC. Zdarzenie = PS. Was walking / occurred.' },
-          { type:'fill', text:'As the CEO _____ (speak), it _____ (become) clear that the company _____ (lose) millions.', correct:['was speaking','became','had lost'], explain:'Tło = PC. Odkrycie = PS. Wcześniejsza strata = PP. Was speaking / became / had lost.' },
-          { type:'mcq', text:'I _____ the contract when I _____ that I _____ the wrong document.', options:['was signing / realised / had been given','signed / was realising / was given','was signing / realised / was given','signed / realised / had been given'], correct:0, explain:'Tło = PC (was signing). Odkrycie = PS (realised). Wcześniejsze wręczenie (strona bierna PP) = had been given.' },
-          { type:'fill', text:'The storm _____ (rage) all night, but by morning it _____ (pass) and the sun _____ (shine).', correct:['was raging','had passed','was shining'], explain:'Tło nocne = PC. Ukończone przed ranem = PP. Tło ranne = PC. Was raging / had passed / was shining.' },
-          { type:'mcq', text:'Detectives _____ the area when a local resident _____ them a crucial tip.', options:['were searching / gave','searched / was giving','searched / gave','were searching / was giving'], correct:0, explain:'Tło = PC (were searching). Zdarzenie = PS (gave). Were searching / gave.' },
-          { type:'fill', text:'She _____ (not / realise) how serious the situation _____ (be) until it _____ (be) too late.', correct:["didn't realise","did not realise","was","was"], explain:'PS negatywne + PS (stan) + PS (moment). Didn\'t realise / was / was.' },
-          { type:'mcq', text:'The students _____ quietly when the headteacher unexpectedly _____ into the room.', options:['studied / was walking','were studying / walked','studied / walked','were studying / was walking'], correct:1, explain:'Tło = PC. Zdarzenie = PS. Were studying / walked.' },
-          { type:'fill', text:'He _____ (just / fall) asleep when his alarm _____ (go) off — typical.', correct:['was just falling','had just fallen','went'], explain:'Czynność w toku = PC lub PP dla podkreślenia. PS dla alarmu (zdarzenie).' },
-          { type:'mcq', text:'The journalist _____ an exposé that _____ months of undercover work.', options:['was publishing / involved','published / was involving','published / involved','was publishing / was involving'], correct:2, explain:'Ukończone zdarzenie = PS. Stały fakt o artykule = PS. Published / involved.' },
-          { type:'fill', text:'While she _____ (recover) in hospital, her colleagues _____ (cover) for her and _____ (do) an excellent job.', correct:['was recovering','were covering','did'], explain:'Tło = PC (was recovering). Czynność równoległa = PC lub PS. Ocena końcowa = PS. Was recovering / were covering / did.' },
-          { type:'mcq', text:'He _____ faster and faster and before long he _____ the world record.', options:['ran / broke','was running / broke','ran / was breaking','was running / was breaking'], correct:1, explain:'Trwający postęp = PC (was running). Moment osiągnięcia = PS (broke). Was running / broke.' },
-          { type:'fill', text:'The negotiations _____ (drag) on for weeks until both sides finally _____ (reach) an agreement.', correct:['were dragging','reached'], explain:'Trwający trudny proces = PC. Ostateczne zdarzenie = PS. Were dragging / reached.' },
-          { type:'mcq', text:'As she _____ up the stairs, she _____ something and _____ her ankle.', options:['was running / tripped / twisted','ran / was tripping / twisted','was running / tripped / was twisting','ran / tripped / twisted'], correct:0, explain:'Tło = PC. Dwa zdarzenia = PS x2. Was running / tripped / twisted.' },
-          { type:'fill', text:'Nobody _____ (notice) that the painting _____ (hang) upside down for three days.', correct:['noticed','had been hanging'], explain:'Odkrycie = PS. Wcześniejszy stan trwający = Past Perfect Continuous. Noticed / had been hanging.' },
-          { type:'mcq', text:'When we _____ up, our parents _____ for us with dinner on the table.', options:['turned / waited','were turning / were waiting','turned / were waiting','were turning / waited'], correct:2, explain:'Zdarzenie = PS (turned up). Stan oczekiwania w tle = PC (were waiting). Turned / were waiting.' },
-          { type:'fill', text:'I _____ (walk) past the café when I _____ (smell) fresh coffee and _____ (decide) to go in.', correct:['was walking','smelled','decided'], explain:'Tło = PC. Dwa kolejne zdarzenia = PS x2. Was walking / smelled / decided.' },
-        ]
-      }
-    },
-
-    // ─── 3. PRESENT PERFECT / PAST SIMPLE ────────────────────────────────
-    {
-      id: 'pp_ps',
-      name: 'Present Perfect / Past Simple',
-      tag: 'Kluczowy kontrast',
-      rule: '<strong>Present Perfect:</strong> łączność z teraźniejszością, nieokreślony czas, doświadczenia życiowe.<br><strong>Past Simple:</strong> zamknięta przeszłość, wiem dokładnie kiedy.<br>To najczęstszy błąd na maturze — egzaminatorzy go WIDZĄ.',
-      signals: {
-        'PP — sygnały': ['already','yet','just','ever','never','since','for','recently','lately','so far','up to now'],
-        'PS — sygnały': ['yesterday','last week','ago','in 2010','when I was...','in January','at 5pm']
-      },
-      questions: {
-        p: [
-          { type:'mcq', text:'I _____ my keys. I can\'t find them anywhere.', options:['lost','have lost','was losing','had lost'], correct:1, explain:'Nie wiem kiedy, ważne że teraz ich brak = Present Perfect. I have lost my keys.' },
-          { type:'fill', text:'She _____ (never / be) to Japan. She\'d love to go.', correct:['has never been'], explain:'Ever/never + brak określonego czasu = Present Perfect. Has never been.' },
-          { type:'mcq', text:'I _____ him yesterday at the café on Main Street.', options:['have seen','see','saw','was seeing'], correct:2, explain:'Yesterday = konkretny moment = Past Simple. I saw him.' },
-          { type:'fill', text:'They _____ (just / finish) the exam. They look so relieved!', correct:['have just finished'], explain:'Just = Present Perfect. Have just finished.' },
-          { type:'mcq', text:'_____ you ever _____ sushi before?', options:['Did / eat','Have / eaten','Do / eat','Were / eating'], correct:1, explain:'Ever + pytanie o doświadczenie = Present Perfect. Have you ever eaten.' },
-          { type:'fill', text:'I _____ (live) here since 2018 and I love it.', correct:['have lived',"'ve lived"], explain:'Since + trwający stan = Present Perfect. Have lived.' },
-          { type:'mcq', text:'She _____ three cups of coffee this morning. It\'s only 9am!', options:['drank','was drinking','has drunk','drinks'], correct:2, explain:'This morning (niezakończony czas) + liczba = Present Perfect. Has drunk.' },
-          { type:'fill', text:'When _____ you _____ (meet) your best friend for the first time?', correct:['did','meet'], explain:'Konkretny moment w przeszłości (when + first time) = Past Simple. When did you meet.' },
-          { type:'mcq', text:'Oh no! I _____ to bring my umbrella!', options:['forgot','have forgotten','was forgetting','forget'], correct:1, explain:'Skutek widoczny teraz = Present Perfect. I have forgotten.' },
-          { type:'fill', text:'The team _____ (not / win) a single match so far this season.', correct:["haven't won","have not won"], explain:'So far = Present Perfect. Haven\'t won.' },
-          { type:'mcq', text:'I _____ this film twice already. Let\'s watch something else.', options:['saw','was seeing','see','have seen'], correct:3, explain:'Already + liczba razy = Present Perfect. Have seen.' },
-          { type:'fill', text:'She _____ (leave) school at 16 and _____ (start) working immediately.', correct:['left','started'], explain:'Zamknięta sekwencja w przeszłości = Past Simple x2. Left / started.' },
-          { type:'mcq', text:'I\'m exhausted! I _____ in the garden all afternoon.', options:['worked','was working','have been working','work'], correct:2, explain:'Rezultat widoczny teraz = Present Perfect Continuous. Have been working.' },
-          { type:'fill', text:'He _____ (not / eat) anything since breakfast. He must be starving.', correct:["hasn't eaten","has not eaten"], explain:'Since + skutek teraz = Present Perfect. Hasn\'t eaten.' },
-          { type:'mcq', text:'The company _____ in 1892 and _____ since then.', options:['was founded / has thrived','founded / thrived','has been founded / has thrived','was founded / thrived'], correct:0, explain:'Konkretna data = PS (was founded). Trwający stan od tamtej pory = PP (has thrived). Was founded / has thrived.' },
-          { type:'fill', text:'I _____ (already / send) the email — you should have it by now.', correct:['have already sent',"'ve already sent"], explain:'Already + skutek teraz = Present Perfect. Have already sent.' },
-          { type:'mcq', text:'_____ she call you yesterday evening?', options:['Has','Did','Was','Have'], correct:1, explain:'Yesterday = konkretny czas = Past Simple. Did she call.' },
-          { type:'fill', text:'We _____ (not / see) each other for ages! You look great.', correct:["haven't seen","have not seen"], explain:'For + skutek widoczny teraz = Present Perfect. Haven\'t seen.' },
-          { type:'mcq', text:'I _____ a lot about this issue. My conclusion is that we need to act now.', options:['thought','was thinking','have thought','think'], correct:2, explain:'Przemyślenie zakończone ale wpływające na teraźniejszą konkluzję = Present Perfect. Have thought.' },
-          { type:'fill', text:'The last time I _____ (see) him, he _____ (work) in Warsaw.', correct:['saw','was working'], explain:'Konkretny moment (last time) = PS. Stan w tamtym czasie = PC. Saw / was working.' },
-        ],
-        r: [
-          { type:'fill', text:'He started working here in 2015. He _____ (work) here _____ 2015.', correct:['has worked','since'], explain:'Transformacja: started in 2015 → has worked since 2015.' },
-          { type:'mcq', text:'The crime rate _____ dramatically since the new policy _____ introduced.', options:['fell / was','has fallen / was','fell / has been','has fallen / has been'], correct:1, explain:'Trwający efekt od przeszłego momentu = PP. Jednorazowy fakt = PS. Has fallen / was.' },
-          { type:'fill', text:'It\'s the best film I _____ (ever / see).', correct:['have ever seen',"'ve ever seen"], explain:'Superlative + ever = Present Perfect. Have ever seen.' },
-          { type:'mcq', text:'This is only the second time she _____ a formal presentation.', options:['gave','has given','was giving','gives'], correct:1, explain:'This is the + ordinal + time = Present Perfect. Has given.' },
-          { type:'fill', text:'Researchers _____ (identify) a new species of frog that _____ (live) in the Amazon for millions of years.', correct:['have identified','has lived',"'s lived"], explain:'Niedawne odkrycie = PP. Trwający fakt od dawna = PP. Have identified / has lived.' },
-          { type:'mcq', text:'She _____ three novels by the time she was thirty and _____ four more since then.', options:['wrote / published','wrote / has published','has written / published','has written / has published'], correct:1, explain:'By the time she was thirty (zamknięte) = PS. Since then (trwające do teraz) = PP. Wrote / has published.' },
-          { type:'fill', text:'I _____ (wait) for over an hour! Why _____ you _____ (not / call)?', correct:['have been waiting',"have","'ve","not called","you not called"], explain:'Trwające oczekiwanie z frustracją = PPC. Brak telefonu z konsekwencją teraz = PP. Have been waiting / haven\'t called.' },
-          { type:'mcq', text:'The population of the city _____ by 20% in the last decade, mainly because many people _____ here from rural areas.', options:['grew / moved','has grown / have moved','grew / have moved','has grown / moved'], correct:1, explain:'W ciągu ostatniej dekady (niezakończony) = PP x2. Has grown / have moved.' },
-          { type:'fill', text:'It\'s the first time I _____ (ever / eat) oysters. They\'re surprisingly good!', correct:['have ever eaten',"'ve ever eaten"], explain:'It\'s the first time + ever = Present Perfect. Have ever eaten.' },
-          { type:'mcq', text:'He _____ the book three times and each time he _____ something new.', options:['has read / discovered','read / discovered','has read / has discovered','read / has discovered'], correct:1, explain:'Zamknięta seria przeszłych czynności bez związku z teraźniejszością = PS x2. Read / discovered.' },
-          { type:'fill', text:'Sales _____ (increase) steadily since we _____ (launch) the new campaign last spring.', correct:['have increased',"'ve increased",'launched'], explain:'Trwający efekt = PP. Konkretny moment = PS. Have increased / launched.' },
-          { type:'mcq', text:'I _____ her once, briefly, at a conference in 2019, and I _____ her since.', options:['met / haven\'t seen','have met / didn\'t see','met / didn\'t see','have met / haven\'t seen'], correct:0, explain:'Konkretny rok = PS. Od tamtego czasu do teraz = PP negatywne. Met / haven\'t seen.' },
-          { type:'fill', text:'By the time the investigation _____ (conclude), police _____ (interview) over two hundred witnesses.', correct:['concluded','had interviewed'], explain:'Zamknięta sekwencja. Ukończone przed = PP. Concluded / had interviewed.' },
-          { type:'mcq', text:'The government _____ several measures to address the issue, but critics argue that these _____ insufficient.', options:['took / proved','has taken / have proved','took / have proved','has taken / proved'], correct:1, explain:'Działania do teraz z oceną = PP. Ocena trwająca = PP. Has taken / have proved.' },
-          { type:'fill', text:'I _____ (recently / start) learning Portuguese. I _____ (always / want) to visit Lisbon.', correct:['have recently started','have always wanted',"'ve recently started","'ve always wanted"], explain:'Recently + always (doświadczenie) = PP x2. Have recently started / have always wanted.' },
-          { type:'mcq', text:'The last time scientists _____ such data was in 1987, and conditions _____ significantly since then.', options:['recorded / changed','have recorded / have changed','recorded / have changed','have recorded / changed'], correct:2, explain:'Last time + konkretny rok = PS. Since then = PP. Recorded / have changed.' },
-          { type:'fill', text:'How many times _____ you _____ (visit) the doctor this year?', correct:['have','visited'], explain:'This year (niezakończony) + how many times = PP. Have you visited.' },
-          { type:'mcq', text:'She _____ the role of manager for six months when the company suddenly _____ her.', options:['held / promoted','has held / promoted','had held / promoted','was holding / was promoting'], correct:2, explain:'Wcześniejszy stan przed zdarzeniem = Past Perfect. Zdarzenie = PS. Had held / promoted.' },
-          { type:'fill', text:'The situation _____ (change) dramatically since last year\'s report _____ (come) out.', correct:['has changed',"'s changed",'came'], explain:'Trwająca zmiana = PP. Konkretny moment = PS. Has changed / came.' },
-          { type:'mcq', text:'This _____ the third time this week that he _____ late to a meeting.', options:['is / was','is / has been','has been / was','has been / has been'], correct:1, explain:'This is the third time = PS w formie teraźniejszej + PP (seryjny fakt do teraz). Is / has been.' },
-        ]
-      }
-    },
-
-    // ─── 4. PRESENT PERFECT vs PP CONTINUOUS ──────────────────────────────
-    {
-      id: 'pp_ppc',
-      name: 'Present Perfect / PP Continuous',
-      tag: 'Efekt vs proces',
-      rule: '<strong>Present Perfect:</strong> wynik, efekt, liczba razy — CO zostało zrobione.<br><strong>Present Perfect Continuous:</strong> trwający proces, czas trwania — JAK DŁUGO i nadal trwa.<br><em>I\'ve written three emails</em> (gotowe) vs <em>I\'ve been writing emails all morning</em> (proces).<br>Czasowniki statyczne nie mają formy Continuous nawet w PP.',
-      signals: {
-        'PP — sygnały': ['three times','five emails','a lot','completely','already','just','never'],
-        'PPC — sygnały': ['all day','all morning','for hours','lately','recently','how long','all week']
-      },
-      questions: {
-        p: [
-          { type:'mcq', text:'She\'s exhausted. She _____ all day.', options:['worked','has worked','has been working','is working'], correct:2, explain:'Skupienie na procesie, czasie trwania = PPC. She has been working all day.' },
-          { type:'fill', text:'He _____ (read) for two hours and _____ (finish) three chapters.', correct:['has been reading','has finished'], explain:'Czas trwania = PPC. Policzalny wynik = PP. Has been reading / has finished.' },
-          { type:'mcq', text:'How long _____ you _____ English?', options:['did / study','have / studied','have / been studying','are / studying'], correct:2, explain:'How long + trwający proces = PPC. Have you been studying.' },
-          { type:'fill', text:'I _____ (paint) the kitchen — look at the mess!', correct:['have been painting',"'ve been painting"], explain:'Trwający proces z widocznym skutkiem (bałagan) = PPC. Have been painting.' },
-          { type:'mcq', text:'He _____ four books this year — quite impressive.', options:['has been writing','wrote','has written','is writing'], correct:2, explain:'Policzalny wynik w niezakończonym czasie = PP. Has written.' },
-          { type:'fill', text:'My eyes are red because I _____ (cry).', correct:['have been crying',"'ve been crying"], explain:'Widoczny fizyczny skutek trwającego procesu = PPC. Have been crying.' },
-          { type:'mcq', text:'She _____ that book for months! When will she finally finish it?', options:['read','has read','has been reading','reads'], correct:2, explain:'Trwający, niezakończony proces = PPC. Has been reading.' },
-          { type:'fill', text:'We _____ (wait) here for over an hour. This is ridiculous.', correct:['have been waiting',"'ve been waiting"], explain:'Trwające oczekiwanie z frustracją = PPC. Have been waiting.' },
-          { type:'mcq', text:'He looks tanned — he _____ on holiday.', options:['has been','was','has been being','went'], correct:0, explain:'Stan = czasownik statyczny = PP (nie PPC). He has been on holiday.' },
-          { type:'fill', text:'I _____ (try) to call you all morning. Why aren\'t you answering?', correct:['have been trying',"'ve been trying"], explain:'Powtarzające się próby przez czas = PPC. Have been trying.' },
-          { type:'mcq', text:'She _____ three cups of tea so far today.', options:['has been drinking','has drunk','drank','is drinking'], correct:1, explain:'Policzalna liczba (three cups) = PP. Has drunk.' },
-          { type:'fill', text:'Your hands are dirty! What _____ you _____ (do)?', correct:['have','been doing'], explain:'Widoczny skutek procesu = PPC. What have you been doing?' },
-          { type:'mcq', text:'I _____ this problem for hours and I still can\'t solve it.', options:['have thought about','thought about','have been thinking about','think about'], correct:2, explain:'Trwający nieukończony wysiłek = PPC. Have been thinking about.' },
-          { type:'fill', text:'She _____ (work) here since 2020 and _____ (complete) over fifty projects.', correct:['has been working','has completed'], explain:'Trwający staż = PPC. Policzalne wyniki = PP. Has been working / has completed.' },
-          { type:'mcq', text:'The children look happy — they _____ in the pool.', options:['swam','have swum','have been swimming','are swimming'], correct:2, explain:'Wnioskowanie z wyglądu o trwającym procesie = PPC. Have been swimming.' },
-          { type:'fill', text:'He _____ (not / sleep) well lately. He seems very tired.', correct:["hasn't been sleeping","has not been sleeping"], explain:'Trwający negatywny wzorzec = PPC. Hasn\'t been sleeping.' },
-          { type:'mcq', text:'They _____ this bridge for three years already. When will they finish?', options:['built','have built','have been building','build'], correct:2, explain:'Trwający, niezakończony projekt = PPC. Have been building.' },
-          { type:'fill', text:'I _____ (read) that report — I finished it an hour ago.', correct:['have read',"'ve read"], explain:'Ukończone, wynik gotowy = PP. Have read.' },
-          { type:'mcq', text:'Why is the floor wet? Has someone _____ the plants?', options:['been watering','watered','been water','water'], correct:1, explain:'Ukończona czynność z konkretnym skutkiem = PP. Has someone watered.' },
-          { type:'fill', text:'She looks nervous. I think she _____ (prepare) for her presentation.', correct:['has been preparing',"'s been preparing"], explain:'Trwające przygotowania (wnioskowanie z wyglądu) = PPC. Has been preparing.' },
-        ],
-        r: [
-          { type:'mcq', text:'The river is polluted. Factories _____ waste into it for decades.', options:['dumped','have dumped','have been dumping','are dumping'], correct:2, explain:'Trwający szkodliwy proces przez czas = PPC. Have been dumping.' },
-          { type:'fill', text:'I _____ (know) her for years. We _____ (work) together since 2019.', correct:['have known','have been working',"'ve known","'ve been working"], explain:'Know = statyczny = PP. Work = aktywny proces = PPC. Have known / have been working.' },
-          { type:'mcq', text:'Scientists _____ the effects of the drug for a decade, but _____ no definitive conclusions yet.', options:['have studied / reached','have been studying / have reached','have been studying / haven\'t reached','have studied / haven\'t reached'], correct:2, explain:'Trwające badania = PPC. Brak wyniku = PP negatywne. Have been studying / haven\'t reached.' },
-          { type:'fill', text:'The leak _____ (drip) for so long that the ceiling _____ (collapse) partially.', correct:['has been dripping','has collapsed',"'s been dripping","'s collapsed"], explain:'Trwający proces = PPC. Wynik/skutek = PP. Has been dripping / has collapsed.' },
-          { type:'mcq', text:'She _____ to master the piano since childhood and _____ several prestigious competitions.', options:['has been trying / has won','tried / won','has tried / has been winning','has been trying / has been winning'], correct:0, explain:'Trwający wysiłek = PPC. Policzalne osiągnięcia = PP. Has been trying / has won.' },
-          { type:'fill', text:'How many chapters _____ you _____ (write)? And how long _____ you _____ (work) on the thesis?', correct:['have','written','have','been working'], explain:'Policzalny wynik = PP. Czas trwania = PPC. Have written / have been working.' },
-          { type:'mcq', text:'The patient _____ remarkably well since the surgery, and the doctors say the recovery _____ all expectations.', options:['has been recovering / has exceeded','recovered / exceeded','has recovered / has been exceeding','has been recovering / has been exceeding'], correct:0, explain:'Trwający postęp = PPC. Wynik osiągnięty = PP. Has been recovering / has exceeded.' },
-          { type:'fill', text:'I _____ (not / see) results yet, even though I _____ (follow) the diet for six weeks.', correct:["haven't seen","have not seen","have been following","'ve been following"], explain:'Brak wyniku = PP negatywne. Trwający wysiłek = PPC. Haven\'t seen / have been following.' },
-          { type:'mcq', text:'The government _____ to address the housing crisis for years and _____ virtually nothing.', options:['has been promising / has achieved','promised / has been achieving','has promised / achieved','has been promising / has been achieving'], correct:0, explain:'Trwające obietnice = PPC. Brak osiągnięcia (wynik) = PP. Has been promising / has achieved.' },
-          { type:'fill', text:'They _____ (live) in this flat for three years but _____ (only / decide) to renovate it now.', correct:['have been living','have only decided',"'ve been living","'ve only decided"], explain:'Trwający stan = PPC. Decyzja (wynik) = PP. Have been living / have only decided.' },
-          { type:'mcq', text:'I _____ this argument before and I _____ my mind.', options:['have heard / haven\'t changed','have been hearing / am not changing','heard / haven\'t changed','have heard / haven\'t been changing'], correct:0, explain:'PP (doświadczenie, wynik). PP negatywne (stan). Have heard / haven\'t changed.' },
-          { type:'fill', text:'Sales _____ (rise) steadily. The team _____ (work) incredibly hard to achieve this.', correct:['have been rising','have been working',"'ve been rising","'ve been working"], explain:'Trwające trendy = PPC x2. Have been rising / have been working.' },
-          { type:'mcq', text:'She _____ to find a solution but hasn\'t _____ yet.', options:['has been trying / managed','tried / been managing','has tried / managed','is trying / managed'], correct:0, explain:'Trwające próby = PPC. Brak wyniku = PP. Has been trying / managed.' },
-          { type:'fill', text:'The negotiators _____ (talk) for twelve hours and _____ (not / reach) any agreement.', correct:['have been talking','have not reached',"haven't reached"], explain:'Czas trwania = PPC. Brak wyniku = PP. Have been talking / haven\'t reached.' },
-          { type:'mcq', text:'He _____ chess since he was six and _____ over 300 games professionally.', options:['has played / has won','has been playing / has won','has played / has been winning','played / won'], correct:1, explain:'Trwające hobby = PPC. Policzalne wyniki = PP. Has been playing / has won.' },
-          { type:'fill', text:'The athlete _____ (train) twice a day and _____ (break) her personal record three times this season.', correct:['has been training','has broken',"'s been training","'s broken"], explain:'Trwający reżim = PPC. Policzalne osiągnięcia = PP. Has been training / has broken.' },
-          { type:'mcq', text:'I _____ this song for hours and I still can\'t get it right.', options:['have practised','have been practising','practised','am practising'], correct:1, explain:'Trwający, niezakończony wysiłek = PPC. Have been practising.' },
-          { type:'fill', text:'Why _____ your face so red? _____ you _____ (run)?', correct:["is","Have","been running"], explain:'Wnioskowanie o procesie z wyglądu = PPC. Have you been running?' },
-          { type:'mcq', text:'The author _____ to find a publisher for years. She _____ her manuscript to over fifty agents.', options:['has been trying / has sent','tried / sent','has tried / has been sending','has been trying / has been sending'], correct:0, explain:'Trwające starania = PPC. Policzalne wysyłki = PP. Has been trying / has sent.' },
-          { type:'fill', text:'The company _____ (lose) money every quarter. Directors _____ (meet) all week to find a solution.', correct:['has been losing','have been meeting',"'s been losing","'ve been meeting"], explain:'Trwający negatywny trend = PPC. Trwające spotkania = PPC. Has been losing / have been meeting.' },
-        ]
-      }
-    },
-
-    // ─── 5. FUTURE ─────────────────────────────────────────────────────────
-    {
-      id: 'future',
-      name: 'Future: will / going to / PC',
-      tag: 'Przyszłość',
-      rule: '<strong>will:</strong> spontaniczna decyzja, przewidywanie bez dowodów, obietnice, oferty.<br><strong>going to:</strong> plan z wyprzedzeniem, przewidywanie z widocznym dowodem.<br><strong>Present Continuous:</strong> ustalony plan z konkretnym czasem i miejscem.<br><strong>Future Perfect:</strong> coś będzie skończone PRZED momentem w przyszłości (rozszerzona).<br><strong>Future Continuous:</strong> czynność będzie trwać W konkretnym momencie (rozszerzona).',
-      signals: {
-        'will — sygnały': ['I think','probably','I\'m sure','Maybe','I promise','offer','spontaneous'],
-        'going to — sygnały': ['Look!','I\'ve decided','There are clouds','I\'ve already booked','plan ahead'],
-        'PC future — sygnały': ['tonight','this Saturday','at 6 pm','next week (plan)','I\'ve arranged']
-      },
-      questions: {
-        p: [
-          { type:'mcq', text:'"The phone is ringing." "I _____ get it!"', options:['\'m going to get','\'ll get','get','\'m getting'], correct:1, explain:'Spontaniczna decyzja w momencie mówienia = will. I\'ll get it.' },
-          { type:'fill', text:'Look at those clouds — it _____ (rain).', correct:['is going to rain',"'s going to rain"], explain:'Widoczny dowód (chmury) = going to. It\'s going to rain.' },
-          { type:'mcq', text:'I _____ meet Sarah at 7. I booked the restaurant last week.', options:['\'ll meet','\'m going to meet','\'m meeting','meet'], correct:2, explain:'Ustalony plan z konkretną godziną = Present Continuous jako future. I\'m meeting.' },
-          { type:'fill', text:'I think it _____ (be) a great concert tonight. I love this band.', correct:['will be',"'ll be"], explain:'Przewidywanie bez dowodów (opinion: I think) = will. It will be / It\'ll be.' },
-          { type:'mcq', text:'I\'ve decided — I _____ study medicine at university.', options:['\'ll study','study','\'m going to study','\'m studying'], correct:2, explain:'Podjęta wcześniej decyzja = going to. I\'m going to study.' },
-          { type:'fill', text:'"I\'ve run out of milk." "Don\'t worry, I _____ (get) some on my way home."', correct:['will get',"'ll get"], explain:'Spontaniczna oferta pomocy = will. I\'ll get some.' },
-          { type:'mcq', text:'We _____ have dinner with the Smiths this Friday. We arranged it ages ago.', options:['\'re going to','\'ll','\'re having','have'], correct:2, explain:'Ustalona umowa towarzyska = Present Continuous jako future. We\'re having dinner.' },
-          { type:'fill', text:'Be careful! You _____ (spill) that coffee — it\'s right at the edge!', correct:['are going to spill',"'re going to spill"], explain:'Widoczne zagrożenie = going to. You\'re going to spill.' },
-          { type:'mcq', text:'I promise I _____ tell anyone your secret.', options:['\'m not going to','don\'t','won\'t','\'m not'], correct:2, explain:'Obietnica = will (negatywne). I won\'t tell.' },
-          { type:'fill', text:'I think technology _____ (change) our lives even more in the next ten years.', correct:['will change',"'ll change"], explain:'Przewidywanie przyszłości bez konkretnego planu = will. Will change.' },
-          { type:'mcq', text:'She _____ take a gap year before university. She\'s been planning it for months.', options:['\'ll','\'s going to','\'s taking','takes'], correct:1, explain:'Zaplanowane wcześniej = going to. She\'s going to take.' },
-          { type:'fill', text:'"This bag is really heavy!" "Give it to me — I _____ (carry) it for you."', correct:['will carry',"'ll carry"], explain:'Spontaniczna oferta = will. I\'ll carry it.' },
-          { type:'mcq', text:'There\'s no way he _____ pass the exam — he hasn\'t studied at all.', options:['\'s going to','\'s passing','\'ll pass','passes'], correct:0, explain:'Przewidywanie oparte na widocznym fakcie (brak nauki) = going to. He\'s not going to pass.' },
-          { type:'fill', text:'She _____ (fly) to London tomorrow morning. Her flight\'s at 6am.', correct:['is flying',"'s flying"], explain:'Ustalony plan (bilet kupiony) = Present Continuous. She\'s flying.' },
-          { type:'mcq', text:'I _____ probably stay at home this weekend. I need to rest.', options:['\'m going to','\'m staying','\'ll','go to'], correct:2, explain:'Luźne przewidywanie z "probably" = will. I\'ll probably stay.' },
-          { type:'fill', text:'"Someone needs to present the report." "Fine, I _____ (do) it."', correct:['will do',"'ll do"], explain:'Spontaniczna decyzja na miejscu = will. I\'ll do it.' },
-          { type:'mcq', text:'Watch out! That vase _____ fall!', options:['will','is going to','is','goes to'], correct:1, explain:'Natychmiastowe niebezpieczeństwo (widoczny dowód) = going to. It\'s going to fall!' },
-          { type:'fill', text:'By the time you arrive, I _____ (finish) cooking. Dinner will be ready.', correct:['will have finished',"'ll have finished"], explain:'Ukończone PRZED przyszłym momentem = Future Perfect. Will have finished.' },
-          { type:'mcq', text:'Don\'t call me at 3pm — I _____ a meeting.', options:['\'ll have','\'m going to have','\'ll be having','have'], correct:2, explain:'Czynność trwająca w konkretnym momencie w przyszłości = Future Continuous. I\'ll be having.' },
-          { type:'fill', text:'This time next week, we _____ (lie) on a beach in Zanzibar. I can\'t wait!', correct:['will be lying',"'ll be lying"], explain:'Czynność trwająca w przyszłym momencie = Future Continuous. Will be lying.' },
-        ],
-        r: [
-          { type:'mcq', text:'By the time she retires, she _____ in this company for 30 years.', options:['will work','is going to work','will have worked','will be working'], correct:2, explain:'By the time + przyszły moment → coś skończone przed nim = Future Perfect. Will have worked.' },
-          { type:'fill', text:'This time tomorrow I _____ (sit) my final exam. I\'m terrified.', correct:['will be sitting',"'ll be sitting"], explain:'Konkretny moment w przyszłości + trwająca czynność = Future Continuous. Will be sitting.' },
-          { type:'mcq', text:'I can\'t meet at 5 — I _____ with clients at that time.', options:['\'ll meet','\'m going to meet','\'ll be meeting','\'m meeting'], correct:2, explain:'Planowa czynność trwająca w konkretnym momencie = Future Continuous. I\'ll be meeting.' },
-          { type:'fill', text:'By next year, scientists _____ (develop) a vaccine, they hope. Clinical trials _____ (begin) already.', correct:['will have developed','will have begun',"'ll have developed","'ll have begun"], explain:'Ukończone przed przyszłym momentem = Future Perfect x2. Will have developed / will have begun.' },
-          { type:'mcq', text:'The construction _____ by December, and by then they _____ 500 new homes.', options:['will finish / will build','will have finished / will have built','is finishing / are building','finishes / build'], correct:1, explain:'Oba ukończone przed grudniem = Future Perfect x2. Will have finished / will have built.' },
-          { type:'fill', text:'Don\'t worry — by the time the guests arrive, I _____ (clean) the whole house.', correct:['will have cleaned',"'ll have cleaned"], explain:'Ukończone przed przyjazdem gości = Future Perfect. Will have cleaned.' },
-          { type:'mcq', text:'I expect the negotiations _____ easier as both sides _____ pressure to reach a deal.', options:['will get / will feel','are going to get / feel','will get / are going to feel','are getting / will feel'], correct:0, explain:'Przewidywanie bez dowodów = will x2. Will get / will feel.' },
-          { type:'fill', text:'She _____ (present) the findings at the conference. She _____ (speak) for approximately forty minutes.', correct:['is presenting','will be speaking',"'s presenting","'ll be speaking"], explain:'Ustalony plan konferencji = PC. Czas trwania = Future Continuous. Is presenting / will be speaking.' },
-          { type:'mcq', text:'By the end of the decade, renewable energy _____ fossil fuels as the primary energy source.', options:['will replace','is going to replace','will have replaced','will be replacing'], correct:2, explain:'Ukończona zmiana przed końcem dekady = Future Perfect. Will have replaced.' },
-          { type:'fill', text:'I _____ (probably / not / be) available tonight — I _____ (help) my sister move.', correct:['probably won\'t be',"will probably not be","'m helping","am helping"], explain:'Przewidywanie = will. Ustalony plan pomocy = PC. Won\'t be / am helping.' },
-          { type:'mcq', text:'The surgery _____ approximately four hours, during which the patient _____ under general anaesthetic.', options:['will take / will be','will take / will be being','will be taking / will be','takes / is'], correct:0, explain:'Przewidywany fakt = will. Stan w czasie = will + be (statyczny). Will take / will be.' },
-          { type:'fill', text:'By the time you read this letter, I _____ (already / leave) the country.', correct:['will have already left',"'ll have already left"], explain:'Ukończone przed przyszłym momentem = Future Perfect. Will have already left.' },
-          { type:'mcq', text:'Experts predict that sea levels _____ by up to a metre by 2100, which _____ millions of people.', options:['will rise / will affect','are rising / affects','are going to rise / will affect','will rise / is going to affect'], correct:0, explain:'Przewidywanie ekspertów = will x2. Will rise / will affect.' },
-          { type:'fill', text:'I _____ (not / retire) until I _____ (save) enough to travel the world comfortably.', correct:["won't retire","will not retire","have saved"], explain:'Obietnica/plan = will negatywne. After time clause = Present Simple (nie Future). Won\'t retire / have saved.' },
-          { type:'mcq', text:'This time next month, we _____ final exams and hopefully we _____ them all.', options:['will sit / will pass','will be sitting / will have passed','sit / pass','are sitting / have passed'], correct:1, explain:'Trwająca czynność za miesiąc = Future Continuous. Ukończone wcześniej = Future Perfect. Will be sitting / will have passed.' },
-          { type:'fill', text:'The project _____ (complete) by March, and we _____ (deliver) it to the client at that point.', correct:['will have been completed','will deliver',"'ll have been completed","'ll deliver"], explain:'Strona bierna Future Perfect. Przyszły wynik = will. Will have been completed / will deliver.' },
-          { type:'mcq', text:'"Someone has to inform the board." "Leave it to me — I _____ call them first thing tomorrow."', options:['\'m going to','\'m','\'ll','go to'], correct:2, explain:'Spontaniczna decyzja/zobowiązanie = will. I\'ll call.' },
-          { type:'fill', text:'Do you think she _____ (accept) the job offer? I _____ (be) very surprised if she doesn\'t.', correct:['will accept',"'ll accept","'ll be","will be"], explain:'Przewidywanie/opinia = will x2. Will accept / will be.' },
-          { type:'mcq', text:'The new law _____ into effect in January, so companies _____ to comply by then.', options:['comes / need','is coming / will need','comes / will need','will come / are going to need'], correct:2, explain:'Harmonogram (PS) + przyszły obowiązek (will). Comes / will need.' },
-          { type:'fill', text:'By the time I finish this degree, I _____ (study) for seven years in total.', correct:['will have been studying',"'ll have been studying"], explain:'Ukończony czas trwania przed przyszłym momentem = Future Perfect Continuous. Will have been studying.' },
-        ]
-      }
-    },
-
-    // ─── 6. PAST PERFECT / PAST PERFECT CONTINUOUS ────────────────────────
-    {
-      id: 'past_perfect',
-      name: 'Past Perfect / Past Perfect Continuous',
-      tag: 'Przeszłość złożona',
-      rule: '<strong>Past Perfect:</strong> czynność przed inną czynnością w przeszłości — "przeszłość przeszłości".<br><strong>Past Perfect Continuous:</strong> proces trwający przed momentem w przeszłości.<br>Kluczowe w: mowie zależnej, conditional type 3, narracji, zdaniach z <em>by the time, after, before, when, already, never before.</em>',
-      signals: {
-        'PP — sygnały': ['by the time','after','before','when (sekwencja)','already','never before','as soon as'],
-        'PPC — sygnały': ['for hours (before)','all day (before)','because (przyczyna)','how long (before)']
-      },
-      questions: {
-        p: [
-          { type:'mcq', text:'When I arrived, she _____ already _____.', options:['has / left','had / left','was / leaving','did / leave'], correct:1, explain:'Czynność przed przyjazdem = Past Perfect. She had already left.' },
-          { type:'fill', text:'He was tired because he _____ (work) all night.', correct:['had been working'], explain:'Przyczyna = trwający proces przed chwilą w przeszłości = PPC. Had been working.' },
-          { type:'mcq', text:'She told me she _____ the email before the meeting.', options:['sent','has sent','had sent','was sending'], correct:2, explain:'Mowa zależna: sent → had sent (backshift). She told me she had sent.' },
-          { type:'fill', text:'By the time the film started, we _____ (already / find) our seats.', correct:['had already found'], explain:'Ukończone przed początkiem filmu = Past Perfect. Had already found.' },
-          { type:'mcq', text:'She _____ her homework before her parents got home.', options:['finished','has finished','had finished','was finishing'], correct:2, explain:'Ukończone przed powrotem rodziców = Past Perfect. She had finished.' },
-          { type:'fill', text:'I recognised her immediately because we _____ (meet) at a conference the year before.', correct:['had met'], explain:'Wcześniejsze spotkanie = Past Perfect. Had met.' },
-          { type:'mcq', text:'His eyes were red. He _____ clearly.', options:['was crying','cried','had been crying','has been crying'], correct:2, explain:'Widoczny skutek wcześniejszego procesu = PPC. He had been crying.' },
-          { type:'fill', text:'They _____ (wait) for two hours by the time the doctor finally arrived.', correct:['had been waiting'], explain:'Trwający proces przed momentem w przeszłości = PPC. Had been waiting.' },
-          { type:'mcq', text:'After she _____ the novel, she started writing a sequel.', options:['finished','has finished','had finished','was finishing'], correct:2, explain:'After + czynność przed = Past Perfect. After she had finished.' },
-          { type:'fill', text:'He said he _____ (never / travel) abroad before this trip.', correct:['had never travelled','had never traveled'], explain:'Mowa zależna + never before = Past Perfect. Had never travelled.' },
-          { type:'mcq', text:'I felt sick because I _____ too much at the party.', options:['ate','was eating','have eaten','had eaten'], correct:3, explain:'Przyczyna przed skutkiem = Past Perfect. I had eaten too much.' },
-          { type:'fill', text:'She _____ (not / sleep) properly for weeks before the exam — no wonder she was exhausted.', correct:["hadn't slept","had not slept"], explain:'Trwający brak snu = PPC lub PP. Hadn\'t slept.' },
-          { type:'mcq', text:'By the time the ambulance arrived, the patient _____ consciousness.', options:['lost','had lost','was losing','has lost'], correct:1, explain:'Ukończone przed przybyciem karetki = Past Perfect. Had lost consciousness.' },
-          { type:'fill', text:'He _____ (practise) for months before his first concert and it showed.', correct:['had been practising'], explain:'Trwający wysiłek przed wydarzeniem = PPC. Had been practising.' },
-          { type:'mcq', text:'I _____ that restaurant before, so I knew exactly what to order.', options:['visited','was visiting','had visited','have visited'], correct:2, explain:'Wcześniejsze doświadczenie = Past Perfect. I had visited.' },
-          { type:'fill', text:'She looked confused — clearly nobody _____ (explain) the rules to her.', correct:["had explained","hadn't explained","had not explained"], explain:'Brak wcześniejszego wyjaśnienia = Past Perfect. Nobody had explained.' },
-          { type:'mcq', text:'The house looked abandoned. Nobody _____ there for years.', options:['lived','had lived','has lived','was living'], correct:1, explain:'Stan trwający wcześniej w przeszłości = PP lub PPC. Nobody had lived.' },
-          { type:'fill', text:'By the time I got to the station, the train _____ (already / leave).', correct:['had already left'], explain:'Pociąg odjechał przed moim przybyciem = Past Perfect. Had already left.' },
-          { type:'mcq', text:'She _____ for the job for months when she finally got an interview.', options:['applied','had applied','has applied','had been applying'], correct:3, explain:'Trwający proces przed zdarzeniem = PPC. She had been applying.' },
-          { type:'fill', text:'He realised he _____ (leave) his wallet at home when he tried to pay.', correct:['had left'], explain:'Wcześniejsze zdarzenie odkryte później = Past Perfect. Had left.' },
-        ],
-        r: [
-          { type:'mcq', text:'If only I _____ more carefully — I _____ the mistake.', options:['read / would catch','had read / would have caught','have read / would catch','read / would have caught'], correct:1, explain:'Żal za przeszłością = If only + Past Perfect. Wynik = would have + PP3. Had read / would have caught.' },
-          { type:'fill', text:'By the time the results _____ (announce), the students _____ (wait) for three hours.', correct:['were announced','had been waiting'], explain:'Strona bierna PS. Trwający proces przed = PPC. Were announced / had been waiting.' },
-          { type:'mcq', text:'She _____ the presentation confidently, though she _____ the material only briefly beforehand.', options:['was delivering / studied','delivered / had studied','was delivering / had studied','delivered / studied'], correct:1, explain:'Ukończone zdarzenie = PS. Wcześniejsze przygotowanie = PP. Delivered / had studied.' },
-          { type:'fill', text:'The report revealed that the company _____ (falsify) data for years and _____ (mislead) investors deliberately.', correct:['had been falsifying','had misled',"had been misleading"], explain:'Trwające fałszowanie (proces) = PPC. Jednorazowe wprowadzanie w błąd (wynik) = PP. Had been falsifying / had misled.' },
-          { type:'mcq', text:'Had they _____ more carefully, they _____ the error in time.', options:['checked / would have caught','been checking / caught','check / would catch','checked / caught'], correct:0, explain:'Conditional type 3 inverted: Had + PP3 → would have + PP3. Checked / would have caught.' },
-          { type:'fill', text:'She told investigators she _____ (not / realise) the documents _____ (be) forged.', correct:["hadn't realised","had not realised","had been"], explain:'Mowa zależna: hadn\'t realised (backshift). Wcześniejszy stan = PP. Hadn\'t realised / had been.' },
-          { type:'mcq', text:'The critics praised the film, which _____ two years to make and _____ three different directors.', options:['took / involved','had taken / had involved','was taking / involved','took / had involved'], correct:1, explain:'Oba ukończone przed oceną krytyków = PP x2. Had taken / had involved.' },
-          { type:'fill', text:'By the time the rescue team _____ (reach) them, the survivors _____ (shelter) in a cave for three days.', correct:['reached','had been sheltering'], explain:'PS dla zdarzenia głównego. PPC dla trwającego procesu wcześniejszego. Reached / had been sheltering.' },
-          { type:'mcq', text:'It was obvious that she _____ for the role — every detail of her performance _____ meticulous preparation.', options:['prepared / reflected','had been preparing / reflected','had prepared / was reflecting','had been preparing / was reflecting'], correct:1, explain:'Trwające przygotowania (proces) = PPC. Wynik widoczny w przeszłości = PS. Had been preparing / reflected.' },
-          { type:'fill', text:'He admitted he _____ (never / give) a speech before and _____ (barely / sleep) the night before.', correct:['had never given','had barely slept',"'d never given","'d barely slept"], explain:'Mowa zależna + never before = PP. Trwający wcześniejszy stan = PP. Had never given / had barely slept.' },
-          { type:'mcq', text:'The novel explored themes the author _____ about for years but _____ articulate until now.', options:['thought / couldn\'t','had been thinking / hadn\'t been able to','thought / hadn\'t been able to','had thought / couldn\'t'], correct:1, explain:'Trwające myślenie = PPC. Trwała niemożność = PP. Had been thinking / hadn\'t been able to.' },
-          { type:'fill', text:'The village _____ (flood) before the dyke _____ (repair), causing immense damage.', correct:['had flooded','was repaired'], explain:'Chronologia: zalanie przed naprawą = PP. Naprawienie = PS strona bierna. Had flooded / was repaired.' },
-          { type:'mcq', text:'No sooner _____ she _____ the door than she _____ someone was watching her.', options:['had / opened / sensed','did / open / had sensed','has / opened / sensed','had / open / sensed'], correct:0, explain:'No sooner + PP → PS. Had she opened / sensed. Had opened / sensed.' },
-          { type:'fill', text:'He was deeply anxious at the podium — he _____ (speak) publicly before and _____ (not / prepare) adequately.', correct:['had never spoken',"hadn't prepared","had not prepared"], explain:'Never before = PP. Brak przygotowania = PP. Had never spoken / hadn\'t prepared.' },
-          { type:'mcq', text:'Scientists discovered that the ecosystem _____ significantly before conservation efforts _____ in the 1990s.', options:['degraded / began','had degraded / began','degraded / had begun','was degrading / began'], correct:1, explain:'Degradacja przed działaniami = PP. Konkretna data dla działań = PS. Had degraded / began.' },
-          { type:'fill', text:'She confessed she _____ (lie) and _____ (hide) the truth for months before finally coming forward.', correct:['had been lying','had been hiding',"'d been lying","'d been hiding"], explain:'Trwające kłamstwa i ukrywanie = PPC x2. Had been lying / had been hiding.' },
-          { type:'mcq', text:'It was the most challenging project he _____ — it _____ everything he had.', options:['undertook / demanded','had ever undertaken / demanded','undertook / had demanded','had undertaken / had demanded'], correct:1, explain:'Superlative + ever = PP. Wymaganie (fakt) = PS. Had ever undertaken / demanded.' },
-          { type:'fill', text:'The infrastructure _____ (deteriorate) for decades before the government _____ (finally / allocate) funds for repair.', correct:['had been deteriorating','finally allocated'], explain:'Trwające pogarszanie się = PPC. Jednorazowe zdarzenie = PS. Had been deteriorating / finally allocated.' },
-          { type:'mcq', text:'Witnesses reported that the suspect _____ the area for several days before the incident _____.', options:['watched / happened','had been watching / happened','watched / had happened','had watched / happened'], correct:1, explain:'Trwająca obserwacja przed zdarzeniem = PPC. Zdarzenie = PS. Had been watching / happened.' },
-          { type:'fill', text:'By the time she _____ (realise) what _____ (happen), it _____ (be) too late to intervene.', correct:['realised','had happened','was'], explain:'Odkrycie = PS. Wcześniejsze zdarzenie = PP. Stan = PS. Realised / had happened / was.' },
-        ]
-      }
-    }
-
-  ]
-};
-
+// ─── STATE ─────────────────────────────────────────────────────────────────
+let currentDay = 1;
 let currentLevel = 'p';
 let currentTense = 0;
 let answers = {};
 let tenseScores = {};
+
+function currentData() { return currentDay === 1 ? DAY1 : DAY2; }
+
+function switchDay(day) {
+  currentDay = day;
+  currentTense = 0;
+  answers = {};
+  tenseScores = {};
+  document.getElementById('tab-d1').classList.toggle('active', day === 1);
+  document.getElementById('tab-d2').classList.toggle('active', day === 2);
+  const d = currentData();
+  document.getElementById('day-label').textContent = d.label;
+  document.getElementById('sidebar-label').textContent = d.sidebarLabel;
+  document.getElementById('results-screen').classList.remove('show');
+  document.getElementById('tense-content').style.display = 'block';
+  renderSidebar();
+  renderTense(0);
+}
 
 function setLevel(level) {
   currentLevel = level;
@@ -525,13 +649,16 @@ function setLevel(level) {
   });
   answers = {};
   tenseScores = {};
+  document.getElementById('results-screen').classList.remove('show');
+  document.getElementById('tense-content').style.display = 'block';
   renderSidebar();
   renderTense(currentTense);
 }
 
 function renderSidebar() {
+  const d = currentData();
   const list = document.getElementById('tense-list');
-  list.innerHTML = DATA.tenses.map((t, i) => {
+  list.innerHTML = d.tenses.map((t, i) => {
     const done = tenseScores[t.id] !== undefined;
     return `<div class="tense-item${i === currentTense ? ' active' : ''}${done ? ' done' : ''}" onclick="goTense(${i})">
       <span>${t.name}</span>
@@ -542,7 +669,8 @@ function renderSidebar() {
 }
 
 function updateProgress() {
-  const total = DATA.tenses.length;
+  const d = currentData();
+  const total = d.tenses.length;
   const done = Object.keys(tenseScores).length;
   document.getElementById('progress-text').textContent = `${done} / ${total}`;
   document.getElementById('progress-fill').style.width = `${(done / total) * 100}%`;
@@ -559,18 +687,16 @@ function goTense(i) {
 }
 
 function renderTense(i) {
-  const t = DATA.tenses[i];
+  const d = currentData();
+  const t = d.tenses[i];
   const qs = t.questions[currentLevel] || t.questions.p;
   const levelTag = currentLevel === 'p'
     ? '<span class="parity-tag tag-p">Podstawowy</span>'
     : '<span class="parity-tag tag-r">Rozszerzony</span>';
-
   const signalHtml = Object.entries(t.signals).map(([label, vals]) =>
     `<div class="pill-label">${label}</div>` + vals.map(v => `<span class="pill">${v}</span>`).join('')
   ).join('');
-
   const qHtml = qs.map((q, qi) => renderQuestion(q, qi)).join('');
-
   document.getElementById('tense-content').innerHTML = `
     <div class="tense-header">
       <div class="tense-tag">${t.tag} ${levelTag}</div>
@@ -582,9 +708,8 @@ function renderTense(i) {
     <div class="section-nav">
       <button class="nav-btn" onclick="goTense(${i - 1})" ${i === 0 ? 'disabled' : ''}>← Poprzedni</button>
       <span class="score-badge" id="score-badge">0 / ${qs.length}</span>
-      <button class="nav-btn primary" onclick="goTense(${i + 1})" ${i === DATA.tenses.length - 1 ? 'disabled' : ''}>Następny →</button>
-    </div>
-  `;
+      <button class="nav-btn primary" onclick="goTense(${i + 1})" ${i === d.tenses.length - 1 ? 'disabled' : ''}>Następny →</button>
+    </div>`;
 }
 
 function renderQuestion(q, qi) {
@@ -602,11 +727,21 @@ function renderQuestion(q, qi) {
       <div class="feedback" id="fb-${qi}"></div>
     </div>`;
   } else {
+    const blanks = (q.text.match(/_{2,}/g) || []).length;
+    const isMulti = blanks > 1;
+    let inputsHtml = '';
+    if (isMulti) {
+      for (let b = 0; b < blanks; b++) {
+        inputsHtml += `<input class="fill-input" id="fill-${qi}-${b}" placeholder="luka ${b+1}..." onkeydown="if(event.key==='Enter')checkFill(${qi})" style="min-width:130px;">`;
+      }
+    } else {
+      inputsHtml = `<input class="fill-input" id="fill-${qi}-0" placeholder="wpisz odpowiedź..." onkeydown="if(event.key==='Enter')checkFill(${qi})" style="min-width:180px;">`;
+    }
     return `<div class="q-card" id="qcard-${qi}">
       <div class="q-num">Pytanie ${qi + 1} <span class="q-type-badge">uzupełnianie luki</span></div>
       <div class="q-text">${q.text.replace(/_{2,}/g, '<span class="blank">___</span>')}</div>
       <div class="fill-wrap">
-        <input class="fill-input" id="fill-${qi}" placeholder="wpisz odpowiedź..." onkeydown="if(event.key==='Enter')checkFill(${qi})">
+        ${inputsHtml}
         <button class="check-btn" id="checkbtn-${qi}" onclick="checkFill(${qi})">Sprawdź</button>
       </div>
       <div class="feedback" id="fb-${qi}"></div>
@@ -621,11 +756,10 @@ function normalize(s) {
 function checkMcq(qi, oi, correct, optLen) {
   if (answers[qi] !== undefined) return;
   answers[qi] = oi;
-  const t = DATA.tenses[currentTense];
-  const qs = t.questions[currentLevel] || t.questions.p;
+  const d = currentData();
+  const qs = d.tenses[currentTense].questions[currentLevel] || d.tenses[currentTense].questions.p;
   const q = qs[qi];
   const isCorrect = oi === correct;
-
   for (let i = 0; i < optLen; i++) {
     const btn = document.getElementById(`opt-${qi}-${i}`);
     if (!btn) continue;
@@ -633,58 +767,79 @@ function checkMcq(qi, oi, correct, optLen) {
     if (i === oi) btn.classList.add(isCorrect ? 'selected-correct' : 'selected-wrong');
     if (!isCorrect && i === correct) btn.classList.add('reveal-correct');
   }
-
-  const card = document.getElementById(`qcard-${qi}`);
-  card.classList.add(isCorrect ? 'correct' : 'wrong');
-
+  document.getElementById(`qcard-${qi}`).classList.add(isCorrect ? 'correct' : 'wrong');
   const fb = document.getElementById(`fb-${qi}`);
   fb.className = `feedback show ${isCorrect ? 'ok' : 'bad'}`;
   fb.innerHTML = isCorrect ? `✓ Dobrze! ${q.explain}` : `✗ Niepoprawnie. ${q.explain}`;
-
   updateScore();
 }
 
 function checkFill(qi) {
   if (answers[qi] !== undefined) return;
-  const input = document.getElementById(`fill-${qi}`);
-  const btn = document.getElementById(`checkbtn-${qi}`);
-  const val = normalize(input.value);
-  const t = DATA.tenses[currentTense];
-  const qs = t.questions[currentLevel] || t.questions.p;
+  const d = currentData();
+  const qs = d.tenses[currentTense].questions[currentLevel] || d.tenses[currentTense].questions.p;
   const q = qs[qi];
-  const corrects = q.correct.map(normalize);
-  const isCorrect = corrects.some(c => c === val);
+  const blanks = (q.text.match(/_{2,}/g) || []).length;
+  const numInputs = Math.max(blanks, 1);
+  const btn = document.getElementById(`checkbtn-${qi}`);
 
-  answers[qi] = val;
-  input.disabled = true;
+  // Collect values from all inputs
+  const vals = [];
+  for (let b = 0; b < numInputs; b++) {
+    const inp = document.getElementById(`fill-${qi}-${b}`);
+    if (inp) { vals.push(normalize(inp.value)); inp.disabled = true; }
+  }
   if (btn) btn.disabled = true;
-  input.classList.add(isCorrect ? 'correct-input' : 'wrong-input');
+  answers[qi] = vals.join('|');
 
-  const card = document.getElementById(`qcard-${qi}`);
-  card.classList.add(isCorrect ? 'correct' : 'wrong');
+  // For single-blank: check if val matches any correct answer
+  // For multi-blank: check each val against corresponding correct answer in order
+  let isCorrect = false;
+  if (numInputs === 1) {
+    isCorrect = q.correct.map(normalize).some(c => c === vals[0]);
+    const inp = document.getElementById(`fill-${qi}-0`);
+    if (inp) inp.classList.add(isCorrect ? 'correct-input' : 'wrong-input');
+  } else {
+    // Multi-blank: each input checked against its own correct answer
+    // correct array order matches blank order
+    let allCorrect = true;
+    for (let b = 0; b < numInputs; b++) {
+      const inp = document.getElementById(`fill-${qi}-${b}`);
+      const expected = q.correct[b] ? normalize(q.correct[b]) : null;
+      const got = vals[b] || '';
+      const ok = expected !== null && got === expected;
+      if (!ok) allCorrect = false;
+      if (inp) inp.classList.add(ok ? 'correct-input' : 'wrong-input');
+    }
+    isCorrect = allCorrect;
+  }
 
+  document.getElementById(`qcard-${qi}`).classList.add(isCorrect ? 'correct' : 'wrong');
   const fb = document.getElementById(`fb-${qi}`);
   fb.className = `feedback show ${isCorrect ? 'ok' : 'bad'}`;
   fb.innerHTML = isCorrect
     ? `✓ Dobrze! ${q.explain}`
-    : `✗ Poprawna odpowiedź: <span class="correct-ans">${q.correct[0]}</span>. ${q.explain}`;
-
+    : `✗ Poprawne: <span class="correct-ans">${q.correct.join(' / ')}</span>. ${q.explain}`;
   updateScore();
 }
 
 function updateScore() {
-  const t = DATA.tenses[currentTense];
+  const d = currentData();
+  const t = d.tenses[currentTense];
   const qs = t.questions[currentLevel] || t.questions.p;
   const answered = Object.keys(answers).length;
   const correct = Object.entries(answers).filter(([qi, ans]) => {
     const q = qs[qi];
     if (q.type === 'mcq') return parseInt(ans) === q.correct;
-    return q.correct.map(normalize).some(c => c === normalize(ans));
+    // fill: multi-blank stored as 'val1|val2', single as plain val
+    if (String(ans).includes('|')) {
+      const vals = String(ans).split('|');
+      return vals.every((v, i) => q.correct[i] && normalize(q.correct[i]) === normalize(v));
+    }
+    return q.correct.map(normalize).some(c => c === normalize(String(ans)));
   }).length;
-
   const badge = document.getElementById('score-badge');
   if (badge) badge.textContent = `${correct} / ${qs.length}`;
-
   if (answered === qs.length) {
     tenseScores[t.id] = correct;
     renderSidebar();
@@ -700,15 +855,16 @@ function showResults(score, total) {
   document.getElementById('results-score').textContent = `${score} / ${total}`;
   document.getElementById('results-icon').textContent = pct >= 0.85 ? '🏆' : pct >= 0.6 ? '💪' : '📖';
   document.getElementById('results-msg').textContent = pct >= 0.85
-    ? 'Świetnie! Ten czas masz naprawdę opanowany. Śmiało idź dalej.'
+    ? 'Świetnie! Masz to opanowane. Przejdź do kolejnej sekcji.'
     : pct >= 0.6
     ? 'Nieźle! Przejrzyj błędy i spróbuj jeszcze raz — jesteś blisko.'
-    : 'Wróć do notatki z regułami i spróbuj jeszcze raz. Ten czas wymaga więcej uwagi.';
+    : 'Wróć do notatki i spróbuj jeszcze raz. Ta sekcja wymaga więcej uwagi.';
 }
 
 function restartTense() {
   answers = {};
-  delete tenseScores[DATA.tenses[currentTense].id];
+  const d = currentData();
+  delete tenseScores[d.tenses[currentTense].id];
   document.getElementById('tense-content').style.display = 'block';
   document.getElementById('results-screen').classList.remove('show');
   renderSidebar();
