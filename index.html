@@ -21,7 +21,7 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; line-height: 1.6; }
-
+ 
   /* TOP BAR */
   .topbar { border-bottom: 1px solid var(--border); padding: 20px 32px 0; display: flex; align-items: flex-end; gap: 0; flex-wrap: wrap; background: var(--surface); }
   .topbar-left { flex: 1; min-width: 200px; padding-bottom: 16px; }
@@ -29,20 +29,20 @@
   h1 { font-family: var(--serif); font-size: clamp(20px, 3.5vw, 30px); font-weight: 400; color: var(--text); line-height: 1.1; }
   h1 em { font-style: italic; color: var(--blue); }
   .subtitle { font-size: 13px; color: var(--text2); margin-top: 4px; }
-
+ 
   /* DAY TABS */
   .day-tabs { display: flex; gap: 4px; align-items: flex-end; padding-bottom: 0; }
   .day-tab { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 20px; border: 1px solid transparent; border-bottom: none; border-radius: 8px 8px 0 0; cursor: pointer; background: var(--surface2); color: var(--text3); transition: all 0.15s; margin-bottom: -1px; }
   .day-tab:hover { background: var(--surface); color: var(--text2); }
   .day-tab.active { background: var(--bg); color: var(--text); border-color: var(--border); font-weight: 600; border-bottom-color: var(--bg); }
-
+ 
   /* LEVEL TOGGLE */
   .controls-bar { padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
   .level-toggle { display: flex; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 3px; gap: 3px; }
   .level-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; padding: 7px 16px; border: none; border-radius: 7px; cursor: pointer; background: transparent; color: var(--text2); transition: all 0.2s; }
   .level-btn.active { background: var(--accent); color: #f5f0e8; font-weight: 600; }
   .day-label { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; }
-
+ 
   /* MAIN */
   .main { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 130px); }
   .sidebar { border-right: 1px solid var(--border); padding: 20px 0; position: sticky; top: 0; height: calc(100vh - 130px); overflow-y: auto; display: flex; flex-direction: column; }
@@ -57,7 +57,7 @@
   .progress-label { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-bottom: 6px; display: flex; justify-content: space-between; }
   .progress-track { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--blue); border-radius: 2px; transition: width 0.4s ease; }
-
+ 
   /* CONTENT */
   .content { padding: 28px 32px; max-width: 720px; }
   .tense-header { margin-bottom: 24px; }
@@ -69,7 +69,7 @@
   .signal-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
   .pill { font-family: var(--mono); font-size: 11px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 20px; padding: 3px 10px; color: var(--text2); }
   .pill-label { font-size: 10px; color: var(--text3); margin-top: 8px; margin-bottom: 4px; font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase; width: 100%; }
-
+ 
   /* QUESTIONS */
   .questions { display: flex; flex-direction: column; gap: 14px; }
   .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; transition: border-color 0.2s; }
@@ -128,7 +128,7 @@
 </style>
 </head>
 <body>
-
+ 
 <div class="topbar">
   <div class="topbar-left">
     <div class="eyebrow">Maraton Maturalny</div>
@@ -138,9 +138,10 @@
   <div class="day-tabs">
     <div class="day-tab active" id="tab-d1" onclick="switchDay(1)">Dzień 1 — Czasy</div>
     <div class="day-tab" id="tab-d2" onclick="switchDay(2)">Dzień 2 — Conditionals</div>
+    <div class="day-tab" id="tab-d3" onclick="switchDay(3)">Dzień 3 — Strona bierna</div>
   </div>
 </div>
-
+ 
 <div class="controls-bar">
   <span class="day-label" id="day-label">Dzień 1 — Czasy angielskie</span>
   <div class="level-toggle">
@@ -148,7 +149,7 @@
     <button class="level-btn" onclick="setLevel('r')">Rozszerzony</button>
   </div>
 </div>
-
+ 
 <div class="main">
   <div class="sidebar">
     <div class="sidebar-label" id="sidebar-label">Czasy</div>
@@ -174,7 +175,7 @@
     </div>
   </div>
 </div>
-
+ 
 <script>
 // ─── DAY 1 DATA ────────────────────────────────────────────────────────────
 const DAY1 = { label: 'Dzień 1 — Czasy angielskie', sidebarLabel: 'Czasy', tenses: [
@@ -461,7 +462,7 @@ const DAY1 = { label: 'Dzień 1 — Czasy angielskie', sidebarLabel: 'Czasy', te
     ]}
   },
 ]};
-
+ 
 // ─── DAY 2 DATA ────────────────────────────────────────────────────────────
 const DAY2 = { label: 'Dzień 2 — Conditionals, Modals, Konstrukcje', sidebarLabel: 'Tematy', tenses: [
   { id:'cond_0_1_2', name:'Conditionals type 0, 1, 2, 3', tag:'Conditionals',
@@ -616,16 +617,115 @@ const DAY2 = { label: 'Dzień 2 — Conditionals, Modals, Konstrukcje', sidebarL
     ]}
   },
 ]};
-
+ 
+ 
+// ─── DAY 3 DATA ────────────────────────────────────────────────────────────
+const DAY3 = { label: 'Dzień 3 — Strona bierna i mowa zależna', sidebarLabel: 'Tematy', tenses: [
+  { id:'passive_basic', name:'Strona bierna — budowa i czasy', tag:'Passive Voice',
+    rule:'<strong>Wzór:</strong> be (w odpowiednim czasie) + past participle (PP3).<br>Używamy gdy: nie wiemy kto wykonał czynność, nie jest to ważne, lub chcemy brzmieć formalnie.<br><em>They make cars here.</em> → <em>Cars are made here.</em><br>Uwaga: w czasach złożonych nie zapomnij o <em>been</em> — <em>has been written</em>, nie <em>has written</em>.',
+    signals:{'Strona bierna — sygnały':['is/are + PP3','was/were + PP3','has/have been + PP3','will be + PP3','modal + be + PP3','by (kto wykonał)']},
+    questions:{ p:[
+      {type:"mcq",text:"The letter _____ yesterday.",options:["sent","was sent","has been sent","is sent"],correct:1,explain:"Wczoraj = Past Simple strona bierna. The letter was sent."},
+      {type:"fill",text:"English _____ (speak) all over the world.",correct:["is spoken"],explain:"Ogólny fakt = Present Simple strona bierna. Is spoken."},
+      {type:"mcq",text:"The results _____ tomorrow morning.",options:["announce","will announce","will be announced","are announcing"],correct:2,explain:"Przyszłość = Future strona bierna. Will be announced."},
+      {type:"fill",text:"The Eiffel Tower _____ (build) in 1889.",correct:["was built"],explain:"Konkretna data = Past Simple strona bierna. Was built."},
+      {type:"mcq",text:"My bike _____! I left it right here.",options:["stole","has stolen","has been stolen","is stolen"],correct:2,explain:"Skutek widoczny teraz = Present Perfect strona bierna. Has been stolen."},
+      {type:"fill",text:"All applications _____ (must / submit) by Friday.",correct:["must be submitted"],explain:"Modal + strona bierna. Must be submitted."},
+      {type:"mcq",text:"The match _____ due to heavy rain.",options:["cancelled","was cancelling","was cancelled","has cancelled"],correct:2,explain:"Przeszłe zdarzenie = Past Simple strona bierna. Was cancelled."},
+      {type:"fill",text:"The new hospital _____ (build) right now. It _____ (open) next year.",correct:["is being built","will be opened"],explain:"Trwający proces = Present Continuous strona bierna. Is being built. Przyszłość = will be opened."},
+      {type:"mcq",text:"The essay must _____ by Monday at the latest.",options:["hand in","be hand in","be handed in","hand"],correct:2,explain:"Must + strona bierna = must be handed in."},
+      {type:"fill",text:"A new record _____ (break) at last night's competition.",correct:["was broken"],explain:"Przeszłe zdarzenie = Past Simple strona bierna. Was broken."},
+      {type:"mcq",text:"The paintings _____ for over a hundred years when they were finally discovered.",options:["hid","were hiding","had been hidden","have been hidden"],correct:2,explain:"Stan trwający przed odkryciem = Past Perfect strona bierna. Had been hidden."},
+      {type:"fill",text:"Children _____ (not / allow) in this area.",correct:["are not allowed","aren't allowed"],explain:"Ogólna zasada = Present Simple strona bierna. Are not allowed."},
+      {type:"mcq",text:"The report _____ by the committee next week.",options:["reviews","will review","will be reviewed","is reviewing"],correct:2,explain:"Przyszłość = Future strona bierna. Will be reviewed."},
+      {type:"fill",text:"The suspect _____ (question) by police for three hours before being released.",correct:["was questioned"],explain:"Past Simple strona bierna. Was questioned."},
+      {type:"mcq",text:"The road _____ repaired since the storm.",options:["hasn't","hasn't been","wasn't","didn't"],correct:1,explain:"Present Perfect strona bierna = hasn't been repaired."},
+      {type:"fill",text:"You _____ (should / inform) about the changes earlier. I apologise.",correct:["should have been informed"],explain:"Modal w przeszłości + strona bierna. Should have been informed."},
+      {type:"mcq",text:"The windows _____ every week by the cleaning staff.",options:["are clean","are cleaned","cleaned","have cleaned"],correct:1,explain:"Regularny nawyk = Present Simple strona bierna. Are cleaned."},
+      {type:"fill",text:"Three new schools _____ (open) in our city last year.",correct:["were opened"],explain:"Past Simple strona bierna. Were opened."},
+      {type:"mcq",text:"The prize _____ to the winner at the ceremony next month.",options:["will give","is given","will be given","gives"],correct:2,explain:"Przyszłość = Future strona bierna. Will be given."},
+      {type:"fill",text:"The package _____ (deliver) while I was out. It's on the doorstep.",correct:["was delivered"],explain:"Past Simple strona bierna. Was delivered."},
+    ], r:[
+      {type:"mcq",text:"It _____ that the suspect had been at the scene.",options:["is believed","is believing","believes","believed"],correct:0,explain:"Passive reporting structure (teraźniejszość) = is believed. It is believed that."},
+      {type:"fill",text:"The new law _____ (expect) to come into effect next month.",correct:["is expected"],explain:"Passive reporting = is expected. The law is expected to come into effect."},
+      {type:"mcq",text:"She _____ to have left the country before the arrest warrant was issued.",options:["is reported","reports","is reporting","was report"],correct:0,explain:"Passive reporting + przeszłość = is reported to have left."},
+      {type:"fill",text:"The medicine _____ (say) to have serious side effects. Patients should be cautious.",correct:["is said"],explain:"It is said that → The medicine is said to have. Is said."},
+      {type:"mcq",text:"The ancient manuscript _____ to date back to the 12th century.",options:["is thought","thinks","is thinking","thought"],correct:0,explain:"Passive reporting = is thought to + infinitive. Is thought to date back."},
+      {type:"fill",text:"It _____ (widely believe) that the economy will recover by next year.",correct:["is widely believed"],explain:"It is widely believed that = passive reporting z przysłówkiem. Is widely believed."},
+      {type:"mcq",text:"Three suspects _____ in connection with the robbery.",options:["are being questioned","question","are questioning","have questioned"],correct:0,explain:"Trwający proces teraz = Present Continuous strona bierna. Are being questioned."},
+      {type:"fill",text:"The proposal _____ (consider) by the board for several weeks before a decision _____ (reach).",correct:["had been considered","was reached"],explain:"Stan przed decyzją = Past Perfect strona bierna. Had been considered. Decyzja = PS strona bierna. Was reached."},
+      {type:"mcq",text:"The building _____ demolished before anyone realised its historical significance.",options:["was","had been","has been","is"],correct:1,explain:"Wyburzenie przed odkryciem = Past Perfect strona bierna. Had been demolished."},
+      {type:"fill",text:"Over fifty applications _____ (receive) and _____ (currently / process) by the admissions team.",correct:["have been received","are currently being processed"],explain:"Present Perfect strona bierna + Present Continuous strona bierna. Have been received / are being processed."},
+      {type:"mcq",text:"The mistake _____ have been avoided with better planning.",options:["could","could be","could have been","has"],correct:2,explain:"Modal w przeszłości + strona bierna. Could have been avoided."},
+      {type:"fill",text:"He _____ (allege) to have stolen company funds, though no charges _____ (yet / bring).",correct:["is alleged","have yet been brought","haven't yet been brought"],explain:"Passive reporting = is alleged. Present Perfect strona bierna negatywne = haven't yet been brought."},
+      {type:"mcq",text:"The data _____ and a full report _____ by the end of the month.",options:["has been collected / will be published","collected / publishes","was collected / published","is collecting / will publish"],correct:0,explain:"Present Perfect strona bierna + Future strona bierna. Has been collected / will be published."},
+      {type:"fill",text:"It _____ (know) for some time that the bridge needed urgent repairs.",correct:["had been known"],explain:"Stan wiedzy przed wydarzeniem = Past Perfect strona bierna. Had been known."},
+      {type:"mcq",text:"The new policy _____ as controversial by many experts in the field.",options:["is widely regard","is widely regarded","widely regards","regards"],correct:1,explain:"Present Simple strona bierna z przysłówkiem = is widely regarded."},
+      {type:"fill",text:"Negotiations _____ (understand) to have broken down following a disagreement over funding.",correct:["are understood"],explain:"Passive reporting = are understood to have. Are understood."},
+      {type:"mcq",text:"The announcement _____ made until all parties had agreed to the terms.",options:["wasn't","hadn't been","hasn't been","isn't"],correct:1,explain:"Czas trwania zakazu przed decyzją = Past Perfect strona bierna. Hadn't been made."},
+      {type:"fill",text:"The artist _____ (award) the prize last night and _____ (already / invite) to exhibit internationally.",correct:["was awarded","has already been invited"],explain:"Past Simple strona bierna + Present Perfect strona bierna. Was awarded / has already been invited."},
+      {type:"mcq",text:"Such measures _____ taken sooner to prevent the crisis from escalating.",options:["should","should be","should have been","should had been"],correct:2,explain:"Wyrzut za przeszłość + strona bierna = should have been taken."},
+      {type:"fill",text:"The report _____ (write) in secret and _____ (not / show) to the board until the last moment.",correct:["was written","was not shown","wasn't shown"],explain:"Past Simple strona bierna x2. Was written / wasn't shown."},
+    ]}
+  },
+  { id:'reported_speech', name:'Mowa zależna — reported speech', tag:'Reported Speech',
+    rule:'<strong>Backshift:</strong> gdy reporting verb w przeszłości, czasy cofają się o poziom.<br>PS → Past Simple, PC → PC, PS → PP, will → would, can → could, must → had to.<br><strong>Pytania:</strong> szyk oznajmujący, bez znaku zapytania, if/whether dla yes/no.<br><strong>Polecenia:</strong> told + to + infinitive. <strong>Prośby:</strong> asked + to + infinitive.',
+    signals:{'Backshift':['said','told','asked','admitted','claimed','denied','explained','reported'],'Bez backshiftu':['says','tells','asks','ogólna prawda','nadal aktualne']},
+    questions:{ p:[
+      {type:"mcq",text:'"I am tired," she said. → She said she _____ tired.',options:["is","was","were","has been"],correct:1,explain:"Present Simple → Past Simple (backshift). She said she was tired."},
+      {type:"fill",text:'"I have lost my keys," he said. → He said he _____ (lose) his keys.',correct:["had lost"],explain:"Present Perfect → Past Perfect (backshift). Had lost."},
+      {type:"mcq",text:'"I will help you," she promised. → She promised she _____ help me.',options:["will","would","should","could"],correct:1,explain:"Will → would (backshift). She promised she would help."},
+      {type:"fill",text:'"Close the window!" he told me. → He told me _____ the window.',correct:["to close"],explain:"Polecenie = told + to + infinitive. To close."},
+      {type:"mcq",text:'"Are you hungry?" she asked. → She asked _____ I was hungry.',options:["that","what","if","which"],correct:2,explain:"Pytanie tak/nie = asked if/whether. She asked if I was hungry."},
+      {type:"fill",text:'"I can swim," he said. → He said he _____ swim.',correct:["could"],explain:"Can → could (backshift). He said he could swim."},
+      {type:"mcq",text:"Do not be late! the teacher said. → The teacher told us _____ late.",options:["don't be","not be","not to be","to not be"],correct:2,explain:"Zakaz = told + not to + infinitive. Not to be late."},
+      {type:"fill",text:'"I saw her yesterday," he said. → He said he _____ (see) her the day before.',correct:["had seen"],explain:"Past Simple → Past Perfect (backshift) + yesterday → the day before. Had seen."},
+      {type:"mcq",text:'"Where do you live?" she asked. → She asked where I _____.',options:["do live","lived","live","was living"],correct:1,explain:"Pytanie szczegółowe = szyk oznajmujący + backshift. She asked where I lived."},
+      {type:"fill",text:'"I must leave now," she said. → She said she _____ leave then.',correct:["had to"],explain:"Must → had to (backshift). She said she had to leave."},
+      {type:"mcq",text:"I am studying for my exams, he said. → He said he _____ for his exams.",options:["studied","is studying","was studying","has studied"],correct:2,explain:"Present Continuous → Past Continuous (backshift). Was studying."},
+      {type:"fill",text:'"Please help me," she said. → She _____ me _____ (help) her.',correct:["asked","to help"],explain:"Prośba = asked + to + infinitive. Asked me to help."},
+      {type:"mcq",text:"We have not finished yet, they said. → They said they _____ finished yet.",options:["haven't","hadn't","didn't","weren't"],correct:1,explain:"Present Perfect → Past Perfect (backshift). They said they hadn't finished."},
+      {type:"fill",text:'"I will call you tomorrow," she said. → She said she _____ call me the _____ day.',correct:["would","following","next"],explain:"Will → would. Tomorrow → the following/next day. Would call / the following day."},
+      {type:"mcq",text:'"May I leave early?" he asked. → He asked if he _____ leave early.',options:["may","might","could","would"],correct:1,explain:"May → might (backshift). He asked if he might leave early."},
+      {type:"fill",text:"Do not touch that! she shouted. → She told me _____ that.",correct:["not to touch"],explain:"Zakaz = told + not to + infinitive. Not to touch."},
+      {type:"mcq",text:'"I bought this here yesterday," she said. → She said she had bought it _____ the day before.',options:["here","there","this","that"],correct:1,explain:"Here → there (zmiana miejsca). She said she had bought it there the day before."},
+      {type:"fill",text:'"Why are you crying?" he asked. → He asked why I _____.',correct:["was crying"],explain:"Pytanie szczegółowe + backshift PC. He asked why I was crying."},
+      {type:"mcq",text:"I cannot come tonight, he said. → He said he _____ come that night.",options:["can't","couldn't","wouldn't","didn't"],correct:1,explain:"Can't → couldn't (backshift). He said he couldn't come."},
+      {type:"fill",text:'"We are going to move next week," they said. → They said they _____ (go / move) the following week.',correct:["were going to move"],explain:"Going to → was/were going to (backshift). Were going to move."},
+    ], r:[
+      {type:"mcq",text:'"The economy is growing," the minister said. → The minister said the economy _____ growing.',options:["is","was","has been","had been"],correct:1,explain:"Present Continuous → Past Continuous (backshift). Was growing."},
+      {type:"fill",text:'"We have been negotiating for months," the spokesman said. → The spokesman said they _____ (negotiate) for months.',correct:["had been negotiating"],explain:"Present Perfect Continuous → Past Perfect Continuous (backshift). Had been negotiating."},
+      {type:"mcq",text:'The CEO admitted that the company _____ a loss the previous year.',options:["made","has made","had made","was making"],correct:2,explain:"Mowa zależna z admitted + przeszłość = Past Perfect. Had made."},
+      {type:"fill",text:'"You should have told me earlier," she said. → She said I _____ her earlier.',correct:["should have told"],explain:"Should have nie zmienia się w backshifcie. Should have told."},
+      {type:"mcq",text:'He denied _____ the documents before the meeting.',options:["to see","seeing","that he sees","he saw"],correct:1,explain:"Deny + gerund (-ing). He denied seeing the documents."},
+      {type:"fill",text:'"This policy will affect thousands of people," the analyst warned. → The analyst warned that the policy _____ (affect) thousands of people.',correct:["would affect"],explain:"Will → would (backshift). Would affect."},
+      {type:"mcq",text:'She claimed she _____ at home at the time of the incident.',options:["is","was","has been","had been"],correct:3,explain:"Zdarzenie wcześniejsze w kontekście przeszłości = Past Perfect. Had been."},
+      {type:"fill",text:'The report stated that emissions _____ (rise) steadily since 2010.',correct:["had been rising"],explain:"Present Perfect Continuous → Past Perfect Continuous (backshift). Had been rising."},
+      {type:"mcq",text:'He explained that he _____ the concept, but that it _____ too complex for a quick explanation.',options:["understood / is","had understood / was","understood / was","has understood / is"],correct:1,explain:"Backshift: understood → had understood. Is → was. Had understood / was."},
+      {type:"fill",text:'The scientist insisted that the results _____ (replicate) before any conclusions _____ (draw).',correct:["be replicated","could be drawn","should be replicated"],explain:"Insist that + subjunctive/should = be replicated. Could/should be drawn."},
+      {type:"mcq",text:'She told the interviewer that she _____ for the position for over six months.',options:["applies","has applied","had been applying","was applying"],correct:2,explain:"Trwający proces przed mową zależną = Past Perfect Continuous. Had been applying."},
+      {type:"fill",text:'The witness testified that she _____ (see) the defendant leave the building at around midnight.',correct:["had seen"],explain:"Zeznanie o wcześniejszym zdarzeniu = Past Perfect. Had seen."},
+      {type:"mcq",text:'The professor argued that Shakespeare _____ the most influential writer in the English language.',options:["is","was","had been","has been"],correct:0,explain:"Ogólna prawda = brak backshiftu. Is — Shakespeare remains the most influential."},
+      {type:"fill",text:"I have never seen anything like it, the detective said. → The detective said he _____ (never / see) anything like it in all his years.",correct:["had never seen"],explain:"Present Perfect → Past Perfect (backshift). Had never seen."},
+      {type:"mcq",text:'She admitted that she _____ the consequences of her actions until it was too late.',options:["doesn't consider","hadn't considered","hasn't considered","didn't consider"],correct:1,explain:"Wcześniejsze nierozważenie przed późniejszym odkryciem = Past Perfect. Hadn't considered."},
+      {type:"fill",text:'The official confirmed that the talks _____ (break down) and that no further meetings _____ (plan).',correct:["had broken down","were planned","had been planned"],explain:"Backshift PP = had broken down. Stan = were/had been planned."},
+      {type:"mcq",text:'He claimed he _____ about the scandal, which his colleagues found hard to believe.',options:["didn't know","hadn't known","doesn't know","hasn't known"],correct:1,explain:"Roszczenie o brak wiedzy przed skandalem = Past Perfect. Hadn't known."},
+      {type:"fill",text:'"Stop interrupting me!" she said. → She told him _____ her.',correct:["to stop interrupting"],explain:"Polecenie = told + to + infinitive. To stop interrupting."},
+      {type:"mcq",text:'The researcher explained that the data _____ over a period of three years and _____ independently verified.',options:["collected / was","had been collected / had been","was collected / is","collected / had been"],correct:1,explain:"Strona bierna Past Perfect x2 w mowie zależnej. Had been collected / had been verified."},
+      {type:"fill",text:'She asked whether the position _____ (still / available) and when she _____ (expect) to hear back.',correct:["was still available","could expect","should expect"],explain:"Pytanie zależne + backshift. Was still available / could/should expect."},
+    ]}
+  },
+]};
+ 
 // ─── STATE ─────────────────────────────────────────────────────────────────
 let currentDay = 1;
 let currentLevel = 'p';
 let currentTense = 0;
 let answers = {};
 let tenseScores = {};
-
-function currentData() { return currentDay === 1 ? DAY1 : DAY2; }
-
+ 
+function currentData() { return currentDay === 1 ? DAY1 : currentDay === 2 ? DAY2 : DAY3; }
+ 
 function switchDay(day) {
   currentDay = day;
   currentTense = 0;
@@ -633,6 +733,7 @@ function switchDay(day) {
   tenseScores = {};
   document.getElementById('tab-d1').classList.toggle('active', day === 1);
   document.getElementById('tab-d2').classList.toggle('active', day === 2);
+  document.getElementById('tab-d3').classList.toggle('active', day === 3);
   const d = currentData();
   document.getElementById('day-label').textContent = d.label;
   document.getElementById('sidebar-label').textContent = d.sidebarLabel;
@@ -641,7 +742,7 @@ function switchDay(day) {
   renderSidebar();
   renderTense(0);
 }
-
+ 
 function setLevel(level) {
   currentLevel = level;
   document.querySelectorAll('.level-btn').forEach((b, i) => {
@@ -654,7 +755,7 @@ function setLevel(level) {
   renderSidebar();
   renderTense(currentTense);
 }
-
+ 
 function renderSidebar() {
   const d = currentData();
   const list = document.getElementById('tense-list');
@@ -667,7 +768,7 @@ function renderSidebar() {
   }).join('');
   updateProgress();
 }
-
+ 
 function updateProgress() {
   const d = currentData();
   const total = d.tenses.length;
@@ -675,7 +776,7 @@ function updateProgress() {
   document.getElementById('progress-text').textContent = `${done} / ${total}`;
   document.getElementById('progress-fill').style.width = `${(done / total) * 100}%`;
 }
-
+ 
 function goTense(i) {
   currentTense = i;
   answers = {};
@@ -685,7 +786,7 @@ function goTense(i) {
   renderTense(i);
   window.scrollTo(0, 0);
 }
-
+ 
 function renderTense(i) {
   const d = currentData();
   const t = d.tenses[i];
@@ -711,7 +812,7 @@ function renderTense(i) {
       <button class="nav-btn primary" onclick="goTense(${i + 1})" ${i === d.tenses.length - 1 ? 'disabled' : ''}>Następny →</button>
     </div>`;
 }
-
+ 
 function renderQuestion(q, qi) {
   if (q.type === 'mcq') {
     const opts = q.options.map((o, oi) => {
@@ -748,11 +849,11 @@ function renderQuestion(q, qi) {
     </div>`;
   }
 }
-
+ 
 function normalize(s) {
   return s.toLowerCase().replace(/['']/g, "'").replace(/\s+/g, ' ').trim();
 }
-
+ 
 function checkMcq(qi, oi, correct, optLen) {
   if (answers[qi] !== undefined) return;
   answers[qi] = oi;
@@ -773,7 +874,7 @@ function checkMcq(qi, oi, correct, optLen) {
   fb.innerHTML = isCorrect ? `✓ Dobrze! ${q.explain}` : `✗ Niepoprawnie. ${q.explain}`;
   updateScore();
 }
-
+ 
 function checkFill(qi) {
   if (answers[qi] !== undefined) return;
   const d = currentData();
@@ -782,7 +883,7 @@ function checkFill(qi) {
   const blanks = (q.text.match(/_{2,}/g) || []).length;
   const numInputs = Math.max(blanks, 1);
   const btn = document.getElementById(`checkbtn-${qi}`);
-
+ 
   // Collect values from all inputs
   const vals = [];
   for (let b = 0; b < numInputs; b++) {
@@ -791,7 +892,7 @@ function checkFill(qi) {
   }
   if (btn) btn.disabled = true;
   answers[qi] = vals.join('|');
-
+ 
   // For single-blank: check if val matches any correct answer
   // For multi-blank: check each val against corresponding correct answer in order
   let isCorrect = false;
@@ -813,7 +914,7 @@ function checkFill(qi) {
     }
     isCorrect = allCorrect;
   }
-
+ 
   document.getElementById(`qcard-${qi}`).classList.add(isCorrect ? 'correct' : 'wrong');
   const fb = document.getElementById(`fb-${qi}`);
   fb.className = `feedback show ${isCorrect ? 'ok' : 'bad'}`;
@@ -822,7 +923,7 @@ function checkFill(qi) {
     : `✗ Poprawne: <span class="correct-ans">${q.correct.join(' / ')}</span>. ${q.explain}`;
   updateScore();
 }
-
+ 
 function updateScore() {
   const d = currentData();
   const t = d.tenses[currentTense];
@@ -846,7 +947,7 @@ function updateScore() {
     setTimeout(() => showResults(correct, qs.length), 700);
   }
 }
-
+ 
 function showResults(score, total) {
   document.getElementById('tense-content').style.display = 'none';
   const rs = document.getElementById('results-screen');
@@ -860,7 +961,7 @@ function showResults(score, total) {
     ? 'Nieźle! Przejrzyj błędy i spróbuj jeszcze raz — jesteś blisko.'
     : 'Wróć do notatki i spróbuj jeszcze raz. Ta sekcja wymaga więcej uwagi.';
 }
-
+ 
 function restartTense() {
   answers = {};
   const d = currentData();
@@ -871,7 +972,7 @@ function restartTense() {
   renderTense(currentTense);
   window.scrollTo(0, 0);
 }
-
+ 
 renderSidebar();
 renderTense(0);
 </script>
